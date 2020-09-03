@@ -1,0 +1,27 @@
+.sidebar {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    // padding: 10%;
+    border-right: solid 0.1rem #d0d0d0;
+    height: 100vh;
+    justify-content: space-evenly;
+
+    .header {
+        margin-left: -20%;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .Navlink {
+        color: black;
+        font-size: 1.2rem;
+        display: flex;
+        justify-content: space-evenly;
+        text-decoration: none;
+    }
+
+    .Navlink:hover {
+        font-weight: 600;        
+    }
+}

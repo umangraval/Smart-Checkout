@@ -6,6 +6,7 @@ import getCurrentUser from "./utils/getCurrentUser";
 import LoginForm from "./pages/forms/LoginForm";
 import ForgotPassword from "./pages/forms/forgotPassword";
 import SignupForm from "./pages/forms/SignupForm";
+import SideBar from './components/sidebar/sidebar';
 
 
 export default class App extends Component {
@@ -44,6 +45,8 @@ export default class App extends Component {
     return (
       <div className="App">
       <BrowserRouter>
+      <SideBar/>
+
         <Switch>
         <Route
           exact
