@@ -1,0 +1,20 @@
+.Table {
+    margin: 5%;
+    max-height: 50vh;
+    overflow-y: scroll;
+    text-align: center;
+    table {
+        width: 100%;
+        th {
+            background-color: #bdbdbd;
+            padding: 2%;
+            position: sticky;
+        }
+        tbody {
+            td {
+                background-color: #ececec;
+                padding: 0.5%;
+            }
+        }
+    }
+}

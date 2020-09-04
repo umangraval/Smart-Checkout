@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  // text-align: center;
 }
 
 .App-logo {
@@ -27,6 +27,16 @@
 .App-link {
   color: #61dafb;
 }
+
+.App-grid-container {
+  display: grid;
+  grid-template-areas:
+    'sidebar content content content content';
+  grid-gap: 10px;
+}
+
+.App-sidebar {grid-area: sidebar;}
+.App-content {grid-area: content;}
 
 @keyframes App-logo-spin {
   from {

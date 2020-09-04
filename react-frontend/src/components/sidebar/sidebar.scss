@@ -1,14 +1,14 @@
 .sidebar {
-    width: 20%;
     display: flex;
     flex-direction: column;
     // padding: 10%;
     border-right: solid 0.1rem #d0d0d0;
     height: 100vh;
     justify-content: space-evenly;
+    position: static;
 
     .header {
-        margin-left: -20%;
+        margin-left: 10%;
         font-size: 1.5rem;
         font-weight: 600;
     }
