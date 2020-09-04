@@ -7,7 +7,8 @@ import LoginForm from "./pages/forms/LoginForm";
 import ForgotPassword from "./pages/forms/forgotPassword";
 import SignupForm from "./pages/forms/SignupForm";
 import SideBar from "./components/sidebar/sidebar";
-import ProductList from './pages/products/ProductsList';
+import ProductList from "./pages/products/ProductsList";
+import CategoryList from "./pages/categories/categorieslist";
 
 export default class App extends Component {
   constructor() {
@@ -90,7 +91,21 @@ export default class App extends Component {
               render={() => (
                 <div className="App-grid-container">
                   <SideBar className="App-sidebar" />
-                  <ProductList 
+                  <ProductList
+                    className="App-content"
+                    setError={this.setError}
+                    user={this.state.user}
+                  />
+                </div>
+              )}
+            />
+            <Route
+              exact
+              path="/categories"
+              render={() => (
+                <div className="App-grid-container">
+                  <SideBar className="App-sidebar" />
+                  <CategoryList
                     className="App-content"
                     setError={this.setError}
                     user={this.state.user}

@@ -75,7 +75,7 @@ export default class ProductsList extends Component {
               value={this.state.searchBar}
               onChange={this.handleChange}
             />
-            <FontAwesomeIcon icon={faSearch} className="searchIcon" size="2x" />
+            <FontAwesomeIcon icon={faSearch} className="searchIcon" />
           </form>
         </div>
         <Table
