@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import AddProduct from "./addProduct";
 import Table from "../../components/table/table";
 import "./productlist.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -53,20 +54,33 @@ export default class ProductsList extends Component {
         },
       ],
       searchBar: "",
+      addProduct: false,
     };
     this.handleChange = this.handleChange.bind(this);
+    this.toggleAddProduct = this.toggleAddProduct.bind(this);
   }
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  toggleAddProduct() {
+    this.setState({
+      addProduct: !this.state.addProduct,
+    });
+  }
+
   render() {
     return (
       <div className="ProductList App-content">
+        {this.state.addProduct ? (
+          <AddProduct toggleAddProduct={this.toggleAddProduct} />
+        ) : null}
         <h1>Products</h1>
         <div className="section">
-          <button className="add-button">Add Product</button>
+          <button className="add-button" onClick={this.toggleAddProduct}>
+            Add Product
+          </button>
           <form className="search">
             <input
               type="search"
