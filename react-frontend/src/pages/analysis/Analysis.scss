@@ -3,12 +3,11 @@
     display: grid;
     grid-template-areas:
     'summary summary'
-    'products starburst'
-    'products starburst'
-    'line line'
-    'line line';
+    'starburst line'
+    'starburst line';
     grid-gap: 10px;
-
+    height: 90vh;
+    overflow: hidden;
 
     .summary {
         height: 7rem;

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Starburst from "./SalesStarburst";
+import SalesBar from './SalesBar';
 import './Analysis.scss'
 
 export default class Analysis extends Component {
@@ -104,15 +105,15 @@ export default class Analysis extends Component {
 					<h3 style={{'color':'red'}}>-2%</h3>
 					</div>
 				</div>
-        <div className="products">
+        {/* <div className="products">
 
-				</div>
+				</div> */}
         <div className="starburst">
           {" "}
           <Starburst data={{ children: this.state.starburst }} />{" "}
         </div>
 				<div className="line">
-
+					<SalesBar />
 				</div>
       </div>
     );

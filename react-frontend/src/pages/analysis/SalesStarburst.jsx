@@ -2,7 +2,7 @@ import React from 'react';
 import {Sunburst, LabelSeries} from 'react-vis';
 // import LabelSeries from './LabelSeries';
 
-const DIVERGING_COLOR_SCALE = ['#522d5b', '#621055', '#d7385e', '#b52b65', '#fb7b6b', '#ed6663','#ffa372','#e7d39f'];
+const DIVERGING_COLOR_SCALE = ['#522d5b', '#d7385e', '#b52b65', '#fb7b6b', '#ed6663','#ffa372','#e7d39f'];
 
 const LABEL_STYLE = {
   fontSize: '1.5rem',
@@ -25,7 +25,7 @@ function updateData(data, keyPath) {
   }
   if (!data.hex) {
     data.style = {
-      fill: DIVERGING_COLOR_SCALE[Math.round(Math.random()*8)]
+      fill: DIVERGING_COLOR_SCALE[Math.round(data.color*7)]
     };
   }
   data.style = {
