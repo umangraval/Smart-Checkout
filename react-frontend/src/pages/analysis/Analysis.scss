@@ -1,0 +1,41 @@
+.Analysis {
+    padding: 2%;
+    display: grid;
+    grid-template-areas:
+    'summary summary'
+    'products starburst'
+    'products starburst'
+    'line line'
+    'line line';
+    grid-gap: 10px;
+
+
+    .summary {
+        height: 7rem;
+        grid-area: summary;
+        display: flex;
+        justify-content: space-evenly;
+        .blocks{
+            cursor: pointer;
+            border-radius: 2rem;
+            box-shadow: 0 0 1rem 0.2rem #aeaeae;
+            text-align: center;
+            width: 20%;
+            h1 {
+                height: 0.6rem;
+                color:'#343434'
+            }
+            h3 {
+                color: green
+            }
+        }
+        .blocks:hover{
+            box-shadow: 0 0 1rem 0.05rem #aeaeae;
+        }
+
+        
+    }
+    .line {grid-area: line;}
+    .products {grid-area: products;}
+    .starburst {grid-area: starburst;}
+}

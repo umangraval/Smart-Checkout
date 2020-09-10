@@ -9,7 +9,8 @@ import SignupForm from "./pages/forms/SignupForm";
 import SideBar from "./components/sidebar/sidebar";
 import ProductList from "./pages/products/ProductsList";
 import CategoryList from "./pages/categories/categorieslist";
-import Transactions from './pages/transactions/transactions'
+import Transactions from './pages/transactions/transactions';
+import Analysis from './pages/analysis/Analysis';
 
 export default class App extends Component {
   constructor() {
@@ -121,6 +122,20 @@ export default class App extends Component {
                 <div className="App-grid-container">
                   <SideBar className="App-sidebar" />
                   <Transactions
+                    className="App-content"
+                    setError={this.setError}
+                    user={this.state.user}
+                  />
+                </div>
+              )}
+            />
+            <Route
+              exact
+              path="/analytics"
+              render={() => (
+                <div className="App-grid-container">
+                  <SideBar className="App-sidebar" />
+                  <Analysis
                     className="App-content"
                     setError={this.setError}
                     user={this.state.user}
