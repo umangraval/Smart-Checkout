@@ -4,7 +4,7 @@
   "description": "A minimalist TypeScript-Express boilerplate",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sidhantpanda/express-typescript-boilerplate.git"
+    "url": "git+https://github.com/umangraval/Smart-Checkout.git"
   },
   "keywords": [
     "TypeScript",
@@ -13,7 +13,7 @@
     "boilerplate",
     "eslint"
   ],
-  "author": "Sidhant Panda",
+  "author": "Umang Raval",
   "main": "dist/index.js",
   "scripts": {
     "eslint": "eslint src/server.ts",
@@ -31,6 +31,7 @@
     "compression": "1.7.4",
     "dotenv": "8.2.0",
     "express": "4.17.1",
+    "joi-objectid": "^3.0.1",
     "mongoose": "5.9.20",
     "nodemon": "2.0.4",
     "swagger-ui-express": "4.1.4",

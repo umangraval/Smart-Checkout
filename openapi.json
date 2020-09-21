@@ -3,24 +3,26 @@
   "info": {
     "title": "API Service",
     "version": "1.0.0"
-    },
+  },
   "servers": [
     {
-      "url": "http://localhost:3000/"
+      "url": "http://localhost:8000/api"
     }
   ],
   "tags": [
     {
-      "name": "product",
+      "name": "Product",
       "description": "Product APIs"
+    },
+    {
+      "name": "Category/Tags",
+      "description": "Category APIs"
     }
   ],
   "paths": {
     "/product/add": {
       "post": {
-        "tags": [
-          "product"
-        ],
+        "tags": ["Product"],
         "summary": "Add a product to the database",
         "operationId": "product-add",
         "requestBody": {
@@ -53,9 +55,7 @@
     },
     "/product/all": {
       "get": {
-        "tags": [
-          "product"
-        ],
+        "tags": ["Product"],
         "summary": "Get all products in database",
         "operationId": "product-get-all",
         "responses": {
@@ -84,9 +84,7 @@
     },
     "/product/search": {
       "get": {
-        "tags": [
-          "product"
-        ],
+        "tags": ["Product"],
         "summary": "Search product by id",
         "operationId": "product-search",
         "parameters": [
@@ -111,6 +109,214 @@
                       "type": "array",
                       "items": {
                         "$ref": "#/components/schemas/ProductSchema"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/product/update": {
+      "put": {
+        "tags": ["Product"],
+        "summary": "Update a product to the database",
+        "operationId": "product-update",
+        "requestBody": {
+          "description": "New user signing up",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Product was updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/product/delete": {
+      "delete": {
+        "tags": ["Product"],
+        "summary": "Delete product by id",
+        "operationId": "product-delete",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "default": "5f6853edcbcbc171ca789df4"
+            },
+            "description": "String containing id of the product"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product Deletion",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "product": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ProductSchema"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/category/add": {
+      "post": {
+        "tags": ["Category/Tags"],
+        "summary": "Add a Category to the database",
+        "operationId": "category-add",
+        "requestBody": {
+          "description": "New user signing up",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategorySchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Category was added",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategorySchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/category/all": {
+      "get": {
+        "tags": ["Category/Tags"],
+        "summary": "Get all categories in database",
+        "operationId": "category-get-all",
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CategorySchema"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/category/update": {
+      "put": {
+        "tags": ["Category/Tags"],
+        "summary": "Update a category to the database",
+        "operationId": "category-update",
+        "requestBody": {
+          "description": "New user signing up",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategorySchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Category was updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategorySchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/category/delete": {
+      "delete": {
+        "tags": ["Category/Tags"],
+        "summary": "Delete category by id",
+        "operationId": "category-delete",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "default": "5f6853edcbcbc171ca789df4"
+            },
+            "description": "String containing id of the category"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category Deletion",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "category": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CategorySchema"
                       }
                     }
                   }
@@ -149,6 +355,19 @@
           "quantity": {
             "type": "number",
             "example": "12"
+          }
+        }
+      },
+      "CategorySchema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "5f6853edcbcbc171ca789df2"
+          },
+          "tag": {
+            "type": "string",
+            "example": "food"
           }
         }
       }

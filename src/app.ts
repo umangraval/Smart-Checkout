@@ -15,7 +15,7 @@ app.set('port', process.env.PORT || 3000);
 
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
 
-app.use(routes);
+app.use('/api', routes);
 
 app.use((err: ApplicationError, req: Request, res: Response, next: NextFunction) => {
   if (res.headersSent) {

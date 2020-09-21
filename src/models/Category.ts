@@ -9,9 +9,9 @@ export interface ICategory extends Document {
 interface ICategoryModel extends Model<ICategory> { }
 
 const schema = new Schema({
-  tag: { type: String, required: true },
+  tag: { type: String, required: true }
 });
 
-const Book: ICategoryModel = model<ICategory, ICategoryModel>('Category', schema);
+const Category: ICategoryModel = model<ICategory, ICategoryModel>('Category', schema);
 
 export default Category;
