@@ -1,0 +1,157 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API Service",
+    "version": "1.0.0"
+    },
+  "servers": [
+    {
+      "url": "http://localhost:3000/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "product",
+      "description": "Product APIs"
+    }
+  ],
+  "paths": {
+    "/product/add": {
+      "post": {
+        "tags": [
+          "product"
+        ],
+        "summary": "Add a product to the database",
+        "operationId": "product-add",
+        "requestBody": {
+          "description": "New user signing up",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Product was added",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/product/all": {
+      "get": {
+        "tags": [
+          "product"
+        ],
+        "summary": "Get all products in database",
+        "operationId": "product-get-all",
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "products": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ProductSchema"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/product/search": {
+      "get": {
+        "tags": [
+          "product"
+        ],
+        "summary": "Search product by id",
+        "operationId": "product-search",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "default": "5f6853edcbcbc171ca789df4"
+            },
+            "description": "String containing id of the product"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "product": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ProductSchema"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ProductSchema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "5f6853edcbcbc171ca789df4"
+          },
+          "name": {
+            "type": "string",
+            "example": "bottle"
+          },
+          "category": {
+            "type": "string",
+            "example": "plastic"
+          },
+          "price": {
+            "type": "number",
+            "example": "200"
+          },
+          "quantity": {
+            "type": "number",
+            "example": "12"
+          }
+        }
+      }
+    }
+  }
+}
