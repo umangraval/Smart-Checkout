@@ -4,6 +4,7 @@ import apiSpec from '../openapi.json';
 
 import * as ProductController from './controllers/product';
 import * as CategoryController from './controllers/category';
+import * as TransactionController from './controllers/transaction';
 
 const swaggerUiOptions = {
   customCss: '.swagger-ui .topbar { display: none }'
@@ -23,6 +24,10 @@ router.post('/category/add', CategoryController.add);
 router.get('/category/all', CategoryController.all);
 router.put('/category/update', CategoryController.update);
 router.delete('/category/delete', CategoryController.del);
+
+// transaction routes
+router.post('/transaction/add', TransactionController.add);
+router.get('/transaction/all', TransactionController.all);
 
 // Dev routes
 if (process.env.NODE_ENV === 'development') {
