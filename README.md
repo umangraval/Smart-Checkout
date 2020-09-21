@@ -31,7 +31,7 @@
 #### 1. Clone this repo
 
 ```
-$ git clone git@github.com:sidhantpanda/docker-express-typescript-boilerplate.git your-app-name
+$ git clone git@github.com:umangraval/Smart-Checkout.git
 $ cd your-app-name
 ```
 
@@ -84,7 +84,7 @@ To edit environment variables, create a file with name `.env` and copy the conte
 |---|---|---|---|
 | NODE_ENV  | string  | `development` |API runtime environment. eg: `staging`  |
 |  PORT | number  | `8000` | Port to run the API server on |
-|  MONGO_URL | string  | `mongodb://localhost:27017/books` | URL for MongoDB |
+|  MONGO_URL | string  | `mongodb://localhost:27017/DBNAME` | URL for MongoDB |
 
 ## Logging
 The application uses [winston](https://github.com/winstonjs/winston) as the default logger. The configuration file is at `src/logger.ts`.
@@ -111,7 +111,7 @@ The application uses [winston](https://github.com/winstonjs/winston) as the defa
 |   +-- middleware
 |   |   +-- request-middleware.ts
 |   +-- models
-|   |   +-- Book.ts
+|   |   +-- Product.ts
 |   +-- app.ts
 |   +-- mongo-connection.ts
 |   +-- routes.ts
