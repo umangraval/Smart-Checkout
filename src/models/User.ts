@@ -3,7 +3,6 @@ import {
 } from 'mongoose';
 
 export interface IUser extends Document {
-      username: string;
       email: string;
       name: string;
       avatar: string;
@@ -16,7 +15,6 @@ export interface IUser extends Document {
 interface IUserModel extends Model<IUser> { }
 
 const schema = new Schema({
-  username: { type: String, required: true },
   email: { type: String, required: true },
   name: { type: String, required: true },
   avatar: { type: String, required: true },

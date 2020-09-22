@@ -3,7 +3,7 @@ import {
 } from 'mongoose';
 
 export interface ITransaction extends Document {
-        username: string;
+        email: string;
         price: number;
         quantity: number;
         date: Date;
@@ -12,7 +12,7 @@ export interface ITransaction extends Document {
 interface ITransactionModel extends Model<ITransaction> { }
 
 const schema = new Schema({
-  username: { type: String, required: true },
+  email: { type: String, required: true },
   price: { type: Number, required: true },
   quantity: { type: Number, required: true },
   date: { type: Date, required: true }
