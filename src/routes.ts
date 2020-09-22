@@ -5,6 +5,7 @@ import apiSpec from '../openapi.json';
 import * as ProductController from './controllers/product';
 import * as CategoryController from './controllers/category';
 import * as TransactionController from './controllers/transaction';
+import * as AnalyticsController from './controllers/analytics';
 
 const swaggerUiOptions = {
   customCss: '.swagger-ui .topbar { display: none }'
@@ -29,10 +30,12 @@ router.delete('/category/delete', CategoryController.del);
 router.post('/transaction/add', TransactionController.add);
 router.get('/transaction/all', TransactionController.all);
 
+router.get('/analytics/all', AnalyticsController.all);
+
 // Dev routes
-if (process.env.NODE_ENV === 'development') {
-  router.use('/dev/api-docs', swaggerUi.serve);
-  router.get('/dev/api-docs', swaggerUi.setup(apiSpec, swaggerUiOptions));
-}
+// if (process.env.NODE_ENV === 'development') {
+router.use('/dev/api-docs', swaggerUi.serve);
+router.get('/dev/api-docs', swaggerUi.setup(apiSpec, swaggerUiOptions));
+// }
 
 export default router;

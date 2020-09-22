@@ -12,7 +12,7 @@ export interface ITransaction extends Document {
 interface ITransactionModel extends Model<ITransaction> { }
 
 const schema = new Schema({
-  email: { type: String, required: true },
+  email: { type: Schema.Types.String, ref: 'User' },
   price: { type: Number, required: true },
   quantity: { type: Number, required: true },
   date: { type: Date, required: true }

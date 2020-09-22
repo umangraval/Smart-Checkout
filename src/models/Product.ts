@@ -15,7 +15,7 @@ const schema = new Schema({
   name: { type: String, required: true },
   price: { type: Number, required: true },
   quantity: { type: Number, required: true },
-  category: { type: String, required: true }
+  category: { type: Schema.Types.String, ref: 'Category' }
 });
 
 const Product: IProductModel = model<IProduct, IProductModel>('Product', schema);
