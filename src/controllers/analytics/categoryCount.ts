@@ -2,10 +2,12 @@ import { RequestHandler } from 'express';
 import requestMiddleware from '../../middleware/request-middleware';
 import Category from '../../models/Category';
 import Product, { IProduct } from '../../models/Product';
+import Transaction from '../../models/Transaction';
 
 const all: RequestHandler = async (req, res) => {
   const products = await Product.find();
   const categories = await Category.find();
+  const transactions = await Transaction.find();
   // const userTestStatus: IProduct[] = [];
   const userTestStatus: { [key: string]: IProduct[] } = {};
 

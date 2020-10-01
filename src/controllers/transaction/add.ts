@@ -11,11 +11,12 @@ export const addTransactionSchema = Joi.object().keys({
 
 const add: RequestHandler = async (req, res) => {
   const {
-    username, price, quantity
+    sellerid, price, quantity, buyeremail
   } = req.body;
+  const date = new Date();
 
   const transaction = new Transaction({
-    username, price, quantity
+    sellerid, buyeremail, price, quantity, date
   });
   await transaction.save();
 

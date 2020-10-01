@@ -12,7 +12,8 @@ export interface ITransaction extends Document {
 interface ITransactionModel extends Model<ITransaction> { }
 
 const schema = new Schema({
-  email: { type: Schema.Types.String, ref: 'User' },
+  buyeremail: { type: Schema.Types.String, ref: 'User' },
+  sellerid: { type: Schema.Types.ObjectId, ref: 'User' },
   price: { type: Number, required: true },
   quantity: { type: Number, required: true },
   date: { type: Date, required: true }
