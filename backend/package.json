@@ -65,9 +65,5 @@
     "ts-jest": "26.1.1",
     "typescript": "3.9.5"
   },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/sidhantpanda/docker-express-typescript-boilerplate/issues"
-  },
-  "homepage": "https://github.com/sidhantpanda/docker-express-typescript-boilerplate#readme"
+  "license": "MIT"
 }
