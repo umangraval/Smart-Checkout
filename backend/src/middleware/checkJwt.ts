@@ -19,7 +19,7 @@ export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
     next();
   } catch (error) {
     // If token is not valid, respond with 401 (unauthorized)
-    res.status(401).send({ error: 'Not Authenticated' });
+    return res.status(401).send({ error: 'Not Authenticated' });
   }
 
   // The token is valid for 1 hour
@@ -29,4 +29,5 @@ export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
   //   expiresIn: '1h'
   // });
   // res.setHeader('token', newToken);
+  return next();
 };

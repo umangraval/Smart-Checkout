@@ -19,7 +19,7 @@ const schema = new Schema({
   price: { type: Number, required: true },
   quantity: { type: Number, required: true },
   category: { type: String, ref: 'Category' },
-  qrcodeData: { type: String, required: true }
+  qrcodeData: { type: String }
 });
 
 const Product: IProductModel = model<IProduct, IProductModel>('Product', schema);
