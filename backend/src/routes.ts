@@ -8,6 +8,7 @@ import * as ProductController from './controllers/product';
 import * as CategoryController from './controllers/category';
 import * as TransactionController from './controllers/transaction';
 import * as AnalyticsController from './controllers/analytics';
+import * as QrcodeController from './controllers/qrcode';
 
 const swaggerUiOptions = {
   customCss: '.swagger-ui .topbar { display: none }'
@@ -43,6 +44,9 @@ router.get('/analytics/ccount/:id', AnalyticsController.categoryCount);
 router.get('/analytics/sale/:id', AnalyticsController.sale);
 router.get('/analytics/daily/:id', AnalyticsController.dailySale);
 router.get('/analytics/customers/:id', AnalyticsController.customerCount);
+
+// qrcode
+router.get('/qrcode/:id', QrcodeController.details);
 
 // Dev routes
 // if (process.env.NODE_ENV === 'development') {

@@ -1,21 +1,18 @@
 import { RequestHandler } from 'express';
-import dateFormat from 'dateformat';
+import mongoose from 'mongoose';
 import requestMiddleware from '../../middleware/request-middleware';
 import Transaction from '../../models/Transaction';
 
 const sale: RequestHandler = async (req, res) => {
   const { id } = req.params;
-  const dates = await Transaction.find({ sellerid: id }).distinct('date');
-  const transactions = await Transaction.find({ sellerid: id });
-  const dailyCount: { [key: string]: Number } = {};
+  const transactions = await Transaction.find({ sellerid: mongoose.Types.ObjectId(id) });
+  let totalSale: number = 0;
 
-  dates.forEach(date => {
-    const cdate = new Date(date);
-    dailyCount[dateFormat(date, 'yyyy-mm-dd')] = transactions.filter(e => e.date.toISOString() === cdate.toISOString())
-      .reduce((sum, { price } : { price: number }) => sum + price, 0);
+  transactions.forEach(trans => {
+    totalSale += trans.price;
   });
 
-  res.send(dailyCount);
+  res.send({ 'total net sale': totalSale });
 };
 
 export default requestMiddleware(sale);
