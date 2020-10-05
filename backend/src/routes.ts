@@ -15,16 +15,16 @@ const router = Router();
 
 // product routes
 router.post('/product/add', ProductController.add);
-router.get('/product/all', ProductController.all);
+router.get('/product/all/:id', ProductController.all);
 router.get('/product/search', ProductController.search);
 router.put('/product/update', ProductController.update);
-router.delete('/product/delete', ProductController.del);
+router.delete('/product/delete/:id', ProductController.del);
 
 // category routes
 router.post('/category/add', CategoryController.add);
-router.get('/category/all', CategoryController.all);
+router.get('/category/all/:id', CategoryController.all);
 router.put('/category/update', CategoryController.update);
-router.delete('/category/delete', CategoryController.del);
+router.delete('/category/delete/:id', CategoryController.del);
 
 // transaction routes
 router.post('/transaction/add', TransactionController.add);

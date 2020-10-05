@@ -3,7 +3,8 @@ import {
 } from 'mongoose';
 
 export interface ITransaction extends Document {
-        email: string;
+        buyeremail: string;
+        sellerid: Schema.Types.ObjectId;
         price: number;
         quantity: number;
         date: Date;
@@ -12,7 +13,7 @@ export interface ITransaction extends Document {
 interface ITransactionModel extends Model<ITransaction> { }
 
 const schema = new Schema({
-  buyeremail: { type: Schema.Types.String, ref: 'User' },
+  buyeremail: { type: String, ref: 'BuyerUser' },
   sellerid: { type: Schema.Types.ObjectId, ref: 'User' },
   price: { type: Number, required: true },
   quantity: { type: Number, required: true },

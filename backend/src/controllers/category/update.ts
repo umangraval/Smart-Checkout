@@ -5,7 +5,7 @@ import Category from '../../models/Category';
 
 export const updateCategorySchema = Joi.object().keys({
   _id: Joi.string().length(24).required(),
-  tag: Joi.string().required(),
+  tag: Joi.string().required()
 });
 
 const update: RequestHandler = async (req, res) => {

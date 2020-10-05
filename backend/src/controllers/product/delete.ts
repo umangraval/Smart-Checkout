@@ -4,7 +4,7 @@ import requestMiddleware from '../../middleware/request-middleware';
 import Product from '../../models/Product';
 
 const del: RequestHandler = async (req, res) => {
-  const { id = undefined } = req.query;
+  const { id = undefined } = req.params;
 
   // const query = buildBookSeachQuery((id as string));
   if (isValidObjectId(id)) {

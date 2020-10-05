@@ -4,6 +4,7 @@ import requestMiddleware from '../../middleware/request-middleware';
 import Product from '../../models/Product';
 
 export const addProductSchema = Joi.object().keys({
+  owner: Joi.string().required(),
   name: Joi.string().required(),
   category: Joi.string().required(),
   quantity: Joi.number().required(),
@@ -12,11 +13,11 @@ export const addProductSchema = Joi.object().keys({
 
 const add: RequestHandler = async (req, res) => {
   const {
-    name, price, category, quantity
+    owner, name, price, category, quantity
   } = req.body;
 
   const product = new Product({
-    name, price, category, quantity
+    owner, name, price, category, quantity
   });
   await product.save();
 

@@ -4,7 +4,8 @@ import requestMiddleware from '../../middleware/request-middleware';
 import Transaction from '../../models/Transaction';
 
 export const addTransactionSchema = Joi.object().keys({
-  username: Joi.string().required(),
+  sellerid: Joi.string().required(),
+  buyeremail: Joi.string().email(),
   price: Joi.number().required(),
   quantity: Joi.number().required()
 });

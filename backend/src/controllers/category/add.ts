@@ -4,16 +4,17 @@ import requestMiddleware from '../../middleware/request-middleware';
 import Category from '../../models/Category';
 
 export const addCategorySchema = Joi.object().keys({
-  tag: Joi.string().required()
+  tag: Joi.string().required(),
+  owner: Joi.string().required()
 });
 
 const add: RequestHandler = async (req, res) => {
   const {
-    tag
+    owner, tag
   } = req.body;
 
   const category = new Category({
-    tag
+    owner, tag
   });
   await category.save();
 

@@ -3,12 +3,14 @@ import {
 } from 'mongoose';
 
 export interface ICategory extends Document {
-    tag: string;
+  owner: Schema.Types.ObjectId;
+  tag: string;
 }
 
 interface ICategoryModel extends Model<ICategory> { }
 
 const schema = new Schema({
+  owner: { type: Schema.Types.ObjectId, ref: 'User' },
   tag: { type: String, required: true }
 });
 
