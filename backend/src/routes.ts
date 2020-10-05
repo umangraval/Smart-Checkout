@@ -2,6 +2,8 @@ import { Router } from 'express';
 import swaggerUi from 'swagger-ui-express';
 import apiSpec from '../openapi.json';
 
+import * as AuthController from './controllers/auth';
+import * as BuyerController from './controllers/buyerauth';
 import * as ProductController from './controllers/product';
 import * as CategoryController from './controllers/category';
 import * as TransactionController from './controllers/transaction';
@@ -12,6 +14,12 @@ const swaggerUiOptions = {
 };
 
 const router = Router();
+
+// user
+router.post('/auth/add', AuthController.add);
+
+// user
+router.post('/buyer/add', BuyerController.add);
 
 // product routes
 router.post('/product/add', ProductController.add);
@@ -30,7 +38,11 @@ router.delete('/category/delete/:id', CategoryController.del);
 router.post('/transaction/add', TransactionController.add);
 router.get('/transaction/all', TransactionController.all);
 
-router.get('/analytics/all', AnalyticsController.all);
+router.get('/analytics/pcount/:id', AnalyticsController.productCount);
+router.get('/analytics/ccount/:id', AnalyticsController.categoryCount);
+router.get('/analytics/sale/:id', AnalyticsController.sale);
+router.get('/analytics/daily/:id', AnalyticsController.dailySale);
+router.get('/analytics/customers/:id', AnalyticsController.customerCount);
 
 // Dev routes
 // if (process.env.NODE_ENV === 'development') {

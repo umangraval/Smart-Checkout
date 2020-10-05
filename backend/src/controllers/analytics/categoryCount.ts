@@ -4,18 +4,17 @@ import Category from '../../models/Category';
 import Product, { IProduct } from '../../models/Product';
 import Transaction from '../../models/Transaction';
 
-const all: RequestHandler = async (req, res) => {
-  const products = await Product.find();
-  const categories = await Category.find();
-  const transactions = await Transaction.find();
-  // const userTestStatus: IProduct[] = [];
-  const userTestStatus: { [key: string]: IProduct[] } = {};
+const categoryCount: RequestHandler = async (req, res) => {
+  const { id } = req.params;
+  const products = await Product.find({ owner: id });
+  const categories = await Category.find({ owner: id });
+  const userTestStatus: { [key: string]: Number } = {};
 
   categories.forEach(element => {
     // eslint-disable-next-line max-len
-    userTestStatus[element.tag.toString()] = products.filter(e => e.category.toString() === element.tag.toString());
+    userTestStatus[element.tag.toString()] = products.filter(e => e.category.toString() === element.tag.toString()).length;
   });
   res.send(userTestStatus);
 };
 
-export default requestMiddleware(all);
+export default requestMiddleware(categoryCount);

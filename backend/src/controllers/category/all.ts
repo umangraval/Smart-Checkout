@@ -4,8 +4,8 @@ import Category from '../../models/Category';
 
 const all: RequestHandler = async (req, res) => {
   const { id } = req.params;
-  const categorries = await Category.find();
-  res.send({ categorries });
+  const categories = await Category.find({ owner: id });
+  res.send({ categories });
 };
 
 export default requestMiddleware(all);

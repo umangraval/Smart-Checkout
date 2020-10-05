@@ -26,12 +26,13 @@ const add: RequestHandler = async (req, res) => {
   };
 
   const avatar = gravatar.url(email, options);
+  // console.log(avatar);
 
   const salt = await bcrypt.genSalt(10);
   const hashed = await bcrypt.hash(password, salt);
 
   const user = new User({
-    email, name, mobile, address, shop, password: hashed
+    email, name, avatar, mobile, address, shop, password: hashed
   });
   await user.save();
 

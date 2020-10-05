@@ -1,9 +1,9 @@
-import {
+import mongoose, {
   Document, Model, Schema, model
 } from 'mongoose';
 
 export interface IProduct extends Document {
-  owner: Schema.Types.ObjectId;
+  owner: mongoose.Types.ObjectId;
   name: string;
   price: number;
   category: string;
@@ -13,11 +13,11 @@ export interface IProduct extends Document {
 interface IProductModel extends Model<IProduct> { }
 
 const schema = new Schema({
-  owner: { type: Schema.Types.ObjectId, ref: 'User' },
+  owner: { type: mongoose.Types.ObjectId, ref: 'User' },
   name: { type: String, required: true },
   price: { type: Number, required: true },
   quantity: { type: Number, required: true },
-  category: { type: Schema.Types.String, ref: 'Category' }
+  category: { type: String, ref: 'Category' }
 });
 
 const Product: IProductModel = model<IProduct, IProductModel>('Product', schema);

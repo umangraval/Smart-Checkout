@@ -1,16 +1,16 @@
-import {
+import mongoose, {
   Document, Model, Schema, model
 } from 'mongoose';
 
 export interface ICategory extends Document {
-  owner: Schema.Types.ObjectId;
+  owner: mongoose.Types.ObjectId;
   tag: string;
 }
 
 interface ICategoryModel extends Model<ICategory> { }
 
 const schema = new Schema({
-  owner: { type: Schema.Types.ObjectId, ref: 'User' },
+  owner: { type: mongoose.Types.ObjectId, ref: 'User' },
   tag: { type: String, required: true }
 });
 
