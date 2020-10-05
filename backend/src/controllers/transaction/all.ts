@@ -4,7 +4,7 @@ import Transaction from '../../models/Transaction';
 
 const all: RequestHandler = async (req, res) => {
   const { id } = req.params;
-  const transaction = await Transaction.find({ id });
+  const transaction = await Transaction.find({ sellerid: id });
   res.send({ transaction });
 };
 

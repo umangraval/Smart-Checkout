@@ -4,7 +4,7 @@ import requestMiddleware from '../../middleware/request-middleware';
 import Product from '../../models/Product';
 
 export const updateProductSchema = Joi.object().keys({
-  _id: Joi.string().length(24).required(),
+  owner: Joi.string().length(24).required(),
   name: Joi.string().required(),
   category: Joi.string().required(),
   quantity: Joi.number().required(),
@@ -13,10 +13,10 @@ export const updateProductSchema = Joi.object().keys({
 
 const update: RequestHandler = async (req, res) => {
   const {
-    _id
-  } = req.body;
+    id
+  } = req.params;
 
-  await Product.findOneAndUpdate({ _id },
+  await Product.findOneAndUpdate({ _id: id },
     { $set: req.body },
     (err, doc) => {
       if (err) {

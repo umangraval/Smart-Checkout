@@ -26,7 +26,7 @@ router.post('/buyer/add', BuyerController.add);
 router.post('/product/add', ProductController.add);
 router.get('/product/all/:id', ProductController.all);
 router.get('/product/search', ProductController.search);
-router.put('/product/update', ProductController.update);
+router.put('/product/update/:id', ProductController.update);
 router.delete('/product/delete/:id', ProductController.del);
 
 // category routes
@@ -37,7 +37,7 @@ router.delete('/category/delete/:id', CategoryController.del);
 
 // transaction routes
 router.post('/transaction/add', TransactionController.add);
-router.get('/transaction/all', TransactionController.all);
+router.get('/transaction/all/:id', TransactionController.all);
 
 router.get('/analytics/pcount/:id', AnalyticsController.productCount);
 router.get('/analytics/ccount/:id', AnalyticsController.categoryCount);
