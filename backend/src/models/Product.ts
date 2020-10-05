@@ -8,6 +8,7 @@ export interface IProduct extends Document {
   price: number;
   category: string;
   quantity: number;
+  qrcodeData: string;
 }
 
 interface IProductModel extends Model<IProduct> { }
@@ -17,7 +18,8 @@ const schema = new Schema({
   name: { type: String, required: true },
   price: { type: Number, required: true },
   quantity: { type: Number, required: true },
-  category: { type: String, ref: 'Category' }
+  category: { type: String, ref: 'Category' },
+  qrcodeData: { type: String, required: true }
 });
 
 const Product: IProductModel = model<IProduct, IProductModel>('Product', schema);

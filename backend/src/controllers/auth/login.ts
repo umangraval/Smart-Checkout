@@ -1,8 +1,10 @@
 import { RequestHandler } from 'express';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import Joi from '@hapi/joi';
 import requestMiddleware from '../../middleware/request-middleware';
 import User from '../../models/User';
+import config from '../../config/config';
 
 export const loginUserSchema = Joi.object().keys({
   email: Joi.string().required(),
@@ -36,10 +38,23 @@ const login: RequestHandler = async (req, res) => {
         }
     });
   }
-  return res.send({
-    message: 'Logged In',
-    user: user.toJSON()
-  });
+
+  const payload = {
+    userId: user._id
+  };
+
+  jwt.sign(
+    payload,
+    config.jwtSecret,
+    { expiresIn: config.jwtExpiration },
+    (err, token) => {
+      if (err) throw err;
+      return res.send({
+        message: 'Logged In',
+        token
+      });
+    }
+  );
 };
 
 export default requestMiddleware(login, { validation: { body: loginUserSchema } });

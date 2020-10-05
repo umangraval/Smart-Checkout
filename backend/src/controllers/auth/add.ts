@@ -1,9 +1,11 @@
 import { RequestHandler } from 'express';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import gravatar from 'gravatar';
 import Joi from '@hapi/joi';
 import requestMiddleware from '../../middleware/request-middleware';
 import User from '../../models/User';
+import config from '../../config/config';
 
 export const addUserSchema = Joi.object().keys({
   email: Joi.string().required(),
@@ -36,10 +38,22 @@ const add: RequestHandler = async (req, res) => {
   });
   await user.save();
 
-  res.send({
-    message: 'Registered',
-    user: user.toJSON()
-  });
+  const payload = {
+    userId: user._id
+  };
+
+  jwt.sign(
+    payload,
+    config.jwtSecret,
+    { expiresIn: config.jwtExpiration },
+    (err, token) => {
+      if (err) throw err;
+      return res.send({
+        message: 'Registered',
+        token
+      });
+    }
+  );
 };
 
 export default requestMiddleware(add, { validation: { body: addUserSchema } });
