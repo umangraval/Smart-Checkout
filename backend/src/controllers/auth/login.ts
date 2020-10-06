@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { RequestHandler } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -43,19 +44,24 @@ const login: RequestHandler = async (req, res) => {
     userId: user._id,
     role: 'SELLER'
   };
-
-  jwt.sign(
-    payload,
-    config.jwtSecret,
-    { expiresIn: config.jwtExpiration },
-    (err, token) => {
-      if (err) throw err;
-      return res.send({
-        message: 'Logged In',
-        token
-      });
-    }
-  );
+  try {
+    jwt.sign(
+      payload,
+      config.jwtSecret,
+      { expiresIn: config.jwtExpiration },
+      (err, token) => {
+        if (err) throw err;
+        return res.send({
+          message: 'Logged In',
+          token
+        });
+      }
+    );
+  } catch {
+    return res.status(500).send({
+      error: 'Retry'
+    });
+  }
 };
 
 export default requestMiddleware(login, { validation: { body: loginUserSchema } });
