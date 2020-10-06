@@ -39,7 +39,8 @@ const add: RequestHandler = async (req, res) => {
   await user.save();
 
   const payload = {
-    userId: user._id
+    userId: user._id,
+    role: 'SELLER'
   };
 
   jwt.sign(

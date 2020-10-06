@@ -40,7 +40,8 @@ const login: RequestHandler = async (req, res) => {
   }
 
   const payload = {
-    userId: user._id
+    userId: user._id,
+    role: 'SELLER'
   };
 
   jwt.sign(

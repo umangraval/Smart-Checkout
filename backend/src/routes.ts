@@ -43,11 +43,13 @@ router.delete('/category/delete/:id', checkJwt, checkRole(['SELLER']), CategoryC
 router.post('/transaction/add', checkJwt, checkRole(['SELLER']), TransactionController.add);
 router.get('/transaction/all/:id', checkJwt, checkRole(['SELLER']), TransactionController.all);
 
+// analytics
 router.get('/analytics/pcount/:id', checkJwt, checkRole(['SELLER']), AnalyticsController.productCount);
 router.get('/analytics/ccount/:id', checkJwt, checkRole(['SELLER']), AnalyticsController.categoryCount);
 router.get('/analytics/sale/:id', checkJwt, checkRole(['SELLER']), AnalyticsController.sale);
 router.get('/analytics/daily/:id', checkJwt, checkRole(['SELLER']), AnalyticsController.dailySale);
 router.get('/analytics/customers/:id', checkJwt, checkRole(['SELLER']), AnalyticsController.customerCount);
+router.get('/analytics/outofstock/:id', checkJwt, checkRole(['SELLER']), AnalyticsController.outOfstock);
 
 // qrcode
 router.get('/qrcode/:id', checkJwt, checkRole(['BUYER']), QrcodeController.details);
