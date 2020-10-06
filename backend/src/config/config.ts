@@ -1,6 +1,6 @@
 export default {
   jwtSecret: 'secret',
-  jwtExpiration: 36000,
+  jwtExpiration: 100,
   BASE_URL: 'http://localhost:8000',
   AES_KEY: 'secret'
 };

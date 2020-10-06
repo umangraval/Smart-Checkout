@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
 import config from '../config/config';
@@ -29,5 +30,5 @@ export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
   //   expiresIn: '1h'
   // });
   // res.setHeader('token', newToken);
-  return next();
+  // return next();
 };
