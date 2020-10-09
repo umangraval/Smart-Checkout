@@ -72,7 +72,7 @@ export default class SalesBar extends React.Component {
             ]}
           /> */}
           <Hint value={1}>
-              <h1>awdwdwed</h1>
+              {/* <h1>awdwdwed</h1> */}
           </Hint>
           <BarSeries
             color="#12939A"
