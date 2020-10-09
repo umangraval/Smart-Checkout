@@ -11,6 +11,7 @@ import ProductList from "./pages/products/ProductsList";
 import CategoryList from "./pages/categories/categorieslist";
 import Transactions from './pages/transactions/transactions';
 import Analysis from './pages/analysis/Analysis';
+import Overview from './pages/overview/Overview';
 
 export default class App extends Component {
   constructor() {
@@ -81,6 +82,20 @@ export default class App extends Component {
               render={() => (
                 <div>
                   <ForgotPassword
+                    setError={this.setError}
+                    user={this.state.user}
+                  />
+                </div>
+              )}
+            />
+            <Route
+              exact
+              path="/dashboard"
+              render={() => (
+                <div className="App-grid-container">
+                  <SideBar className="App-sidebar" />
+                  <Overview
+                    className="App-content"
                     setError={this.setError}
                     user={this.state.user}
                   />

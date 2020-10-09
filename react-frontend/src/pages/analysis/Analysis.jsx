@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import Starburst from "./SalesStarburst";
 import SalesBar from './SalesBar';
 import './Analysis.scss'
+import { withRouter } from "react-router-dom";
 
-export default class Analysis extends Component {
+class Analysis extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -119,3 +120,5 @@ export default class Analysis extends Component {
     );
   }
 }
+
+export default withRouter(Analysis);

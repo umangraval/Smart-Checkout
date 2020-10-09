@@ -5,8 +5,9 @@ import API from '../../API';
 import jwt from 'jsonwebtoken';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { withRouter } from "react-router-dom";
 
-export default class transactions extends Component {
+class transactions extends Component {
   constructor() {
     super();
     this.state = {
@@ -61,3 +62,5 @@ export default class transactions extends Component {
     );
   }
 }
+
+export default withRouter(transactions);

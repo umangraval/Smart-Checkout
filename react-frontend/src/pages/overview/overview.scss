@@ -10,13 +10,14 @@
 
         .cell {
             width: 30%;
-            background-color: #0099ff;
-            box-shadow: 0 0 5rem 1rem #efefef;
+            // background-color: #0099ff;
+            box-shadow: 0 0 1rem 0.5rem #ababab;
             border-radius: 2rem;
             text-align: center;
             font-size: 2rem;
             font-weight: 600;
             cursor: pointer;
+            line-height: 10rem;
         }
 
         .cell:hover {
