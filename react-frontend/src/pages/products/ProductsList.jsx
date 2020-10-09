@@ -4,55 +4,14 @@ import Table from "../../components/table/table";
 import "./productlist.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import API from '../../API';
+import { withRouter } from "react-router-dom";
 
-export default class ProductsList extends Component {
+class ProductsList extends Component {
   constructor() {
     super();
     this.state = {
-      products: [
-        {
-          productId: "adasd",
-          name: "TestName",
-          price: 300,
-          category: "Food",
-          stock: 55,
-        },
-        {
-          productId: "adasd",
-          name: "TestName",
-          price: 300,
-          category: "Food",
-          stock: 55,
-        },
-        {
-          productId: "adasd",
-          name: "TestName",
-          price: 300,
-          category: "Food",
-          stock: 55,
-        },
-        {
-          productId: "adasd",
-          name: "TestName",
-          price: 300,
-          category: "Food",
-          stock: 55,
-        },
-        {
-          productId: "adasd",
-          name: "TestName",
-          price: 300,
-          category: "Food",
-          stock: 55,
-        },
-        {
-          productId: "adasd",
-          name: "TestName",
-          price: 300,
-          category: "Food",
-          stock: 55,
-        },
-      ],
+      products: [],
       searchBar: "",
       addProduct: false,
     };
@@ -68,6 +27,15 @@ export default class ProductsList extends Component {
     this.setState({
       addProduct: !this.state.addProduct,
     });
+  }
+
+  async componentDidMount() {
+    if(localStorage.getItem('JWToken')===null)
+      this.props.history.push('/login');
+    const products = await API.get('product/all/');
+    this.setState({
+      products: products.data
+    })
   }
 
   render() {
@@ -107,3 +75,5 @@ export default class ProductsList extends Component {
     );
   }
 }
+
+export default withRouter(ProductsList)

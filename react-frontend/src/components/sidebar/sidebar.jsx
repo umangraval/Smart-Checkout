@@ -34,7 +34,11 @@ export default function sidebar() {
       <NavLink className="Navlink" to="/profile">
         <FontAwesomeIcon icon={faUser} /> Profile
       </NavLink>
-      <NavLink className="Navlink" to="/logout">
+      <NavLink
+        className="Navlink"
+        onClick={() => localStorage.removeItem("JWToken")}
+        to="/login"
+      >
         <FontAwesomeIcon icon={faDoorOpen} /> Logout
       </NavLink>
     </div>

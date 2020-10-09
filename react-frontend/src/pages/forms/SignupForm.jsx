@@ -12,26 +12,17 @@ class SignupForm extends Component {
   constructor() {
     super();
     this.state = {
-      access: "student",
+      // access: "student",
       name: "",
       email: "",
       address: "",
-      contact: "",
-      est: "",
-      estStudents: "",
-      regno: "",
+      mobile: "",
       password: "",
-      cnfpassword: "",
-      classid: "",
-      schoolid: "",
-      schoolList: [],
-      classList: [],
-      referralCode: '',
+      cnfpassword: null,
+      shop: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.changeAccess = this.changeAccess.bind(this);
-    this.handleSelectChange = this.handleSelectChange.bind(this);
     this.redirect = this.redirect.bind(this);
   }
 
@@ -43,29 +34,17 @@ class SignupForm extends Component {
     this.props.history.push("/login");
   }
 
-  async handleSelectChange(value, { action, removedValue }) {
-    this.setState({ [value.name]: value.value });
-    if (value.name === "schoolid") {
-      try {
-        const { data } = await API.get(`auth/${value.value}`);
-        this.setState({
-          classList: data,
-        });
-      } catch (error) {
-        this.props.setError(error);
-      }
-    }
-  }
-
   async handleSubmit(evt) {
     evt.preventDefault();
     try {
       const newUser = this.state;
-      if (newUser.password !== newUser.cnfpassword) {
-        throw "Password and Confirm password not same";
-      }
-      const { data } = await API.post("auth/register", newUser);
+      delete newUser['cnfpassword'];
+      // if (newUser.password !== newUser.cnfpassword) {
+      //   throw "Password and Confirm password not same";
+      // }
+      const { data } = await API.post("auth/add", newUser);
       this.props.updateUser(data);
+      localStorage.setItem('JWToken', data.token);
       this.props.history.push("/dashboard");
     } catch (error) {
       this.props.setError(error);
@@ -80,46 +59,14 @@ class SignupForm extends Component {
         this.props.updateUser(currentUser);
         if (!isEmpty(currentUser)) this.props.history.push("/dashboard");
       } else this.props.history.push("/dashboard");
-
-      const { data } = await API.get("auth/listschools");
-      this.setState({
-        schoolList: data,
-      });
     } catch (error) {
       this.props.setError(error);
     }
   }
 
-  changeAccess(e) {
-    this.setState({
-      access: e.target.id,
-    });
-  }
-
   render() {
     return (
       <div className="Form">
-        {/* <button title="LogOut" onClick={this.handleLogout}>
-          {" "}
-        </button> */}
-
-        {/* <div className="header">
-          <h1
-            onClick={this.changeAccess}
-            className={this.state.access === "student" ? "" : "not-active"}
-            id="student"
-          >
-            Student
-          </h1>
-          <h1
-            onClick={this.changeAccess}
-            className={this.state.access === "teacher" ? "" : "not-active"}
-            id="teacher"
-          >
-            Teacher
-          </h1>
-        </div> */}
-
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <input
@@ -168,55 +115,14 @@ class SignupForm extends Component {
               }
             />
           </div>
-          {/* <div className="form-group">
-            <Select
-              className="Form--Select"
-              placeholder="Select School"
-              options={this.state.schoolList.map((school) => {
-                return {
-                  label: school.name,
-                  value: school._id,
-                  name: "schoolid",
-                };
-              })}
-              onChange={this.handleSelectChange}
-              name="schoolid"
-            />
-            {this.state.access !== "student" ? null : (
-              <div>
-                <Select
-                  className="Form--Select"
-              placeholder="Select Class"
-                  options={this.state.classList.map((className) => {
-                    return {
-                      label: className.classname,
-                      value: className._id,
-                      name: "classid",
-                    };
-                  })}
-                  isDisabled={this.state.schoolid.length === 0}
-                  onChange={this.handleSelectChange}
-                />
-                <input
-                  style={{ width: "40%" }}
-                  type="text"
-                  name="regno"
-                  id="regno"
-                  placeholder="Roll no."
-                  value={this.state.regno}
-                  onChange={this.handleChange}
-                />
-              </div>
-            )}
-          </div> */}
           <div className="form-group">
             <input
               style={{ width: "50%" }}
               type="text"
-              name="referralCode"
-              id="referralCode"
-              placeholder="Referral Code"
-              value={this.state.referralCode}
+              name="address"
+              id="address"
+              placeholder="Address"
+              value={this.state.address}
               onChange={this.handleChange}
             />
           </div>
@@ -224,10 +130,21 @@ class SignupForm extends Component {
             <input
               style={{ width: "50%" }}
               type="text"
-              name="contact"
+              name="shop"
+              id="shop"
+              placeholder="Shop"
+              value={this.state.shop}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              style={{ width: "50%" }}
+              type="text"
+              name="mobile"
               placeholder="Contact"
-              id="contact"
-              value={this.state.contact}
+              id="mobile"
+              value={this.state.mobile}
               onChange={this.handleChange}
             />
           </div>

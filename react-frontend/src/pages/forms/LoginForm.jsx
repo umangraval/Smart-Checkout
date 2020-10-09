@@ -11,12 +11,9 @@ class LoginFrom extends Component {
     this.state = {
       email: "",
       password: "",
-      access: "customer",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.changeAccess = this.changeAccess.bind(this);
-    this.redirect = this.redirect.bind(this);
   }
 
   async componentDidMount() {
@@ -47,7 +44,8 @@ class LoginFrom extends Component {
     const loginUser = this.state;
     try {
       const { data } = await API.post("/auth/login", loginUser);
-      this.props.updateUser(data);
+      console.log(data);
+      localStorage.setItem('JWToken', data.token);
       this.props.history.push("/dashboard");
     } catch (error) {
       this.props.setError(error);
@@ -57,22 +55,6 @@ class LoginFrom extends Component {
   render() {
     return (
       <div className="Form--Login">
-        <div className="header">
-          <h1
-            onClick={this.changeAccess}
-            className={this.state.access === "customer" ? "" : "not-active"}
-            id="customer"
-          >
-            Customer
-          </h1>
-          <h1
-            onClick={this.changeAccess}
-            className={this.state.access === "vendor" ? "" : "not-active"}
-            id="vendor"
-          >
-            Vendor
-          </h1>
-        </div>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <input
