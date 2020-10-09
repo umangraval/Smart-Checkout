@@ -4,8 +4,9 @@ import Table from "../../components/table/table";
 import "./productlist.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import API from '../../API';
+import API from "../../API";
 import { withRouter } from "react-router-dom";
+import jwt from "jsonwebtoken";
 
 class ProductsList extends Component {
   constructor() {
@@ -17,6 +18,7 @@ class ProductsList extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.toggleAddProduct = this.toggleAddProduct.bind(this);
+    this.updateProduct = this.updateProduct.bind(this);
   }
 
   handleChange(e) {
@@ -29,20 +31,41 @@ class ProductsList extends Component {
     });
   }
 
-  async componentDidMount() {
-    if(localStorage.getItem('JWToken')===null)
-      this.props.history.push('/login');
-    const products = await API.get('product/all/');
+  updateProduct(product) {
+    const products = this.state.products;
+    products.push(product);
     this.setState({
-      products: products.data
-    })
+      products: products,
+      addProduct: !this.state.addProduct,
+    });
+  }
+
+  async componentDidMount() {
+    const jwtoken = localStorage.getItem("JWToken");
+    if (jwtoken === null) this.props.history.push("/login");
+    const user = jwt.decode(jwtoken, process.env.REACT_APP_JWT_SECRET);
+    const products = await API.get(`product/all/${user.userId}`);
+    this.setState({
+      products: products.data.products.map((prod) => {
+        return {
+          id: prod._id,
+          name: prod.name,
+          price: prod.price,
+          category: prod.category,
+          stock: prod.quantity,
+        };
+      }),
+    });
   }
 
   render() {
     return (
       <div className="ProductList App-content">
         {this.state.addProduct ? (
-          <AddProduct toggleAddProduct={this.toggleAddProduct} />
+          <AddProduct
+            toggleAddProduct={this.toggleAddProduct}
+            updateProduct={this.updateProduct}
+          />
         ) : null}
         <h1>Products</h1>
         <div className="section">
@@ -76,4 +99,4 @@ class ProductsList extends Component {
   }
 }
 
-export default withRouter(ProductsList)
+export default withRouter(ProductsList);

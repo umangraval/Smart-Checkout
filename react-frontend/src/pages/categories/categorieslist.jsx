@@ -3,62 +3,34 @@ import Table from "../../components/table/table";
 import "./categories.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import AddCategory from './AddCategory';
+import AddCategory from "./AddCategory";
+import API from "../../API";
+import { withRouter } from "react-router-dom";
+import jwt from "jsonwebtoken";
 
-export default class categorieslist extends Component {
+class categorieslist extends Component {
   constructor() {
     super();
     this.state = {
-      categories: [
-        {
-          categoryId: "sdasd",
-          name: "CatName",
-        },
-        {
-          categoryId: "sdasd",
-          name: "CatName",
-        },
-        {
-          categoryId: "sdasd",
-          name: "CatName",
-        },
-        {
-          categoryId: "sdasd",
-          name: "CatName",
-        },
-        {
-          categoryId: "sdasd",
-          name: "CatName",
-        },
-        {
-          categoryId: "sdasd",
-          name: "CatName",
-        },
-        {
-          categoryId: "sdasd",
-          name: "CatName",
-        },
-        {
-          categoryId: "sdasd",
-          name: "CatName",
-        },
-        {
-          categoryId: "sdasd",
-          name: "CatName",
-        },
-        {
-          categoryId: "sdasd",
-          name: "CatName",
-        },
-      ],
+      categories: [],
       searchBar: "",
     };
     this.toggleAddCategory = this.toggleAddCategory.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.updateCategories=this.updateCategories.bind(this);
   }
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
+  }
+
+  updateCategories(cat) {
+    const categories = this.state.categories;
+    categories.push(cat);
+    this.setState({
+      categories: categories,
+      addCategory: !this.state.addCategory,
+    });
   }
 
   toggleAddCategory() {
@@ -67,15 +39,35 @@ export default class categorieslist extends Component {
     });
   }
 
+  async componentDidMount() {
+    const jwtoken = localStorage.getItem("JWToken");
+    if (jwtoken === null) this.props.history.push("/login");
+    const user = jwt.decode(jwtoken, process.env.REACT_APP_JWT_SECRET);
+    const categories = await API.get(`/category/all/${user.userId}`);
+    this.setState({
+      categories: categories.data.categories.map((cat) => {
+        return {
+          owner: cat._id,
+          name: cat.tag,
+        };
+      }),
+    });
+  }
+
   render() {
     return (
       <div className="CategoryList App-content">
         {this.state.addCategory ? (
-          <AddCategory toggleAddCategory={this.toggleAddCategory} />
+          <AddCategory
+            toggleAddCategory={this.toggleAddCategory}
+            updateCategories={this.updateCategories}
+          />
         ) : null}
         <h1>Categories</h1>
         <div className="section">
-          <button className="add-button" onClick={this.toggleAddCategory} >Add Category</button>
+          <button className="add-button" onClick={this.toggleAddCategory}>
+            Add Category
+          </button>
           <form className="search">
             <input
               type="search"
@@ -88,14 +80,12 @@ export default class categorieslist extends Component {
           </form>
         </div>
         <Table
-          headers={[
-            "Sr. No.",
-            "Category Id",
-            "Name"
-          ]}
+          headers={["Sr. No.", "Category Id", "Name"]}
           contents={this.state.categories}
         />
       </div>
     );
   }
 }
+
+export default withRouter(categorieslist);

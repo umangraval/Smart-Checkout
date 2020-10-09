@@ -1,0 +1,34 @@
+.Overview {
+    padding: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    .row {
+        display: flex;
+        height: 30%;
+
+        .cell {
+            width: 30%;
+            background-color: #0099ff;
+            box-shadow: 0 0 5rem 1rem #efefef;
+            border-radius: 2rem;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .cell:hover {
+            width: 35%;
+            height: 105%;
+        }
+    }
+
+    .row:first-of-type {
+        justify-content: space-between;
+    }
+    .row:last-of-type {
+        justify-content: space-around;
+    }
+}
