@@ -21,10 +21,12 @@ const router = Router();
 // user
 router.post('/auth/add', AuthController.add);
 router.post('/auth/login', AuthController.login);
+router.get('/auth/user/:id', checkJwt, checkRole(['SELLER']), AuthController.profile);
 
-// user
+// buyer
 router.post('/buyer/add', BuyerController.add);
 router.post('/buyer/login', BuyerController.login);
+router.get('/buyer/user/:id', checkJwt, checkRole(['BUYER']), BuyerController.profile);
 
 // product routes
 router.post('/product/add', checkJwt, checkRole(['SELLER']), ProductController.add);
