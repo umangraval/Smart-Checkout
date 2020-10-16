@@ -10,6 +10,7 @@ const API = axios.create({
   // baseURL: "http://localhost:8000/api",
   withCredentials: true,
 });
+console.log(localStorage.getItem('JWToken'));
 API.interceptors.response.use(
   (response) => response,
   (error) => {

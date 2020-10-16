@@ -50,6 +50,20 @@ export default class App extends Component {
       <div className="App">
         <BrowserRouter>
           <Switch>
+          <Route
+              exact
+              path="/"
+              render={() => (
+                <div className="App-grid-container">
+                  <SideBar className="App-sidebar" />
+                  <Overview
+                    className="App-content"
+                    setError={this.setError}
+                    user={this.state.user}
+                  />
+                </div>
+              )}
+            />
             <Route
               exact
               path="/login"

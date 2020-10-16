@@ -3,6 +3,11 @@ import "./overview.scss";
 import { withRouter } from "react-router-dom";
 
 function Overview(props) {
+  if(localStorage.getItem('JWToken')==null){
+    props.history.push('/login');
+    return null;
+  }
+  else
   return (
     <div className="Overview App-content">
       <div className="row">

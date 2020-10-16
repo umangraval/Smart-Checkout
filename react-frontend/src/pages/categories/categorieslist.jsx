@@ -41,7 +41,10 @@ class categorieslist extends Component {
 
   async componentDidMount() {
     const jwtoken = localStorage.getItem("JWToken");
-    if (jwtoken === null) this.props.history.push("/login");
+    if (jwtoken === null) {
+      this.props.history.push("/login");
+      return;
+    }
     const user = jwt.decode(jwtoken, process.env.REACT_APP_JWT_SECRET);
     const categories = await API.get(`/category/all/${user.userId}`);
     this.setState({
@@ -55,6 +58,8 @@ class categorieslist extends Component {
   }
 
   render() {
+    if(localStorage.getItem("JWToken")===null)
+      return null;
     return (
       <div className="CategoryList App-content">
         {this.state.addCategory ? (
