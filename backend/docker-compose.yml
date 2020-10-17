@@ -29,7 +29,7 @@ services:
       context: .
     environment: 
       - NODE_ENV=development
-      - PORT=8000
+      - PORT=8080
       # - MONGO_URL=mongodb://mongodb:27017/
       - MONGO_URL=mongodb+srv://umangraval:test123@smart-checkout-test.lttic.mongodb.net/smart-checkout-test?retryWrites=true&w=majority
     volumes:
@@ -37,7 +37,7 @@ services:
     # depends_on:
     #   -  mongo  
     ports: 
-      - 8000:8000
+      - 8080:8080
 
   # mongo:
   #   image: mongo
