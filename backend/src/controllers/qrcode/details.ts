@@ -9,6 +9,7 @@ const details: RequestHandler = async (req, res) => {
   const seller = await User.findById(product.owner);
   const ProductDetail = {
     id: product._id,
+    sellerid: seller.id,
     shop: seller.shop,
     price: product.price,
     name: product.name,

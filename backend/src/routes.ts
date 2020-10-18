@@ -27,6 +27,7 @@ router.get('/auth/user/:id', checkJwt, checkRole(['SELLER']), AuthController.pro
 router.post('/buyer/add', BuyerController.add);
 router.post('/buyer/login', BuyerController.login);
 router.get('/buyer/user/:id', checkJwt, checkRole(['BUYER']), BuyerController.profile);
+router.get('/buyer/transaction/:id', checkJwt, checkRole(['BUYER']), TransactionController.buyerTrans);
 
 // product routes
 router.post('/product/add', checkJwt, checkRole(['SELLER']), ProductController.add);
@@ -42,7 +43,7 @@ router.put('/category/update', checkJwt, checkRole(['SELLER']), CategoryControll
 router.delete('/category/delete/:id', checkJwt, checkRole(['SELLER']), CategoryController.del);
 
 // transaction routes
-router.post('/transaction/add', checkJwt, checkRole(['SELLER']), TransactionController.add);
+router.post('/transaction/add', checkJwt, checkRole(['BUYER']), TransactionController.add);
 router.get('/transaction/all/:id', checkJwt, checkRole(['SELLER']), TransactionController.all);
 
 // analytics
