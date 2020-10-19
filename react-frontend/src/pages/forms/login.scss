@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900&display=swap');
+
+.container{
+    position: absolute;
+    margin: 10% 33%;
+    font-family: 'Rubik', sans-serif;
+    height: 50vh;
+    width: 30vw;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 20px #0000000D;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.login{
+    font-weight: 700;
+    font-size: 2.2rem;
+    color: #191919;
+    margin-bottom: 0;
+}
+
+.para{
+    color: #191919;
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.image{
+    margin-right: 3rem;
+}
+
+.forgotPassword{
+    margin-top: -0.3rem;
+    margin-left: 0.4rem;
+    letter-spacing: 1.2px;
+    color: #0060FC;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.input{
+    width: 20vw;
+    height: 5vh;
+    background: #F4F4F4;
+    border-radius: 7px;
+    text-decoration: none;
+    border: none;
+    margin-bottom: 13px;
+    padding-left: 25px;
+}
+
+.input::placeholder{
+    font-weight: 400;
+    margin-left: 15px;
+    font-size: 1rem;
+    color: #A3A3A3;
+}
+
+.button{
+    float: right;
+    text-decoration: none;
+    background: #1744FF 0% 0% no-repeat;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px #0000000D;
+    border-radius: 8px;
+    padding: 1rem 1.4rem;
+    letter-spacing: 2.1px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-family: 'Rubik', sans-serif;
+    border: none;
+}

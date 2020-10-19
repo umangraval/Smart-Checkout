@@ -33,7 +33,7 @@
     }
 
     .Navlink:hover {
-        font-weight: 600;  
+        font-weight: 600;
     }
 }
 
@@ -42,9 +42,13 @@
     .Navlink {
         color: black;
     }
-    .currNav {
+    .Navlink:hover {
         color: #035aa6;
-        text-decoration: underline;
+    }
+    .currNav {
+        border-bottom: #035aa6 solid;
+        color: #035aa6;
+        font-weight: 600;
     }
 
     .header {
