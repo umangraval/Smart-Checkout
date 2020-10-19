@@ -22,7 +22,7 @@ const add: RequestHandler = async (req, res) => {
     owner, name, price, category, quantity
   });
   await product.save();
-  const qrcodeData: string = (crypto.AES.encrypt(`${config.BASE_URL}/${product._id}`, config.AES_KEY)).toString();
+  const qrcodeData: string = (crypto.AES.encrypt(`${req.protocol}://${req.get('host')}/api/qrcode/${product._id}`, config.AES_KEY)).toString();
   await Product.findOneAndUpdate({ _id: product._id },
     { $set: { qrcodeData } }, { new: true },
     (err, doc) => {

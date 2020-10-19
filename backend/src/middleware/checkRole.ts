@@ -5,5 +5,5 @@ export const checkRole = (roles: Array<string>) => async (req: Request, res: Res
   // Get the user ID from previous midleware
   const { role } = res.locals.jwtPayload;
   if (role === roles[0]) next();
-  else res.status(401).send({ error: 'Not Authorised' });
+  else res.status(401).send({ errors: { message: 'Not Authorised', status: 401 } });
 };

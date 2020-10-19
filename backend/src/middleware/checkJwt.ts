@@ -11,7 +11,7 @@ export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
   if (!token) {
     return res
       .status(401)
-      .json({ msg: 'No token, authorization denied' });
+      .json({ errors: { message: 'No token, authorization denied', status: 401 } });
   }
   // Try to validate the token and get data
   try {
@@ -20,7 +20,7 @@ export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
     next();
   } catch (error) {
     // If token is not valid, respond with 401 (unauthorized)
-    return res.status(401).send({ error: 'Not Authenticated' });
+    return res.status(401).send({ errors: { message: 'Not Authenticated', status: 401 } });
   }
 
   // The token is valid for 1 hour

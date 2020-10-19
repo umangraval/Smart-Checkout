@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { RequestHandler } from 'express';
 import bcrypt from 'bcryptjs';
 import gravatar from 'gravatar';
@@ -18,7 +19,8 @@ const add: RequestHandler = async (req, res) => {
   const {
     email, name, mobile, password
   } = req.body;
-
+  const userExist = await BuyerUser.findOne({ email });
+  if (userExist) return res.status(400).send({ errors: { message: 'User Exist', status: 400 } });
   const salt = await bcrypt.genSalt(10);
   const hashed = await bcrypt.hash(password, salt);
 

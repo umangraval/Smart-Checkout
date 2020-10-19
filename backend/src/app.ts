@@ -36,6 +36,10 @@ app.get('/', (req, res) => {
   res.redirect('/api/dev/api-docs');
 });
 
+app.get('/test', (req, res) => {
+  res.send('Test working');
+});
+
 app.use('/api', routes);
 
 app.use((err: ApplicationError, req: Request, res: Response, next: NextFunction) => {
