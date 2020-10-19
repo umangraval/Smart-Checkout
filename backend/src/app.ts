@@ -15,11 +15,11 @@ const options: cors.CorsOptions = {
     'X-Requested-With',
     'Content-Type',
     'Accept',
-    'X-Access-Token'
+    'x-auth-token'
   ],
   credentials: true,
   methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
-  origin: process.env.API_URL,
+  origin: 'http://localhost:3000',
   preflightContinue: false
 };
 
@@ -34,6 +34,10 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 
 app.get('/', (req, res) => {
   res.redirect('/api/dev/api-docs');
+});
+
+app.get('/test', (req, res) => {
+  res.send('Test working');
 });
 
 app.use('/api', routes);

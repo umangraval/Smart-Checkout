@@ -1,17 +1,17 @@
 version: "3"
 services:
-  nginx:
-    image: nginx
-    volumes:
-      - ../nginx/conf.d:/etc/nginx/conf.d
-      # - ./vanila-frontend:/usr/share/nginx/vanilla
+  # nginx:
+  #   image: nginx
+  #   volumes:
+  #     - ../nginx/conf.d:/etc/nginx/conf.d
+  #     # - ./vanila-frontend:/usr/share/nginx/vanilla
 
-    command: /bin/bash -c "nginx -g 'daemon off;'" 
-    ports:
-      - 80:80
-    depends_on:
-      # - frontend
-      - backend
+  #   command: /bin/bash -c "nginx -g 'daemon off;'" 
+  #   ports:
+  #     - 80:80
+  #   depends_on:
+  #     # - frontend
+  #     - backend
   
   # frontend:
   #   build: frontend
@@ -29,14 +29,14 @@ services:
       context: .
     environment: 
       - NODE_ENV=development
-      - PORT=8000
+      - PORT=8080
       - MONGO_URL=mongodb://mongodb:27017/
     volumes:
       - .:/server
     depends_on:
       -  mongo  
     ports: 
-      - 8000:8000
+      - 8080:8080
 
   mongo:
     image: mongo
