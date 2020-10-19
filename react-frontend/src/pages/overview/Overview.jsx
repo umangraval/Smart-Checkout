@@ -10,7 +10,7 @@ function Overview(props) {
   else
   return (
     <div className="Overview App-content">
-      <div className="row">
+      <div className="col">
         <div
           className="cell"
           onClick={() => {
@@ -35,8 +35,6 @@ function Overview(props) {
         >
           Products
         </div>
-      </div>
-      <div className="row">
         <div
           className="cell"
           onClick={() => {
@@ -53,6 +51,10 @@ function Overview(props) {
         >
           Profile
         </div>
+      </div>
+      <div className="image">
+        {/* <img src="./store.png" alt="store"/> */}
+        <img src="./analytics.gif" alt="analytics"/>
       </div>
     </div>
   );

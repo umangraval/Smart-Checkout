@@ -3,16 +3,20 @@
     max-height: 50vh;
     overflow-y: scroll;
     text-align: center;
+    font-size: 1.3rem;
+    color: white;
     table {
         width: 100%;
         th {
-            background-color: #bdbdbd;
+            background-color: #0278ae;
             padding: 2%;
             position: sticky;
+            font-size: 1.7rem;
         }
         tbody {
             td {
-                background-color: #ececec;
+                color: black;
+                background-color: #a5ecd7;
                 padding: 0.5%;
             }
         }

@@ -1,5 +1,35 @@
 .App {
-  // text-align: center;
+  background: linear-gradient(-45deg, #cffffe, #f9f7d9, #fce2ce, #ffc1f3);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  height: 100vh;
+
+  input {
+    background-color: transparent;
+  }
+    
+  .add-button {
+    height: 4rem;
+    width: 15rem;
+    border-radius: 5rem;
+    border: none;
+    background-color: #0278ae;
+    color: white;
+    font-weight: 600;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  h1 {
+    font-size: 2.7rem;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    transition: ease-in-out 0.5s;
+  }
+  h1:hover {
+    text-decoration-color: black;
+  }
+
 }
 
 .App-logo {
@@ -39,7 +69,10 @@
     overflow: hidden;
   }
 }
-.App-content {grid-area: content;}
+.App-content {
+  grid-area: content;
+}
+
 
 @keyframes App-logo-spin {
   from {
@@ -47,5 +80,17 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }

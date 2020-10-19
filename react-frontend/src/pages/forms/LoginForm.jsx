@@ -3,21 +3,21 @@ import Button from "../../components/button/button";
 
 import API from "../../API";
 import { withRouter, Link } from "react-router-dom";
-import utils from "../../utils";
 
 class LoginFrom extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: "",
       password: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.redirect = this.redirect.bind(this);
   }
 
   async componentDidMount() {
-    if(localStorage.getItem('JWToken')!=null)
+    if (localStorage.getItem("JWToken") != null)
       this.props.history.push("/dashboard");
   }
 
@@ -41,7 +41,7 @@ class LoginFrom extends Component {
     try {
       const { data } = await API.post("/auth/login", loginUser);
       console.log(data);
-      localStorage.setItem('JWToken', data.token);
+      localStorage.setItem("JWToken", data.token);
       this.props.history.push("/dashboard");
     } catch (error) {
       this.props.setError(error);
