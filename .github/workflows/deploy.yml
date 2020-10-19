@@ -5,10 +5,10 @@ jobs:
     name: deploy
     runs-on: ubuntu-latest
     steps:
-    - name: ls -a via ssh
-      uses: garygrossgarten/github-action-ssh@release
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
       with:
-        command: ls -a
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
-        privateKey: ${{ secrets.PASSWORD }}
+        password: ${{ secrets.PASSWORD }}
+        script: ls -a
