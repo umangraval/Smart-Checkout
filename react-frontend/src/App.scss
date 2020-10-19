@@ -29,13 +29,16 @@
 }
 
 .App-grid-container {
-  display: grid;
-  grid-template-areas:
-    'sidebar content content content content';
-  grid-gap: 10px;
+  display: flex;
 }
 
-.App-sidebar {grid-area: sidebar;}
+.App-sidebar {
+  grid-area: sidebar;
+  &--hidden {
+    width: 1%;
+    overflow: hidden;
+  }
+}
 .App-content {grid-area: content;}
 
 @keyframes App-logo-spin {

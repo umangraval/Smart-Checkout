@@ -16,7 +16,6 @@ export default class App extends Component {
   constructor() {
     super();
     this.state = {
-      user: undefined,
       error: undefined,
       activeClass: undefined,
     };
