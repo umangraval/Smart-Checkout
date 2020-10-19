@@ -6,7 +6,7 @@ import { withRouter } from "react-router-dom";
 import Button from "../../components/button/button";
 import API from "../../API";
 import "./forms.scss";
-import utils from "../../utils";
+// import utils from "../../utils";
 
 class SignupForm extends Component {
   constructor() {

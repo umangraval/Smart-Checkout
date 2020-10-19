@@ -48,7 +48,7 @@ export default class BasicSunburst extends React.Component {
     };
   }
   render() {
-    const {data, finalValue, pathValue, indx} = this.state;
+    const {data, finalValue, pathValue } = this.state;
     return (
       <div>
         <div onClick={() => this.setState({data: this.props.data, indx:-1, finalValue: 'Sales'})}>
