@@ -41,35 +41,39 @@ class ProductsList extends Component {
   }
 
   async componentDidMount() {
-    const jwtoken = localStorage.getItem("JWToken");
-    if (jwtoken === null) {
-      this.props.history.push("/login");
-      return;
+    try {
+      const jwtoken = localStorage.getItem("JWToken");
+      if (jwtoken === null) {
+        this.props.history.push("/login");
+        return;
+      }
+      const user = jwt.decode(jwtoken, process.env.REACT_APP_JWT_SECRET);
+      const products = await API.get(`product/all/${user.userId}`);
+      this.setState({
+        products: products.data.products.map((prod) => {
+          return {
+            id: prod._id,
+            name: prod.name,
+            price: prod.price,
+            category: prod.category,
+            stock: prod.quantity,
+          };
+        }),
+      }); 
+    } catch (error) {
+      this.props.setError(error);
     }
-    const user = jwt.decode(jwtoken, process.env.REACT_APP_JWT_SECRET);
-    const products = await API.get(`product/all/${user.userId}`);
-    this.setState({
-      products: products.data.products.map((prod) => {
-        return {
-          id: prod._id,
-          name: prod.name,
-          price: prod.price,
-          category: prod.category,
-          stock: prod.quantity,
-        };
-      }),
-    });
   }
 
   render() {
-    if(localStorage.getItem("JWToken")===null)
-      return null;
+    if (localStorage.getItem("JWToken") === null) return null;
     return (
       <div className="ProductList App-content">
         {this.state.addProduct ? (
           <AddProduct
             toggleAddProduct={this.toggleAddProduct}
             updateProduct={this.updateProduct}
+            setError={this.props.setError}
           />
         ) : null}
         <h1>Products</h1>

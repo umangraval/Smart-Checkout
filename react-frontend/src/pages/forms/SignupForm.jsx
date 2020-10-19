@@ -52,17 +52,10 @@ class SignupForm extends Component {
   }
 
   async componentDidMount() {
-    try {
-      const { isEmpty, getCurrentUser } = utils;
-      if (isEmpty(this.props.user)) {
-        const currentUser = await getCurrentUser();
-        this.props.updateUser(currentUser);
-        if (!isEmpty(currentUser)) this.props.history.push("/dashboard");
-      } else this.props.history.push("/dashboard");
-    } catch (error) {
-      this.props.setError(error);
-    }
+    if(localStorage.getItem('JWToken')!=null)
+      this.props.history.push("/dashboard");
   }
+
 
   render() {
     return (

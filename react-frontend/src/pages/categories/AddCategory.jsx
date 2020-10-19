@@ -19,15 +19,19 @@ export default class addCategory extends Component {
 
   async onSubmit(e) {
     e.preventDefault();
-    const { data } = await API.post(`/category/add/`, {
-      owner: jwt.decode(localStorage.getItem("JWToken")).userId,
-      tag: this.state.name,
-    });
-    this.props.updateCategories({
-      id: data.category._id,
-      name: data.category.tag,
-    });
-    console.log(data);
+    try {
+      const { data } = await API.post(`/category/add/`, {
+        owner: jwt.decode(localStorage.getItem("JWToken")).userId,
+        tag: this.state.name,
+      });
+      this.props.updateCategories({
+        id: data.category._id,
+        name: data.category.tag,
+      });
+      console.log(data);
+    } catch (error) {
+      this.props.setError(error)
+    }
   }
 
   render() {

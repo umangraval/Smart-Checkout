@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import "./App.scss";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
-import isEmpty from "./utils/isEmpty";
-import getCurrentUser from "./utils/getCurrentUser";
+import ErrorPopup from './components/error_pop_up/ErrorPopup';
 import LoginForm from "./pages/forms/LoginForm";
 import ForgotPassword from "./pages/forms/forgotPassword";
 import SignupForm from "./pages/forms/SignupForm";
@@ -23,32 +22,31 @@ export default class App extends Component {
     };
     this.setError = this.setError.bind(this);
     this.clearError = this.clearError.bind(this);
-    this.updateUser = this.updateUser.bind(this);
   }
 
-  updateUser(user) {
-    this.setState({ user });
-  }
+  // updateUser(user) {
+  //   this.setState({ user });
+  // }
 
   setError(error) {
-    this.setState({ error });
+    if(error.response.status===401) {
+      window.location.reload(false);
+    }
+    else if(error.response.data.error)
+      this.setState({ error: error.response.data.error});
+    else
+      this.setState({ error: error.response.data.errors.message});
   }
 
   clearError() {
     this.setState({ error: null });
   }
 
-  async componentDidMount() {
-    if (isEmpty(this.props.user)) {
-      const currentUser = await getCurrentUser();
-      this.updateUser(currentUser);
-    }
-  }
-
   render() {
     return (
       <div className="App">
         <BrowserRouter>
+          <ErrorPopup error={this.state.error} clearError={this.clearError} />
           <Switch>
           <Route
               exact
@@ -59,7 +57,6 @@ export default class App extends Component {
                   <Overview
                     className="App-content"
                     setError={this.setError}
-                    user={this.state.user}
                   />
                 </div>
               )}
@@ -72,7 +69,6 @@ export default class App extends Component {
                   <LoginForm
                     setError={this.setError}
                     updateUser={this.updateUser}
-                    user={this.user}
                   />
                 </div>
               )}
@@ -85,7 +81,6 @@ export default class App extends Component {
                   <SignupForm
                     setError={this.setError}
                     updateUser={this.updateUser}
-                    user={this.user}
                   />
                 </div>
               )}
@@ -97,7 +92,6 @@ export default class App extends Component {
                 <div>
                   <ForgotPassword
                     setError={this.setError}
-                    user={this.state.user}
                   />
                 </div>
               )}
@@ -111,7 +105,6 @@ export default class App extends Component {
                   <Overview
                     className="App-content"
                     setError={this.setError}
-                    user={this.state.user}
                   />
                 </div>
               )}
@@ -125,7 +118,6 @@ export default class App extends Component {
                   <ProductList
                     className="App-content"
                     setError={this.setError}
-                    user={this.state.user}
                   />
                 </div>
               )}
@@ -139,7 +131,6 @@ export default class App extends Component {
                   <CategoryList
                     className="App-content"
                     setError={this.setError}
-                    user={this.state.user}
                   />
                 </div>
               )}
@@ -153,7 +144,6 @@ export default class App extends Component {
                   <Transactions
                     className="App-content"
                     setError={this.setError}
-                    user={this.state.user}
                   />
                 </div>
               )}
@@ -167,7 +157,6 @@ export default class App extends Component {
                   <Analysis
                     className="App-content"
                     setError={this.setError}
-                    user={this.state.user}
                   />
                 </div>
               )}

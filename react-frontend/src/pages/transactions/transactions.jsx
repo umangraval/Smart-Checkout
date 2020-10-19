@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Table from "../../components/table/table";
 import "./transactions.scss";
-import API from '../../API';
-import jwt from 'jsonwebtoken';
+import API from "../../API";
+import jwt from "jsonwebtoken";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { withRouter } from "react-router-dom";
@@ -22,28 +22,30 @@ class transactions extends Component {
   }
 
   async componentDidMount() {
-    const jwtoken = localStorage.getItem("JWToken");
-    if (jwtoken === null) {
-      this.props.history.push("/login");
-      return;
+    try {
+      const jwtoken = localStorage.getItem("JWToken");
+      if (jwtoken === null) {
+        this.props.history.push("/login");
+        return;
+      }
+      const user = jwt.decode(jwtoken, process.env.REACT_APP_JWT_SECRET);
+      const transactions = await API.get(`/transaction/all/${user.userId}`);
+      this.setState({
+        transactions: transactions.data.transaction.map((tran) => {
+          return {
+            id: tran._id,
+            name: tran.title,
+            amount: tran.amount,
+          };
+        }),
+      });
+    } catch (error) {
+      this.props.setError(error);
     }
-    const user = jwt.decode(jwtoken, process.env.REACT_APP_JWT_SECRET);
-    const transactions = await API.get(`/transaction/all/${user.userId}`);
-    console.log(transactions.data);
-    this.setState({
-      transactions: transactions.data.transaction.map((tran) => {
-        return {
-          id: tran._id,
-          name: tran.title,
-          amount: tran.amount
-        };
-      }),
-    });
   }
 
   render() {
-    if(localStorage.getItem("JWToken")===null)
-      return null;
+    if (localStorage.getItem("JWToken") === null) return null;
     return (
       <div className="TransactionList App-content">
         <h1>Transactions</h1>

@@ -17,12 +17,8 @@ class LoginFrom extends Component {
   }
 
   async componentDidMount() {
-    const { isEmpty, getCurrentUser } = utils;
-    if (isEmpty(this.props.user)) {
-      const currentUser = await getCurrentUser();
-      this.props.updateUser(currentUser);
-      if (!isEmpty(currentUser)) this.props.history.push("/dashboard");
-    } else this.props.history.push("/dashboard");
+    if(localStorage.getItem('JWToken')!=null)
+      this.props.history.push("/dashboard");
   }
 
   redirect() {

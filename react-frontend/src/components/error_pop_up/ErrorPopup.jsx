@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
-import React, { Component } from 'react';
-// import { withRouter } from 'react-router-dom';
-import isEmpty from '../../utils/isEmpty';
-import './errorPopUp.scss'
+import React, { Component } from "react";
+import isEmpty from "../../utils/isEmpty";
+import "./errorPopUp.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 
 export default class ErrorPopup extends Component {
   constructor() {
@@ -23,9 +24,9 @@ export default class ErrorPopup extends Component {
     const { error } = this.props;
     if (isEmpty(error)) return null;
 
-    let message = 'Something Went Wrong!';
+    let message = "Something Went Wrong!";
     try {
-      if (typeof error === 'string') {
+      if (typeof error === "string") {
         message = error;
       } else if (!isEmpty(error.response.data)) {
         message = error.response.data.error;
@@ -38,7 +39,7 @@ export default class ErrorPopup extends Component {
       <div className="errpopup--wrapper">
         <div className="errpopup">
           <div className="errpopup__symbol">
-            <i className="fa fa-times-circle" />
+            <FontAwesomeIcon icon={faTimesCircle} />
           </div>
           <div className="errpopup__message">{message}</div>
         </div>

@@ -17,7 +17,7 @@ class categorieslist extends Component {
     };
     this.toggleAddCategory = this.toggleAddCategory.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.updateCategories=this.updateCategories.bind(this);
+    this.updateCategories = this.updateCategories.bind(this);
   }
 
   handleChange(e) {
@@ -40,30 +40,34 @@ class categorieslist extends Component {
   }
 
   async componentDidMount() {
-    const jwtoken = localStorage.getItem("JWToken");
-    if (jwtoken === null) {
-      this.props.history.push("/login");
-      return;
+    try {
+      const jwtoken = localStorage.getItem("JWToken");
+      if (jwtoken === null) {
+        this.props.history.push("/login");
+        return;
+      }
+      const user = jwt.decode(jwtoken, process.env.REACT_APP_JWT_SECRET);
+      const categories = await API.get(`/category/all/${user.userId}`);
+      this.setState({
+        categories: categories.data.categories.map((cat) => {
+          return {
+            owner: cat._id,
+            name: cat.tag,
+          };
+        }),
+      });
+    } catch (error) {
+      this.props.setError(error);
     }
-    const user = jwt.decode(jwtoken, process.env.REACT_APP_JWT_SECRET);
-    const categories = await API.get(`/category/all/${user.userId}`);
-    this.setState({
-      categories: categories.data.categories.map((cat) => {
-        return {
-          owner: cat._id,
-          name: cat.tag,
-        };
-      }),
-    });
   }
 
   render() {
-    if(localStorage.getItem("JWToken")===null)
-      return null;
+    if (localStorage.getItem("JWToken") === null) return null;
     return (
       <div className="CategoryList App-content">
         {this.state.addCategory ? (
           <AddCategory
+            setError={this.props.setError}
             toggleAddCategory={this.toggleAddCategory}
             updateCategories={this.updateCategories}
           />

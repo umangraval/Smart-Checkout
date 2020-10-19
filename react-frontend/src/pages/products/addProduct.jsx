@@ -24,22 +24,25 @@ export default class addProduct extends Component {
 
   async onSubmit(e) {
     e.preventDefault();
-    const { name, category, price, quantity } = this.state;
-    const { data } = await API.post(`/product/add/`, {
-      owner: jwt.decode(localStorage.getItem("JWToken")).userId,
-      name,
-      category,
-      price,
-      quantity,
-    });
-    this.props.updateProduct({
-      id: data.product._id,
-      name,
-      price,
-      category,
-      quantity,
-    });
-    console.log(data);
+    try {
+      const { name, category, price, quantity } = this.state;
+      const { data } = await API.post(`/product/add/`, {
+        owner: jwt.decode(localStorage.getItem("JWToken")).userId,
+        name,
+        category,
+        price,
+        quantity,
+      });
+      this.props.updateProduct({
+        id: data.product._id,
+        name,
+        price,
+        category,
+        quantity,
+      });
+    } catch (error) {
+      this.props.setError(error);
+    }
   }
 
   async componentDidMount() {
