@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/test', (req, res) => {
-  res.send('working');
+  res.send('Test working');
 });
 
 app.use('/api', routes);
