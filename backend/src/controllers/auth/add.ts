@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { RequestHandler } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -21,6 +22,8 @@ const add: RequestHandler = async (req, res) => {
     email, name, mobile, address, shop, password
   } = req.body;
 
+  const userExist = await User.findOne({ email });
+  if (userExist) return res.status(400).send({ errors: { message: 'User Exist', status: 400 } });
   const options: gravatar.Options = {
     s: '200',
     r: 'pg',
