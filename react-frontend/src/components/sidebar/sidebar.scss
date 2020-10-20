@@ -7,6 +7,8 @@
     position: static;
     width: 4rem;
     transition: width 1s;
+    transition: ease 1s;
+    overflow: hidden;
 
     .header {
         display: none;
@@ -39,8 +41,13 @@
 
 .sidebar:hover {
     width: 20%;
+    background-color: transparentize($color: #fff, $amount: 0.7);
+    box-shadow:  0 0 2rem 0 #aeaeae;
+    transition-duration: 1s;
+
     .Navlink {
         color: black;
+        transition-duration: 0.01s;
     }
     .Navlink:hover {
         color: #035aa6;
