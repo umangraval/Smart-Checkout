@@ -1,0 +1,71 @@
+.Profile {
+    padding: 5%;
+    width: 100%;
+    
+    h1 {
+        text-align: left;
+    }
+    .background {
+        border-radius: 2rem;
+        box-shadow: #ababab 0 0 2rem 0.1rem;
+        display: flex;
+        height: 50vh;
+        width: 60vw;
+        background-color: #035aa6;
+        margin: 4rem 2rem;
+        transition: ease-in 100ms;
+    }
+    .ProfileCard {
+        // background-color: rgba($color: #FFF, $alpha: 0.5)
+
+        cursor: pointer;        
+        background-color: #fff;
+        display: flex;
+        max-height: 100%;
+        width: 100%;
+        border-radius: 80% 2rem 2rem 2rem ;
+        justify-content: space-around;
+        padding: 2.5% 0;       
+        transition: width 100ms;
+        transition: ease 1s;
+        .avatar {
+            width: 30%;
+            img {
+                width: 100%;
+                border-radius: 10rem;
+                border: #035aa6 solid 0.5rem;
+            }
+            border-radius: 2rem;
+        }
+        
+        .details {
+            font-size: 2rem;
+            line-height: 150%;
+            .Shop {
+                font-size: 4rem;
+                color: #035aa6;
+                font-weight: 500;
+                // text-decoration: underline;
+                margin-bottom: 1.5rem;
+            }
+            font-weight: 600;
+            span {
+                font-weight: 400;
+            }
+            .Address {
+                max-width: 100%;
+            }
+        }
+    }
+
+    .background:hover{
+        width: 62vw;
+        height: 51vh;
+        // margin-left: 1rem; 
+        box-shadow: #ababab 0 0 3rem 1rem;
+    }
+
+    .ProfileCard:hover {
+        border-radius: 2rem 2rem 2rem 50%;
+    }
+}

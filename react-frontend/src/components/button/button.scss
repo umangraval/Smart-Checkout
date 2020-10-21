@@ -1,0 +1,49 @@
+.Button{
+    background-color: transparent;
+    padding: 1rem 3rem;
+    border-radius: 49px;
+    border: solid 2px #373737;
+    font-size: 2.2rem;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    font-weight: 500;
+
+    &:hover{
+        cursor: pointer;
+    }
+}
+@media screen and (max-width:1024px)
+{
+    .Button{
+        padding: 1.4rem 4rem;
+        font-size: 3.2rem;
+    } 
+}
+@media screen and (max-width:768px)
+{
+    .Button{
+        padding: 1.1rem 3rem;
+        font-size: 2.5rem;
+    } 
+}
+@media screen and (max-width:414px)
+{
+    .Button{
+        padding: 1rem 2rem;
+        font-size: 1.8rem;
+    } 
+}
+@media screen and (max-width:375px)
+{
+    .Button{
+        padding: 0.8rem 1.6rem;
+        font-size: 1.4rem;
+    } 
+}
+@media screen and (max-width:360px)
+{
+    .Button{
+        padding: 0.8rem 1.6rem;
+        font-size: 1rem;
+    } 
+}

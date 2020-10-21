@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900&display=swap');
+
+.container--signup{
+    font-family: 'Rubik', sans-serif;
+    height: 75vh;
+    width: 35vw;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 20px #0000000D;
+    position: absolute;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin: 5% 33%;
+
+    .signup{
+        font-weight: 700;
+        font-size: 2.2rem;
+        color: #191919;
+    }
+    
+    .input{
+        width: 20vw;
+        height: 5vh;
+        background: #F4F4F4;
+        border-radius: 7px;
+        text-decoration: none;
+        border: none;
+        margin-bottom: 13px;
+        padding-left: 25px;
+    }
+    
+    .input::placeholder{
+        font-weight: 400;
+        margin-left: 15px;
+        font-size: 1rem;
+        color: #A3A3A3;
+    }
+    
+    .button{
+        float: right;
+    }
+    
+
+}
+
+@media (max-width: 1200px){
+    .container{
+        width: 50vw !important;
+    }
+
+    .input{
+        width: 30vw !important;
+    }
+
+    .para{
+        font-size: 1.5rem !important;
+    }
+
+    .para2{
+        font-size: 1.5rem !important;
+    }
+
+    .routeButton{
+        font-size: 1.5rem !important;
+    }
+}
+
+@media (max-width: 768px){
+    .container{
+        width: 60vw !important;
+    }
+
+    .input{
+        width: 40vw !important;
+    }
+}
+
+@media (max-width: 576px){
+    .container{
+        height: 85vh !important;
+        width: 80vw !important;
+        margin-top: 4vh;
+    }
+
+    .input{
+        width: 60vw !important;
+    }
+}

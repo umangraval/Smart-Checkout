@@ -1,0 +1,29 @@
+.Table {
+    margin: 5%;
+    max-height: 50vh;
+    overflow-y: scroll;
+    text-align: center;
+    font-size: 1.3rem;
+    color: white;
+    table {
+        width: 100%;
+        th {
+            background-color: #0278ae;
+            padding: 2%;
+            position: sticky;
+            font-size: 1.7rem;
+        }
+        tbody {
+            tr:hover>td {
+                background-color: #fff!important;
+            }
+            td {
+                cursor: pointer;
+                transition: ease 0.5s;
+                color: black;
+                background-color: #a5ecd7;
+                padding: 0.5%;
+            }
+        }
+    }
+}

@@ -1,0 +1,67 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    // border-right: solid 0.1rem #d0d0d0;
+    height: 100vh;
+    justify-content: space-evenly;
+    position: static;
+    width: 4rem;
+    transition: width 1s;
+    transition: ease 1s;
+    overflow: hidden;
+
+    .header {
+        display: none;
+        margin-left: 10%;
+        font-size: 1.5rem;
+        font-weight: 600;
+        transition: ease-in-out 0.5s;
+    }
+
+    .Hamburger {
+        font-size: 2rem;
+        margin-left: 2rem;
+        transition: ease-out 0.5s;
+    }
+
+    .Navlink {
+        // color: black;
+        color: transparent;   
+        font-size: 1.5rem;
+        display: flex;
+        justify-content: space-evenly;
+        text-decoration: none;
+        transition: ease-in-out 0.5s;
+    }
+
+    .Navlink:hover {
+        font-weight: 600;
+    }
+}
+
+.sidebar:hover {
+    width: 20%;
+    background-color: transparentize($color: #fff, $amount: 0.7);
+    box-shadow:  0 0 2rem 0 #aeaeae;
+    transition-duration: 1s;
+
+    .Navlink {
+        color: black;
+        transition-duration: 0.01s;
+    }
+    .Navlink:hover {
+        color: #035aa6;
+    }
+    .currNav {
+        border-bottom: #035aa6 solid;
+        color: #035aa6;
+        font-weight: 600;
+    }
+
+    .header {
+        display: inline;
+    }
+    .Hamburger {
+        display: none;
+    }
+}
