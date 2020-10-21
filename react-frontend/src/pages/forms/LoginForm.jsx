@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import Button from "../../components/button/button";
+// import Button from "../../components/button/button";
+import './login.scss'
 
 import API from "../../API";
 import { withRouter, Link } from "react-router-dom";
@@ -50,39 +51,43 @@ class LoginFrom extends Component {
 
   render() {
     return (
-      <div className="Form--Login">
+      <div className="container">
+        <h1 className="login"> LOGIN </h1>
+        {/* <p className="para"> I am </p> */}
+
         <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <input
-              type="text"
-              name="email"
-              id="email"
-              placeholder="Email"
-              value={this.state.email}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Password"
-              value={this.state.password}
-              onChange={this.handleChange}
-            />
-          </div>
-          <Button title="Login" type="submit" />
-        </form>
-        <p>
-          Forgot Password?{" "}
-          <Link to={"/resetpass"} style={{ textDecoration: "none" }}>
-            <span>Reset</span>
+          <input
+            className="input"
+            type="email"
+            placeholder="Email"
+            name="email"
+            value={this.state.email}
+            onChange={this.handleChange}
+          />
+          <br />
+          <input
+            className="input"
+            type="password"
+            placeholder="Password"
+            name="password"
+            value={this.state.password}
+            onChange={this.handleChange}
+          />
+          <br />
+          <Link to="/forgot" className="forgotPassword">
+            {" "}
+            Forgot Password ?{" "}
           </Link>
-        </p>
-        <p>
-          Don't have an account? <span onClick={this.redirect}>Signup</span>
-        </p>
+          <button type="submit" className="button">
+            Login
+          </button>
+        </form>
+
+        <p> Do not have an Account ? </p>
+        <Link className="routeButton" to="/SignUp">
+          {" "}
+          SignUp{" "}
+        </Link>
       </div>
     );
   }

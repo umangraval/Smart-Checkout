@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   VerticalBarSeries,
   VerticalBarSeriesCanvas,
 //   ShowcaseButton,
   XYPlot,
-  DiscreteColorLegend,
+  // DiscreteColorLegend,
   VerticalGridLines,
   HorizontalGridLines,
   XAxis,

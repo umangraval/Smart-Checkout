@@ -1,12 +1,10 @@
 /* eslint-disable no-throw-literal */
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-// import Select from "react-select";
+import { withRouter, Link } from "react-router-dom";
 
-import Button from "../../components/button/button";
 import API from "../../API";
 import "./forms.scss";
-import utils from "../../utils";
+
 
 class SignupForm extends Component {
   constructor() {
@@ -59,93 +57,78 @@ class SignupForm extends Component {
 
   render() {
     return (
-      <div className="Form">
-        <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <input
-              style={{ width: "50%" }}
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Name"
-              value={this.state.name}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              style={{ width: "60%" }}
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Email"
-              value={this.state.email}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              style={{ width: "45%" }}
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Password"
-              value={this.state.password}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              style={{ width: "45%" }}
-              type="password"
-              name="cnfpassword"
-              placeholder="Confirm Password"
-              id="cnfpassword"
-              value={this.state.cnfpassword}
-              onChange={this.handleChange}
-              className={
-                this.state.password !== this.state.cnfpassword ? "notcnf" : ""
-              }
-            />
-          </div>
-          <div className="form-group">
-            <input
-              style={{ width: "50%" }}
-              type="text"
-              name="address"
-              id="address"
-              placeholder="Address"
-              value={this.state.address}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              style={{ width: "50%" }}
-              type="text"
-              name="shop"
-              id="shop"
-              placeholder="Shop"
-              value={this.state.shop}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              style={{ width: "50%" }}
-              type="text"
-              name="mobile"
-              placeholder="Contact"
-              id="mobile"
-              value={this.state.mobile}
-              onChange={this.handleChange}
-            />
-          </div>
-          <Button title="Sign Up" type="submit" />
+      <div className="container--signup">
+        <h2 className="signup">SIGN UP</h2>
+        <form onSubmit={this.onSubmit}>
+          <input
+            className="input"
+            type="text"
+            placeholder="Name"
+            name="name"
+            value={this.state.name}
+            onChange={this.handleChange}
+          />
+          <br />
+          <input
+            className="input"
+            type="email"
+            placeholder="Email"
+            name="email"
+            value={this.state.email}
+            onChange={this.handleChange}
+          />
+          <br />
+          <input
+            className="input"
+            type="password"
+            placeholder="Password"
+            name="password"
+            value={this.state.password}
+            onChange={this.handleChange}
+          />
+          <br />
+          <input
+            className="input"
+            type="password"
+            placeholder="Confirm Password"
+            name="password2"
+            value={this.state.cnfpassword}
+            onChange={this.handleChange}
+          />
+          <br />
+          <input
+            className="input"
+            type="tek"
+            placeholder="Mobile Number"
+            name="mobile"
+            value={this.state.mobile}
+            onChange={this.handleChange}
+          />
+          <br />
+          <input
+            className="input"
+            type="text"
+            placeholder="Shop"
+            name="shop"
+            value={this.state.shop}
+            onChange={this.handleChange}
+          />
+          <br />
+          <input
+            className="input"
+            type="address"
+            placeholder="Address"
+            name="address"
+            value={this.state.address}
+            onChange={this.handleChange}
+          />
+          <br />
+          <button type="submit" className="button">
+            Signup
+          </button>
         </form>
-        <p>
-          Already Signed Up? <span onClick={this.redirect}>Login</span>
-        </p>
+        <p>Already have an Account ? </p>
+        <Link className="routeButton" to="/Login"> Login </Link>
       </div>
     );
   }

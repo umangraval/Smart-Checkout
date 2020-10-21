@@ -14,7 +14,12 @@
             font-size: 1.7rem;
         }
         tbody {
+            tr:hover>td {
+                background-color: #fff!important;
+            }
             td {
+                cursor: pointer;
+                transition: ease 0.5s;
                 color: black;
                 background-color: #a5ecd7;
                 padding: 0.5%;
