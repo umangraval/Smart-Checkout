@@ -14,7 +14,7 @@ export default function Table(props) {
         </thead>
         <tbody>
           {props.contents.map((row, i) => (
-            <tr>
+            <tr key={i+1} values={i} onClick={() => {props.showDetails(row.id)}} >
               <td>{i + 1}</td>
               {Object.values(row).map((cell) => (
                 <td>{cell}</td>

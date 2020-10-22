@@ -7,7 +7,7 @@
   input {
     background-color: transparent;
   }
-    
+
   .add-button {
     height: 4rem;
     width: 15rem;
@@ -30,14 +30,20 @@
     text-decoration-color: black;
   }
 
-
-
-  .submit:hover {
-    background-color: #4CAF50;
-  }
-  .cancel:hover {
-      background-color: #f44336;
-  }
+  // button {
+    .submit:hover {
+      background-color: #4caf50!important;
+    }
+    .cancel:hover {
+      background-color: #368ff4!important;
+    }
+    .delete:hover {
+      background-color: #f44336!important;
+    }
+    .edit:hover {
+      background-color: #eea00f!important;
+    }
+  // }
 }
 
 .App-logo {
@@ -80,7 +86,6 @@
 .App-content {
   grid-area: content;
 }
-
 
 @keyframes App-logo-spin {
   from {

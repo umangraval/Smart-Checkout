@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import AddProduct from "./addProduct";
+import ProductDetails from "./ProductDetails";
 import Table from "../../components/table/table";
 import "./productlist.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,10 +16,14 @@ class ProductsList extends Component {
       products: [],
       searchBar: "",
       addProduct: false,
+      showDetails: false,
+      detailsId: null,
     };
     this.handleChange = this.handleChange.bind(this);
     this.toggleAddProduct = this.toggleAddProduct.bind(this);
-    this.updateProduct = this.updateProduct.bind(this);
+    this.updateNewProduct = this.updateNewProduct.bind(this);
+    this.showDetails = this.showDetails.bind(this);
+    this.updateProductList = this.updateProductList.bind(this);
   }
 
   handleChange(e) {
@@ -31,12 +36,37 @@ class ProductsList extends Component {
     });
   }
 
-  updateProduct(product) {
+  updateNewProduct(product) {
     const products = this.state.products;
     products.push(product);
     this.setState({
       products: products,
       addProduct: !this.state.addProduct,
+    });
+  }
+
+  updateProductList(id, del, data) {
+    const products = this.state.products;
+    const indx = products.map((_, i) => i).filter((i) => products[i].id === id);
+    if (del) products.splice(indx, 1);
+    else {
+      products[indx]={
+        id,
+        name: data.name,
+        price: data.price,
+        category: data.category,
+        quantity: data.quantity,
+      }
+    }
+    this.setState({
+      products: products,
+    });
+  }
+
+  async showDetails(id) {
+    this.setState({
+      showDetails: true,
+      detailsId: id,
     });
   }
 
@@ -59,7 +89,7 @@ class ProductsList extends Component {
             stock: prod.quantity,
           };
         }),
-      }); 
+      });
     } catch (error) {
       this.props.setError(error);
     }
@@ -69,10 +99,18 @@ class ProductsList extends Component {
     if (localStorage.getItem("JWToken") === null) return null;
     return (
       <div className="ProductList App-content">
+        {this.state.showDetails ? (
+          <ProductDetails
+            handleCancel={() => this.setState({ showDetails: false })}
+            id={this.state.detailsId}
+            setError={this.props.setError}
+            updateProductList={this.updateProductList}
+          />
+        ) : null}
         {this.state.addProduct ? (
           <AddProduct
             toggleAddProduct={this.toggleAddProduct}
-            updateProduct={this.updateProduct}
+            updateProduct={this.updateNewProduct}
             setError={this.props.setError}
           />
         ) : null}
@@ -101,6 +139,7 @@ class ProductsList extends Component {
             "Category",
             "Stock",
           ]}
+          showDetails={this.showDetails}
           contents={this.state.products}
         />
       </div>

@@ -91,6 +91,7 @@ class categorieslist extends Component {
         <Table
           headers={["Sr. No.", "Category Id", "Name"]}
           contents={this.state.categories}
+          showDetails={()=>{return}}
         />
       </div>
     );
