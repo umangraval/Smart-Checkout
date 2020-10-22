@@ -10,13 +10,14 @@ import {
   faUser,
   faDoorOpen,
   faBars,
+  faCloud,
 } from "@fortawesome/free-solid-svg-icons";
 import "./sidebar.scss";
 
 export default function sidebar() {
   return (
     <div className="sidebar">
-      <div className="header">DASHBOARD</div>
+      <h1 className="header"><FontAwesomeIcon icon={faCloud}/> Mall Nuages</h1>
       <FontAwesomeIcon icon={faBars} className="Hamburger" />
       <NavLink className="Navlink" activeClassName="currNav" to="/dashboard">
         <FontAwesomeIcon icon={faHome} /> Overview

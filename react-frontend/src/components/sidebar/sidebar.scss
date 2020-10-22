@@ -16,6 +16,8 @@
         font-size: 1.5rem;
         font-weight: 600;
         transition: ease-in-out 0.5s;
+        overflow: hidden;
+        height: 2rem;
     }
 
     .Hamburger {
@@ -41,7 +43,7 @@
 
 .sidebar:hover {
     width: 20%;
-    background-color: transparentize($color: #fff, $amount: 0.7);
+    background-color: transparentize($color: #222, $amount: 0.9);
     box-shadow:  0 0 2rem 0 #aeaeae;
     transition-duration: 1s;
 

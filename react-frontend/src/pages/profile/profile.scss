@@ -6,18 +6,18 @@
         text-align: left;
     }
     .background {
+        margin: 4rem auto;
         border-radius: 2rem;
         box-shadow: #ababab 0 0 2rem 0.1rem;
         display: flex;
         height: 50vh;
         width: 60vw;
         background-color: #035aa6;
-        margin: 4rem 2rem;
+        // margin: 4rem 2rem;
         transition: ease-in 100ms;
     }
     .ProfileCard {
         // background-color: rgba($color: #FFF, $alpha: 0.5)
-
         cursor: pointer;        
         background-color: #fff;
         display: flex;
