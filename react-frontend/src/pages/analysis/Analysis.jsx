@@ -1,111 +1,103 @@
 import React, { Component } from "react";
 import Starburst from "./SalesStarburst";
-import SalesBar from './SalesBar';
-import './Analysis.scss'
+import SalesLine from "./SalesLine";
+import jwt from "jsonwebtoken";
+import "./Analysis.scss";
 import { withRouter } from "react-router-dom";
+import API from "../../API";
 
 class Analysis extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      starburst: [
-        {
-          color: Math.random(),
-          name: "Snacks",
-          // size:45,
-          // label:'Snacks',
-          children: [
-            {
-              color: Math.random(),
-              name: "Oreo",
-              size: 45,
-              // label:'Oreo',
-            },
-            {
-              color: Math.random(),
-              name: "Lays",
-              size: 45,
-              // label:'Lays',
-            },
-            {
-              color: Math.random(),
-              name: "Popcorn",
-              size: 10,
-              // label:'Popcorn',
-            },
-          ],
-        },
-        {
-          color: Math.random(),
-          name: "Stationary",
-          // size:45,
-          // label:'Stationary',
-          children: [
-            {
-              color: Math.random(),
-              name: "Notebooks",
-              size: 30,
-              // label:'Notebooks',
-            },
-            {
-              color: Math.random(),
-              name: "Pencils",
-              size: 40,
-              // label:'Pencils',
-            },
-            {
-              color: Math.random(),
-              name: "Erasers",
-              size: 10,
-              // label:'Erasers',
-            },
-          ],
-        },
-        {
-          color: Math.random(),
-          name: "Xerox",
-          // size:10,
-          // label:'Xerox',
-          children: [
-            {
-              color: Math.random(),
-              name: "Colored",
-              size: 30,
-              // label:'Colored',
-            },
-            {
-              color: Math.random(),
-              name: "B/W",
-              size: 70,
-              // label:'B/W',
-            },
-          ],
-        },
-      ],
+      starburst: [],
+      totalProducts: 0,
+      totalCategories: 0,
+      sale: 0,
+      salesLine: [],
+      customers: 0,
+      stock: [],
     };
   }
 
+  async componentDidMount() {
+    try {
+      const jwtoken = localStorage.getItem("JWToken");
+      if (jwtoken === null) {
+        this.props.history.push("/login");
+        return;
+      }
+      const user = jwt.decode(jwtoken, process.env.REACT_APP_JWT_SECRET);
+
+      let { data } = await API.get(`analytics/pcount/${user.userId}`);
+      const { totalProducts, totalCategories } = data;
+
+      data = await API.get(`analytics/ccount/${user.userId}`);
+      const categories = data.data;
+
+      const starburst = Object.keys(categories).map((cat, i) => ({
+        name: cat,
+        color: i / totalCategories,
+        size: categories[cat],
+      }));
+
+      data = await API.get(`analytics/sale/${user.userId}`);
+      const sale = data.data["total net sale"];
+
+      data = await API.get(`analytics/daily/${user.userId}`);
+      // const dailySale = data.data;
+      const dailySale = {
+        "2020-10-05": 240,
+        "2020-10-06": 270,
+        "2020-10-07": 280,
+        "2020-10-08": 210,
+        "2020-10-09": 250,
+      };
+      const salesLine = Object.keys(dailySale).map((date) => ({
+        x: new Date(date),
+        y: dailySale[date],
+      }));
+
+      data = await API.get(`analytics/customers/${user.userId}`);
+      const customers = data.data["Total unique customers"];
+
+      data = await API.get(`analytics/outofstock/${user.userId}`);
+      const stock = data.data.outofstock;
+
+      this.setState({
+        totalCategories,
+        totalProducts,
+        salesLine,
+        sale,
+        customers,
+        stock,
+        starburst,
+      });
+    } catch (error) {}
+  }
+
   render() {
+    console.log(this.state.starburst);
     return (
       <div className="Analysis App-content">
-				<div className="summary">
-					<div className="blocks">
-						<h2>Total Sale</h2>
-						<h3>₹100000</h3>
-					</div>
-					<div className="blocks">
-						<h2>Gross Proft</h2>
-						<h3>₹40000</h3>
-					</div>
-					<div className="blocks">
-						<h2>Total Stock</h2>
-						<h3>₹80000</h3>
-					</div>
-					<div className="blocks">
-						<h2>Monthly ______</h2>
-					<h3 style={{'color':'red'}}>-2%</h3>
-					</div>
-				</div>
+        <div className="summary">
+          <div className="blocks">
+            <h2>Total Sale</h2>
+            <h3>₹{this.state.sale}</h3>
+          </div>
+          <div className="blocks">
+            <h2>Total Products</h2>
+            <h3>{this.state.totalProducts}</h3>
+          </div>
+          <div className="blocks">
+            <h2>Total Categories</h2>
+            <h3>{this.state.totalCategories}</h3>
+          </div>
+          <div className="blocks">
+            <h2>Monthly Customers</h2>
+            <h3>{this.state.customers} </h3>
+          </div>
+        </div>
         {/* <div className="products">
 
 				</div> */}
@@ -113,9 +105,20 @@ class Analysis extends Component {
           {" "}
           <Starburst data={{ children: this.state.starburst }} />{" "}
         </div>
-				<div className="line">
-					<SalesBar />
-				</div>
+        <div className="line">
+          <SalesLine data={this.state.salesLine} />
+        </div>
+        <div className="stock">
+          <h1>Out Of Stock</h1>
+          <div>
+            {this.state.stock.map((st) => (
+              <h2>
+                <span>+</span>
+                <span>{st}</span>
+              </h2>
+            ))}
+          </div>
+        </div>
       </div>
     );
   }
