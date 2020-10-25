@@ -41,6 +41,7 @@ export default class ProductDetails extends Component {
         quantity,
       });
       this.props.updateProductList(this.props.id, false, data.product);
+      this.setState({ mode: true });
     } catch (error) {
       this.props.setError(error);
     }
