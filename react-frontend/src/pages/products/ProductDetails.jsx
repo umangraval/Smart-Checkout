@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import API from "../../API";
 import jwt from "jsonwebtoken";
+import QRCode from "qrcode.react";
 import "./productDetails.scss";
 
 export default class ProductDetails extends Component {
@@ -13,11 +14,13 @@ export default class ProductDetails extends Component {
       price: 0,
       quantity: 0,
       image: "",
+      qrcode: "",
       categories: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.download = this.download.bind(this);
   }
 
   async handleDelete() {
@@ -47,6 +50,15 @@ export default class ProductDetails extends Component {
     }
   }
 
+  download() {
+    const canvas = document.getElementsByTagName("canvas");
+    canvas[0].toDataURL("image/jpeg");
+    const link = document.createElement("a");
+    link.download = `qrcode_${this.state.category}`;
+    link.href = document.getElementsByTagName("canvas")[0].toDataURL();
+    link.click();
+  }
+
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
@@ -54,12 +66,14 @@ export default class ProductDetails extends Component {
   async componentDidMount() {
     try {
       const { data } = await API.get(`product/search?id=${this.props.id}`);
-      const { name, category, price, quantity } = data.product;
+      const { name, category, price, quantity, qrcodeData } = data.product;
+      // console.log(data.product)
       this.setState({
         name,
         category,
         price,
         quantity,
+        qrcode: qrcodeData,
       });
       const jwtoken = localStorage.getItem("JWToken");
       const user = jwt.decode(jwtoken, process.env.REACT_APP_JWT_SECRET);
@@ -82,7 +96,11 @@ export default class ProductDetails extends Component {
             <h1>Product Details</h1>
             <div className="form">
               <div className="add-img">
-                <img src="./logo512.png" alt="img" />
+                <QRCode
+                  size={150}
+                  onClick={this.download}
+                  value={this.state.qrcode}
+                />
               </div>
               <div>
                 Name&nbsp;:<span id="name">{this.state.name}</span>
