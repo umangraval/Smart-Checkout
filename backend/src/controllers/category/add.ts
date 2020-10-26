@@ -12,7 +12,7 @@ const add: RequestHandler = async (req, res) => {
   const {
     owner, tag
   } = req.body;
-  const tagExist = await Category.find({ tag });
+  const tagExist = await Category.find({ owner, tag });
   if (tagExist.length === 0) {
     const category = new Category({
       owner, tag
