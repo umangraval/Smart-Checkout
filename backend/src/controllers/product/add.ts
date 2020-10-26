@@ -9,7 +9,7 @@ export const addProductSchema = Joi.object().keys({
   owner: Joi.string().length(24).required(),
   name: Joi.string().required(),
   category: Joi.string().required(),
-  quantity: Joi.number().required(),
+  quantity: Joi.number().required().min(1),
   price: Joi.number().required().min(1)
 });
 
@@ -18,7 +18,7 @@ const add: RequestHandler = async (req, res) => {
     owner, name, price, category, quantity
   } = req.body;
   const productExist = await Product.find({ name });
-  if (productExist.length !== 0) {
+  if (productExist.length === 0) {
     const product = new Product({
       owner, name, price, category, quantity
     });
@@ -41,7 +41,7 @@ const add: RequestHandler = async (req, res) => {
         });
       });
   }
-  return res.send({
+  return res.status(400).send({
     errors:
     {
       message: 'Product Name Exist',

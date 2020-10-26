@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { RequestHandler } from 'express';
 import Joi, { string } from '@hapi/joi';
 import requestMiddleware from '../../middleware/request-middleware';
@@ -8,7 +9,7 @@ export const updateProductSchema = Joi.object().keys({
   name: Joi.string().required(),
   category: Joi.string().required(),
   quantity: Joi.number().required(),
-  price: Joi.number().required()
+  price: Joi.number().required().min(1)
 });
 
 const update: RequestHandler = async (req, res) => {
@@ -17,7 +18,7 @@ const update: RequestHandler = async (req, res) => {
   } = req.params;
   const { name } = req.body;
   const productExist = await Product.find({ name });
-  if (productExist.length !== 0) {
+  if (productExist.length === 0) {
     await Product.findOneAndUpdate({ _id: id },
       { $set: req.body },
       (err, doc) => {
@@ -34,14 +35,15 @@ const update: RequestHandler = async (req, res) => {
           product: req.body
         });
       });
+  } else {
+    return res.status(400).send({
+      errors:
+      {
+        message: 'Product Name Exist',
+        status: 400
+      }
+    });
   }
-  return res.send({
-    errors:
-    {
-      message: 'Product Name Exist',
-      status: 400
-    }
-  });
 };
 
 export default requestMiddleware(update, { validation: { body: updateProductSchema } });

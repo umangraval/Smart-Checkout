@@ -13,7 +13,7 @@ const add: RequestHandler = async (req, res) => {
     owner, tag
   } = req.body;
   const tagExist = await Category.find({ tag });
-  if (tagExist.length !== 0) {
+  if (tagExist.length === 0) {
     const category = new Category({
       owner, tag
     });
@@ -24,7 +24,7 @@ const add: RequestHandler = async (req, res) => {
       category: category.toJSON()
     });
   }
-  return res.send({
+  return res.status(400).send({
     errors:
     {
       message: 'Category Name Exist',
