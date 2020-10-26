@@ -17,7 +17,7 @@ const add: RequestHandler = async (req, res) => {
   const {
     owner, name, price, category, quantity
   } = req.body;
-  const productExist = await Product.find({ name });
+  const productExist = await Product.find({ owner, name });
   if (productExist.length === 0) {
     const product = new Product({
       owner, name, price, category, quantity
