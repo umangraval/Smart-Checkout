@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import AddProduct from "./addProduct";
+import ProductDetails from "./ProductDetails";
 import Table from "../../components/table/table";
 import "./productlist.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,14 +16,51 @@ class ProductsList extends Component {
       products: [],
       searchBar: "",
       addProduct: false,
+      showDetails: false,
+      detailsId: null,
+      filteredTable: [],
+      categories: [],
+      filtered: false,
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleCatgoryChange = this.handleCatgoryChange.bind(this);
     this.toggleAddProduct = this.toggleAddProduct.bind(this);
-    this.updateProduct = this.updateProduct.bind(this);
+    this.updateNewProduct = this.updateNewProduct.bind(this);
+    this.showDetails = this.showDetails.bind(this);
+    this.updateProductList = this.updateProductList.bind(this);
   }
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
+  }
+
+  handleSearchChange(e) {
+    const search = e.target.value.toLowerCase();
+    this.setState({ searchBar: search });
+    if (search.length > 0) {
+      const products = this.state.products;
+      const filteredTable = products.filter(
+        (pro) =>
+          pro.name.toLowerCase().search(search) > -1 ||
+          pro.category.search(search) > -1
+      );
+      this.setState({ filteredTable, filtered: true });
+    } else this.setState({ filtered: false });
+  }
+
+  handleCatgoryChange(e) {
+    const category = e.target.value;
+    if (category === "") this.setState({ filtered: false });
+    else {
+      const filteredTable = this.state.products.filter(
+        (pro) => pro.category === category
+      );
+      this.setState({
+        filteredTable,
+        filtered: true,
+      });
+    }
   }
 
   toggleAddProduct() {
@@ -31,12 +69,37 @@ class ProductsList extends Component {
     });
   }
 
-  updateProduct(product) {
+  updateNewProduct(product) {
     const products = this.state.products;
     products.push(product);
     this.setState({
       products: products,
       addProduct: !this.state.addProduct,
+    });
+  }
+
+  updateProductList(id, del, data) {
+    const products = this.state.products;
+    const indx = products.map((_, i) => i).filter((i) => products[i].id === id);
+    if (del) products.splice(indx, 1);
+    else {
+      products[indx] = {
+        id,
+        name: data.name,
+        price: data.price,
+        category: data.category,
+        quantity: data.quantity,
+      };
+    }
+    this.setState({
+      products: products,
+    });
+  }
+
+  async showDetails(id) {
+    this.setState({
+      showDetails: true,
+      detailsId: id,
     });
   }
 
@@ -49,6 +112,7 @@ class ProductsList extends Component {
       }
       const user = jwt.decode(jwtoken, process.env.REACT_APP_JWT_SECRET);
       const products = await API.get(`product/all/${user.userId}`);
+      const categories = await API.get(`/category/all/${user.userId}`);
       this.setState({
         products: products.data.products.map((prod) => {
           return {
@@ -59,7 +123,10 @@ class ProductsList extends Component {
             stock: prod.quantity,
           };
         }),
-      }); 
+        categories: categories.data.categories.map((cat) => {
+          return cat.tag;
+        }),
+      });
     } catch (error) {
       this.props.setError(error);
     }
@@ -69,10 +136,18 @@ class ProductsList extends Component {
     if (localStorage.getItem("JWToken") === null) return null;
     return (
       <div className="ProductList App-content">
+        {this.state.showDetails ? (
+          <ProductDetails
+            handleCancel={() => this.setState({ showDetails: false })}
+            id={this.state.detailsId}
+            setError={this.props.setError}
+            updateProductList={this.updateProductList}
+          />
+        ) : null}
         {this.state.addProduct ? (
           <AddProduct
             toggleAddProduct={this.toggleAddProduct}
-            updateProduct={this.updateProduct}
+            updateProduct={this.updateNewProduct}
             setError={this.props.setError}
           />
         ) : null}
@@ -81,16 +156,26 @@ class ProductsList extends Component {
           <button className="add-button" onClick={this.toggleAddProduct}>
             Add Product
           </button>
-          <form className="search">
+          <div className="filter">
+            <select onChange={this.handleCatgoryChange} name="category">
+              <option value="">Category</option>
+              {this.state.categories.map((cat) => (
+                <option onChange={this.handleCatgoryChange} value={cat}>
+                  {cat}{" "}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="search">
             <input
-              type="search"
+              type="text"
               name="searchBar"
               id="searchbar"
               value={this.state.searchBar}
-              onChange={this.handleChange}
+              onChange={this.handleSearchChange}
             />
             <FontAwesomeIcon icon={faSearch} className="searchIcon" />
-          </form>
+          </div>
         </div>
         <Table
           headers={[
@@ -101,7 +186,10 @@ class ProductsList extends Component {
             "Category",
             "Stock",
           ]}
-          contents={this.state.products}
+          showDetails={this.showDetails}
+          contents={
+            this.state.filtered ? this.state.filteredTable : this.state.products
+          }
         />
       </div>
     );

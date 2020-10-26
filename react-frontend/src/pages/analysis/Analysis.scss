@@ -3,9 +3,9 @@
     width: 100%;
     display: grid;
     grid-template-areas:
-    'summary summary'
-    'starburst line'
-    'starburst line';
+    'summary summary summary summary'
+    'starburst line line stock'
+    'starburst line line stock';
     grid-gap: 10px;
     height: 90vh;
     overflow: hidden;
@@ -21,12 +21,21 @@
             box-shadow: 0 0 1rem 0.2rem #aeaeae;
             text-align: center;
             width: 20%;
-            h1 {
-                height: 0.6rem;
-                color:'#343434'
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            font-size: 4rem;
+            .icons {
+                margin: 1rem 0;
             }
-            h3 {
-                color: green
+            h4 {
+                height: 0.6rem;
+                color:'#343434';
+                font-size: 1rem;
+            }
+            h2 {
+                color: green;
+                font-size: 2rem;
             }
         }
         .blocks:hover{
@@ -35,7 +44,55 @@
 
         
     }
-    .line {grid-area: line;}
-    .products {grid-area: products;}
-    .starburst {grid-area: starburst;}
+    .line {
+        border-radius: 1rem;
+        margin-top: 2rem;
+        height: 65vh;
+        grid-area: line;
+        background-color: white;
+        opacity: 0.7;
+        text-align: center;
+    }
+    .products {
+        border-radius: 1rem;
+        grid-area: products;
+        background-color: white;
+        opacity: 0.7;
+        text-align: center;
+    }
+    .starburst {
+        border-radius: 1rem;
+        margin-top: 2rem;
+        height: 65vh;
+        grid-area: starburst;
+        background-color: white;
+        opacity: 0.7;
+        text-align: center;
+    }
+    .stock {
+        border-radius: 1rem;
+        margin-top: 2rem;
+        height: 65vh;
+        grid-area: stock;
+        background-color: white;
+        opacity: 0.7;
+        text-align: center;
+        div {
+            width: 70%;
+            margin: 0 auto;
+            h2 {
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+    }
+    .chart {
+        h1 {
+            margin-bottom: 3rem;
+        }
+        margin: 0 auto;
+        .rv-xy-plot {
+            margin: 0 auto;
+        }
+    }
 }

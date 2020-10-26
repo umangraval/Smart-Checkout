@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,13 +10,22 @@ import {
   faUser,
   faDoorOpen,
   faBars,
+  faCloud,
 } from "@fortawesome/free-solid-svg-icons";
 import "./sidebar.scss";
 
 export default function sidebar() {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [showsidebar, setShowsidebar] = useState(false);
+
   return (
-    <div className="sidebar">
-      <div className="header">DASHBOARD</div>
+    <div
+      className={showsidebar ? "sidebar" : "sidebarvis"}
+      onClick={() => setShowsidebar(!showsidebar)}
+    >
+      <h1 className="header">
+        <FontAwesomeIcon icon={faCloud} /> Mall Nuages
+      </h1>
       <FontAwesomeIcon icon={faBars} className="Hamburger" />
       <NavLink className="Navlink" activeClassName="currNav" to="/dashboard">
         <FontAwesomeIcon icon={faHome} /> Overview

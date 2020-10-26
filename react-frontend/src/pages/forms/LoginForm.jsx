@@ -41,7 +41,6 @@ class LoginFrom extends Component {
     const loginUser = this.state;
     try {
       const { data } = await API.post("/auth/login", loginUser);
-      console.log(data);
       localStorage.setItem("JWToken", data.token);
       this.props.history.push("/dashboard");
     } catch (error) {

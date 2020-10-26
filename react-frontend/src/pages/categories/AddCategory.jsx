@@ -28,7 +28,6 @@ export default class addCategory extends Component {
         id: data.category._id,
         name: data.category.tag,
       });
-      console.log(data);
     } catch (error) {
       this.props.setError(error)
     }

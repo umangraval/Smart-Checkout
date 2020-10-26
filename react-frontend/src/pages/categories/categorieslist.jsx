@@ -13,15 +13,30 @@ class categorieslist extends Component {
     super();
     this.state = {
       categories: [],
+      filteredTable: [],
       searchBar: "",
     };
     this.toggleAddCategory = this.toggleAddCategory.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
     this.updateCategories = this.updateCategories.bind(this);
   }
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
+  }
+
+  handleSearchChange(e) {
+    const search = e.target.value.toLowerCase();
+    this.setState({ searchBar: search });
+    if (search.length > 0) {
+      const categories = this.state.categories;
+      const filteredTable = categories.filter(
+        (pro) =>
+          pro.name.toLowerCase().search(search) > -1
+      );
+      this.setState({ filteredTable, filtered: true });
+    } else this.setState({ filtered: false });
   }
 
   updateCategories(cat) {
@@ -77,20 +92,27 @@ class categorieslist extends Component {
           <button className="add-button" onClick={this.toggleAddCategory}>
             Add Category
           </button>
-          <form className="search">
+          <div className="search">
             <input
-              type="search"
+              type="text"
               name="searchBar"
               id="searchbar"
               value={this.state.searchBar}
-              onChange={this.handleChange}
+              onChange={this.handleSearchChange}
             />
             <FontAwesomeIcon icon={faSearch} className="searchIcon" />
-          </form>
+          </div>
         </div>
         <Table
           headers={["Sr. No.", "Category Id", "Name"]}
-          contents={this.state.categories}
+          contents={
+            this.state.searchBar.length > 0
+              ? this.state.filteredTable
+              : this.state.categories
+          }
+          showDetails={() => {
+            return;
+          }}
         />
       </div>
     );
