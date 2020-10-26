@@ -37,8 +37,8 @@ export default class SalesLine extends React.Component {
           yDomain={
             lastDrawLocation && [lastDrawLocation.bottom, lastDrawLocation.top]
           }
-          width={600}
-          height={350}
+          width={400}
+          height={250}
           xType="time"
           onMouseLeave={() => {
             this.setState({ crossHairVal: [] });

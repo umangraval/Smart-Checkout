@@ -52,14 +52,14 @@ class Analysis extends Component {
       const sale = data.data["total net sale"];
 
       data = await API.get(`analytics/daily/${user.userId}`);
-      const dailySale = data.data;
-      // const dailySale = {
-      //   "2020-10-05": 240,
-      //   "2020-10-06": 270,
-      //   "2020-10-07": 280,
-      //   "2020-10-08": 210,
-      //   "2020-10-09": 250,
-      // };
+      // const dailySale = data.data;
+      const dailySale = {
+        "2020-10-05": 240,
+        "2020-10-06": 270,
+        "2020-10-07": 280,
+        "2020-10-08": 210,
+        "2020-10-09": 250,
+      };
       const salesLine = Object.keys(dailySale).map((date) => ({
         x: new Date(date),
         y: dailySale[date],

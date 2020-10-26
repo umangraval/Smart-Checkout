@@ -17,10 +17,8 @@
   "main": "dist/index.js",
   "scripts": {
     "eslint": "eslint src/server.ts",
-    "postinstall": "chmod +x ./scripts/dev.sh",
     "build": "tsc",
     "lint": "./node_modules/eslint/bin/eslint.js  src --ext .ts",
-    "dev": "./scripts/dev.sh",
     "start": "tsc && node dist/src/server.js",
     "test": "jest",
     "fix-lint": "./node_modules/eslint/bin/eslint.js  src --ext .ts --fix"

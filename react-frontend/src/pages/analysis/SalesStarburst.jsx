@@ -83,8 +83,8 @@ export default class BasicSunburst extends React.Component {
             })
           }
           data={this.props.data}
-          height={400}
-          width={400}
+          height={300}
+          width={300}
         >
           {finalValue && (
             <LabelSeries
