@@ -15,8 +15,10 @@ class categorieslist extends Component {
       categories: [],
       filteredTable: [],
       searchBar: "",
+      mode: "none",
+      detailsId: null,
     };
-    this.toggleAddCategory = this.toggleAddCategory.bind(this);
+    this.showDetails = this.showDetails.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.updateCategories = this.updateCategories.bind(this);
@@ -32,25 +34,35 @@ class categorieslist extends Component {
     if (search.length > 0) {
       const categories = this.state.categories;
       const filteredTable = categories.filter(
-        (pro) =>
-          pro.name.toLowerCase().search(search) > -1
+        (pro) => pro.name.toLowerCase().search(search) > -1
       );
       this.setState({ filteredTable, filtered: true });
     } else this.setState({ filtered: false });
   }
 
-  updateCategories(cat) {
+  updateCategories(cat, mode) {
+    console.log(cat, mode);
     const categories = this.state.categories;
-    categories.push(cat);
+    if (mode === "add") categories.push(cat);
+    else {
+      const indx = categories
+        .map((_, i) => i)
+        .filter((i) => categories[i].id === cat.id);
+      console.log(cat, indx)
+      if (mode === "edit") categories[indx] = cat;
+      else categories.splice(indx, 1);
+    }
+
     this.setState({
-      categories: categories,
-      addCategory: !this.state.addCategory,
+      categories,
+      mode: "none",
     });
   }
 
-  toggleAddCategory() {
+  async showDetails(id) {
     this.setState({
-      addCategory: !this.state.addCategory,
+      mode: "view",
+      detailsId: id,
     });
   }
 
@@ -66,7 +78,7 @@ class categorieslist extends Component {
       this.setState({
         categories: categories.data.categories.map((cat) => {
           return {
-            owner: cat._id,
+            id: cat._id,
             name: cat.tag,
           };
         }),
@@ -80,16 +92,28 @@ class categorieslist extends Component {
     if (localStorage.getItem("JWToken") === null) return null;
     return (
       <div className="CategoryList App-content">
-        {this.state.addCategory ? (
+        {this.state.mode !== "none" ? (
           <AddCategory
+            mode={this.state.mode}
             setError={this.props.setError}
-            toggleAddCategory={this.toggleAddCategory}
+            toggleAddCategory={() => this.setState({ mode: "none" })}
             updateCategories={this.updateCategories}
+            id={this.state.detailsId}
+            name={
+              this.state.mode === "add"
+                ? ""
+                : this.state.categories.filter(
+                    (cat) => cat.id === this.state.detailsId
+                  )[0].name
+            }
           />
         ) : null}
         <h1>Categories</h1>
         <div className="section">
-          <button className="add-button" onClick={this.toggleAddCategory}>
+          <button
+            className="add-button"
+            onClick={() => this.setState({ mode: "add" })}
+          >
             Add Category
           </button>
           <div className="search">
@@ -105,14 +129,12 @@ class categorieslist extends Component {
         </div>
         <Table
           headers={["Sr. No.", "Category Id", "Name"]}
+          showDetails={this.showDetails}
           contents={
             this.state.searchBar.length > 0
               ? this.state.filteredTable
               : this.state.categories
           }
-          showDetails={() => {
-            return;
-          }}
         />
       </div>
     );
