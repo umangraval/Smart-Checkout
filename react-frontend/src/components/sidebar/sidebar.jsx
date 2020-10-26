@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faHome,
   faChartLine,
   faBox,
   faBoxes,
@@ -27,9 +26,9 @@ export default function sidebar() {
         <FontAwesomeIcon icon={faCloud} /> Mall Nuages
       </h1>
       <FontAwesomeIcon icon={faBars} className="Hamburger" />
-      <NavLink className="Navlink" activeClassName="currNav" to="/dashboard">
+      {/* <NavLink className="Navlink" activeClassName="currNav" to="/dashboard">
         <FontAwesomeIcon icon={faHome} /> Overview
-      </NavLink>
+      </NavLink> */}
       <NavLink className="Navlink" activeClassName="currNav" to="/analytics">
         <FontAwesomeIcon icon={faChartLine} /> Analytics
       </NavLink>

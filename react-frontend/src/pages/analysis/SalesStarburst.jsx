@@ -55,9 +55,9 @@ export default class BasicSunburst extends React.Component {
     };
   }
   render() {
-    const { finalValue, pathValue } = this.state;
+    const { finalValue } = this.state;
     return (
-      <div className="chart" >
+      <div className="chart">
         <h1>Category Sales</h1>
         <Sunburst
           animation
@@ -69,8 +69,11 @@ export default class BasicSunburst extends React.Component {
               res[row] = true;
               return res;
             }, {});
+            const nos = this.props.data.children.filter(
+              (child) => child.name === path[path.length - 1]
+            )[0].size;
             this.setState({
-              finalValue: path[path.length - 1],
+              finalValue: `${path[path.length - 1]} : ${nos}`,
               pathValue: path.join(" > "),
               data: updateData(this.props.data, pathAsMap),
             });
@@ -92,7 +95,7 @@ export default class BasicSunburst extends React.Component {
             />
           )}
         </Sunburst>
-        <div className="basic-sunburst-example-path-name">{pathValue}</div>
+        {/* <div className="basic-sunburst-example-path-name">{}</div> */}
       </div>
     );
   }

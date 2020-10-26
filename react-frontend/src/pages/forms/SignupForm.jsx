@@ -42,7 +42,7 @@ class SignupForm extends Component {
       delete newUser['password2'];
       const { data } = await API.post("auth/add", newUser);
       localStorage.setItem('JWToken', data.token);
-      this.props.history.push("/dashboard");
+      this.props.history.push("/analytics");
     } catch (error) {
       this.props.setError(error);
     }
@@ -50,7 +50,7 @@ class SignupForm extends Component {
 
   async componentDidMount() {
     if(localStorage.getItem('JWToken')!=null)
-      this.props.history.push("/dashboard");
+      this.props.history.push("/analytics");
   }
 
 

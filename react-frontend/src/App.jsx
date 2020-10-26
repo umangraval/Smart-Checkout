@@ -10,7 +10,6 @@ import ProductList from "./pages/products/ProductsList";
 import CategoryList from "./pages/categories/categorieslist";
 import Transactions from './pages/transactions/transactions';
 import Analysis from './pages/analysis/Analysis';
-import Overview from './pages/overview/Overview';
 import Profile from './pages/profile/Profile';
 
 export default class App extends Component {
@@ -48,7 +47,7 @@ export default class App extends Component {
               render={() => (
                 <div className="App-grid-container">
                   <SideBar className="App-sidebar" />
-                  <Overview
+                  <Analysis
                     className="App-content"
                     setError={this.setError}
                   />
@@ -90,9 +89,9 @@ export default class App extends Component {
                 </div>
               )}
             />
-            <Route
+            {/* <Route
               exact
-              path="/dashboard"
+              path="/"
               render={() => (
                 <div className="App-grid-container">
                   <SideBar className="App-sidebar" />
@@ -102,7 +101,7 @@ export default class App extends Component {
                   />
                 </div>
               )}
-            />
+            /> */}
             <Route
               exact
               path="/products"

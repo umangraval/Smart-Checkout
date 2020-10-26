@@ -93,6 +93,7 @@ class ProductsList extends Component {
     }
     this.setState({
       products: products,
+      showDetails: del ? !this.state.showDetails : this.state.showDetails,
     });
   }
 

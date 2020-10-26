@@ -19,7 +19,7 @@ class LoginFrom extends Component {
 
   componentDidMount() {
     if (localStorage.getItem("JWToken") != null)
-      this.props.history.push("/dashboard");
+      this.props.history.push("/analytics");
   }
 
   redirect() {
@@ -42,7 +42,7 @@ class LoginFrom extends Component {
     try {
       const { data } = await API.post("/auth/login", loginUser);
       localStorage.setItem("JWToken", data.token);
-      this.props.history.push("/dashboard");
+      this.props.history.push("/analytics");
     } catch (error) {
       this.props.setError(error);
     }
