@@ -12,23 +12,32 @@ const update: RequestHandler = async (req, res) => {
   const {
     _id
   } = req.body;
-
-  await Category.findOneAndUpdate({ _id },
-    { $set: req.body },
-    (err, doc) => {
-      if (err) {
-        return res.status(500).send({
-          error: {
-            message: 'Server Error',
-            status: 500
-          }
+  const tagExist = await Category.find({ tag });
+  if (tagExist.length !== 0) {
+    await Category.findOneAndUpdate({ _id },
+      { $set: req.body },
+      (err, doc) => {
+        if (err) {
+          return res.status(500).send({
+            error: {
+              message: 'Server Error',
+              status: 500
+            }
+          });
+        }
+        return res.send({
+          message: 'Updated',
+          product: req.body
         });
-      }
-      return res.send({
-        message: 'Updated',
-        product: req.body
       });
-    });
+  }
+  return res.send({
+    errors:
+      {
+        message: 'Category Name Exist',
+        status: 400
+      }
+  });
 };
 
 export default requestMiddleware(update, { validation: { body: updateCategorySchema } });

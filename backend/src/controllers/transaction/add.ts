@@ -1,6 +1,6 @@
 /* eslint-disable eqeqeq */
 import { RequestHandler } from 'express';
-import Joi from '@hapi/joi';
+import Joi, { object } from '@hapi/joi';
 import dateFormat from 'dateformat';
 import async from 'async';
 import requestMiddleware from '../../middleware/request-middleware';
@@ -8,9 +8,9 @@ import Transaction from '../../models/Transaction';
 import Product from '../../models/Product';
 
 export const addTransactionSchema = Joi.object().keys({
-  sellerid: Joi.string().required(),
+  sellerid: Joi.string().length(24).required(),
   buyeremail: Joi.string().email(),
-  price: Joi.number().required(),
+  price: Joi.number().required().greater(0),
   products: Joi.array()
 });
 
@@ -76,7 +76,10 @@ const add: RequestHandler = async (req, res) => {
         });
       } else {
         cb(null, {
-          message: `Quantity not enough for ${result[1]}`
+          errors: {
+            message: `Quantity not enough for ${result[1]}`,
+            status: 400
+          }
         });
       }
     }

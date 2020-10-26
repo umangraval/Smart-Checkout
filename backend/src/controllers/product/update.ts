@@ -15,23 +15,33 @@ const update: RequestHandler = async (req, res) => {
   const {
     id
   } = req.params;
-
-  await Product.findOneAndUpdate({ _id: id },
-    { $set: req.body },
-    (err, doc) => {
-      if (err) {
-        return res.status(500).send({
-          error: {
-            message: 'Server Error',
-            status: 500
-          }
+  const { name } = req.body;
+  const productExist = await Product.find({ name });
+  if (productExist.length !== 0) {
+    await Product.findOneAndUpdate({ _id: id },
+      { $set: req.body },
+      (err, doc) => {
+        if (err) {
+          return res.status(500).send({
+            error: {
+              message: 'Server Error',
+              status: 500
+            }
+          });
+        }
+        return res.send({
+          message: 'Updated',
+          product: req.body
         });
-      }
-      return res.send({
-        message: 'Updated',
-        product: req.body
       });
-    });
+  }
+  return res.send({
+    errors:
+    {
+      message: 'Product Name Exist',
+      status: 400
+    }
+  });
 };
 
 export default requestMiddleware(update, { validation: { body: updateProductSchema } });
