@@ -23,7 +23,7 @@ export default function sidebar() {
       onClick={() => setShowsidebar(!showsidebar)}
     >
       <h1 className="header">
-        <FontAwesomeIcon icon={faCloud} /> Mall Nuages
+        <FontAwesomeIcon icon={faCloud} /> Smart Checkout
       </h1>
       <FontAwesomeIcon icon={faBars} className="Hamburger" />
       {/* <NavLink className="Navlink" activeClassName="currNav" to="/dashboard">
