@@ -29,7 +29,8 @@ export default class ErrorPopup extends Component {
       if (typeof error === "string") {
         message = error;
       } else if (!isEmpty(error.response.data)) {
-        message = error.response.data.error;
+        if (!isEmpty(error.response.data.errors))
+          message = error.response.data.errors.message;
       }
     } catch (err) {
       console.error(error);
