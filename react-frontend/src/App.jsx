@@ -29,19 +29,7 @@ export default class App extends Component {
   // }
 
   setError(error) {
-    if(error.response === undefined) {
-      this.setState({ error })
-    }
-    else if(error.response.status) {
-      this.setState({ error: error.response })
-    }
-    else if(error.response.status===401) {
-      window.location.reload(false);
-    }
-    else if(error.response.data.error)
-      this.setState({ error: error.response.data.error});
-    else
-      this.setState({ error: error.response.data.errors.message});
+    this.setState({ error });
   }
 
   clearError() {
