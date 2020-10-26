@@ -10,7 +10,7 @@
         border-radius: 2rem;
         box-shadow: #ababab 0 0 2rem 0.1rem;
         display: flex;
-        height: 50vh;
+        min-height: 50vh;
         width: 60vw;
         background-color: #035aa6;
         // margin: 4rem 2rem;
@@ -39,6 +39,7 @@
         }
         
         .details {
+            max-width: 45%;
             font-size: 1.5rem;
             line-height: 150%;
             .Shop {
@@ -60,7 +61,7 @@
 
     .background:hover{
         width: 62vw;
-        height: 51vh;
+        // max-height: 51vh;
         // margin-left: 1rem; 
         box-shadow: #ababab 0 0 3rem 1rem;
     }
