@@ -5,6 +5,13 @@ import jwt from "jsonwebtoken";
 import "./Analysis.scss";
 import { withRouter } from "react-router-dom";
 import API from "../../API";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faListAlt,
+  faChartLine,
+  faBox,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 
 class Analysis extends Component {
   constructor(props) {
@@ -45,14 +52,14 @@ class Analysis extends Component {
       const sale = data.data["total net sale"];
 
       data = await API.get(`analytics/daily/${user.userId}`);
-      // const dailySale = data.data;
-      const dailySale = {
-        "2020-10-05": 240,
-        "2020-10-06": 270,
-        "2020-10-07": 280,
-        "2020-10-08": 210,
-        "2020-10-09": 250,
-      };
+      const dailySale = data.data;
+      // const dailySale = {
+      //   "2020-10-05": 240,
+      //   "2020-10-06": 270,
+      //   "2020-10-07": 280,
+      //   "2020-10-08": 210,
+      //   "2020-10-09": 250,
+      // };
       const salesLine = Object.keys(dailySale).map((date) => ({
         x: new Date(date),
         y: dailySale[date],
@@ -77,25 +84,37 @@ class Analysis extends Component {
   }
 
   render() {
-    console.log(this.state.starburst);
+    // console.log(this.state.starburst);
     return (
       <div className="Analysis App-content">
         <div className="summary">
           <div className="blocks">
-            <h2>Total Sale</h2>
-            <h3>₹{this.state.sale}</h3>
+            <FontAwesomeIcon className="icons" icon={faChartLine} />
+            <div>
+              <h4>Total Sale</h4>
+              <h2>₹{this.state.sale}</h2>
+            </div>
           </div>
           <div className="blocks">
-            <h2>Total Products</h2>
-            <h3>{this.state.totalProducts}</h3>
+            <FontAwesomeIcon className="icons" icon={faBox} />
+            <div>
+              <h4>Total Products</h4>
+              <h2>{this.state.totalProducts}</h2>
+            </div>
           </div>
           <div className="blocks">
-            <h2>Total Categories</h2>
-            <h3>{this.state.totalCategories}</h3>
+            <FontAwesomeIcon className="icons" icon={faListAlt} />
+            <div>
+              <h4>Total Categories</h4>
+              <h2>{this.state.totalCategories}</h2>
+            </div>
           </div>
           <div className="blocks">
-            <h2>Monthly Customers</h2>
-            <h3>{this.state.customers} </h3>
+            <FontAwesomeIcon className="icons" icon={faUser} />
+            <div>
+              <h4>Monthly Customers</h4>
+              <h2>{this.state.customers} </h2>
+            </div>
           </div>
         </div>
         {/* <div className="products">
