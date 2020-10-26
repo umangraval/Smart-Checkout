@@ -16,7 +16,7 @@ class SignupForm extends Component {
       address: "",
       mobile: "",
       password: "",
-      cnfpassword: null,
+      password2: null,
       shop: "",
     };
     this.handleChange = this.handleChange.bind(this);
@@ -36,12 +36,11 @@ class SignupForm extends Component {
     evt.preventDefault();
     try {
       const newUser = this.state;
-      delete newUser['cnfpassword'];
-      // if (newUser.password !== newUser.cnfpassword) {
-      //   throw "Password and Confirm password not same";
-      // }
+      if (newUser.password !== newUser.password2) {
+        throw "Password and Confirm password not same";
+      }
+      delete newUser['password2'];
       const { data } = await API.post("auth/add", newUser);
-      this.props.updateUser(data);
       localStorage.setItem('JWToken', data.token);
       this.props.history.push("/dashboard");
     } catch (error) {
@@ -59,7 +58,7 @@ class SignupForm extends Component {
     return (
       <div className="container--signup">
         <h2 className="signup">SIGN UP</h2>
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={this.handleSubmit}>
           <input
             className="input"
             type="text"
@@ -92,7 +91,7 @@ class SignupForm extends Component {
             type="password"
             placeholder="Confirm Password"
             name="password2"
-            value={this.state.cnfpassword}
+            value={this.state.password2}
             onChange={this.handleChange}
           />
           <br />
