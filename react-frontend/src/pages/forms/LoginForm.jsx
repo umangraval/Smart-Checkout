@@ -17,7 +17,7 @@ class LoginFrom extends Component {
     this.redirect = this.redirect.bind(this);
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     if (localStorage.getItem("JWToken") != null)
       this.props.history.push("/dashboard");
   }
