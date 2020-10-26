@@ -29,7 +29,9 @@ class transactions extends Component {
     if (search.length > 0) {
       const transactions = this.state.transactions;
       const filteredTable = transactions.filter(
-        (pro) => pro.name.toLowerCase().search(search) > -1
+        (pro) =>
+          pro.email.toLowerCase().search(search) > -1 ||
+          pro.date.toLowerCase().search(search) > -1
       );
       this.setState({ filteredTable, filtered: true });
     } else this.setState({ filtered: false });
@@ -48,8 +50,9 @@ class transactions extends Component {
         transactions: transactions.data.transaction.map((tran) => {
           return {
             id: tran._id,
-            name: tran.title,
-            amount: tran.amount,
+            email: tran.buyeremail,
+            price: tran.price,
+            date: new Date(tran.date).toDateString(),
           };
         }),
       });
@@ -76,7 +79,10 @@ class transactions extends Component {
           </div>
         </div>
         <Table
-          headers={["Sr. No.", "Transaction Id", "Name", "Amount"]}
+          headers={["Sr. No.", "Transaction Id", "Email", "Amount", "Date"]}
+          showDetails={() => {
+            return;
+          }}
           contents={
             this.state.searchBar.length > 0
               ? this.state.filteredTable
