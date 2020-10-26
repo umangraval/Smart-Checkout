@@ -12,6 +12,7 @@ const update: RequestHandler = async (req, res) => {
   const {
     _id
   } = req.body;
+  const { tag } = req.body;
   const tagExist = await Category.find({ tag });
   if (tagExist.length !== 0) {
     await Category.findOneAndUpdate({ _id },
