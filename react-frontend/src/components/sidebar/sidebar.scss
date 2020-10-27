@@ -5,7 +5,8 @@
     height: 100vh;
     justify-content: space-evenly;
     position: static;
-    width: 4rem;
+    width: 400px;
+    max-width: 400px;
     transition: width 1s;
     transition: ease 1s;
     overflow: hidden;
@@ -29,7 +30,7 @@
     .Navlink {
         // color: black;
         color: transparent;   
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         display: flex;
         justify-content: space-evenly;
         text-decoration: none;
@@ -55,14 +56,15 @@
     transition: width 1s;
     transition: ease 1s;
     overflow: hidden;
-    width: 20%;
+    width: 400px;
+    max-width: 400px;
     background-image: linear-gradient( 135deg, #43CBFF 10%, #9708CC 100%);
     box-shadow:  0 0 2rem 0 #aeaeae;
     transition-duration: 1s;
 
     .Navlink {
         // color: transparent;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         display: flex;
         justify-content: space-evenly;
         text-decoration: none;
@@ -100,7 +102,8 @@
 
 .sidebar:hover {
     color: white;
-    width: 20%;
+    width: 400px;
+    max-width: 400px;
     background-image: linear-gradient( 135deg, #43CBFF 10%, #9708CC 100%);
     box-shadow:  0 0 2rem 0 #aeaeae;
     transition-duration: 1s;
