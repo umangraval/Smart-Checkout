@@ -10,7 +10,6 @@ import {
   faDoorOpen,
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
-import logo from './rlogo.png';
 import "./sidebar.scss";
 
 export default function sidebar() {
@@ -23,7 +22,7 @@ export default function sidebar() {
       onClick={() => setShowsidebar(!showsidebar)}
     >
       <h1 className="header">
-      <img src={logo} alt="Logo" width="280px"/>
+      <img src='./rlogo.png' alt="Logo"/>
         {/* <FontAwesomeIcon icon={faCloud} />  */}
         {/* Smart Checkout */}
       </h1>

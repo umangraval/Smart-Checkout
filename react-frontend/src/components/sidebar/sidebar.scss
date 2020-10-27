@@ -60,6 +60,14 @@
     box-shadow:  0 0 2rem 0 #aeaeae;
     transition-duration: 1s;
 
+    .header {
+        display: inline;
+        img {
+            width: 100%;
+        }
+        margin-bottom: 0;
+    }
+
     .Navlink {
         // color: transparent;
         font-size: 1.2rem;
@@ -122,6 +130,10 @@
 
     .header {
         display: inline;
+        img {
+            width: 100%;
+        }
+        margin-bottom: 0;
     }
     .Hamburger {
         display: none;

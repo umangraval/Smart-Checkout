@@ -51,11 +51,11 @@ export default class ProductDetails extends Component {
   }
 
   download() {
-    const canvas = document.getElementsByTagName("canvas");
+    const canvas = document.getElementsByClassName("QRCode");
     canvas[0].toDataURL("image/jpeg");
     const link = document.createElement("a");
     link.download = `qrcode_${this.state.category}`;
-    link.href = document.getElementsByTagName("canvas")[0].toDataURL();
+    link.href = document.getElementsByClassName("QRCode")[0].toDataURL();
     link.click();
   }
 
@@ -100,6 +100,7 @@ export default class ProductDetails extends Component {
                   size={150}
                   onClick={this.download}
                   value={this.state.qrcode}
+                  className="QRCode"
                 />
               </div>
               <div>

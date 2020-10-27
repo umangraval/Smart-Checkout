@@ -11,7 +11,6 @@
     overflow: hidden;
 
     .summary {
-        height: 100%;
         grid-area: summary;
         display: flex;
         justify-content: space-between;
@@ -25,23 +24,28 @@
             display: flex;
             justify-content: space-around;
             font-size: 4rem;
+            height: 8rem;
             color: white;
+            
             .icons {
-                margin: 1.5rem 0;
-                // color: #4A4840;
+                margin: 1.5rem 0 0 0;
             }
-            h4 {
-                height: 0.6rem;
-                // color:'#343434';
-                font-size: 1.5rem;
-            }
-            h2 {
-                // color: green;
-                font-size: 3rem;
+            div {
+                height: 80%;
+                h4 {
+                    height: 0.5rem;
+                    font-size: 1.3rem;
+                }
+                h2 {
+                    margin-top: -0.5rem;
+                    height: 1.5rem;
+                    font-size: 3rem;
+                }
             }
         }
         .tcat {
             background: linear-gradient(0deg, rgba(34,195,90,1) 0%, rgba(88,162,173,1) 0%, rgba(250,70,106,1) 95%);
+            
         }
         .mcus {
             background: linear-gradient(0deg, rgba(34,195,90,1) 0%, rgba(173,119,88,1) 0%, rgba(250,212,70,1) 95%);
