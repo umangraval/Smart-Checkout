@@ -90,31 +90,31 @@ class Analysis extends Component {
     return (
       <div className="Analysis App-content">
         <div className="summary">
-          <div className="blocks">
+          <div className="blocks tsale">
             <FontAwesomeIcon className="icons" icon={faChartLine} />
             <div>
               <h4>Total Sale</h4>
               <h2>₹{this.state.sale}</h2>
             </div>
           </div>
-          <div className="blocks">
+          <div className="blocks tpro">
             <FontAwesomeIcon className="icons" icon={faBox} />
             <div>
               <h4>Total Products</h4>
               <h2>{this.state.totalProducts}</h2>
             </div>
           </div>
-          <div className="blocks">
+          <div className="blocks tcat">
             <FontAwesomeIcon className="icons" icon={faListAlt} />
             <div>
               <h4>Total Categories</h4>
               <h2>{this.state.totalCategories}</h2>
             </div>
           </div>
-          <div className="blocks">
+          <div className="blocks mcus">
             <FontAwesomeIcon className="icons" icon={faUser} />
             <div>
-              <h4>Monthly Customers</h4>
+              <h4>Customers</h4>
               <h2>{this.state.customers} </h2>
             </div>
           </div>

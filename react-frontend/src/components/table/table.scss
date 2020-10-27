@@ -1,11 +1,12 @@
 .Table {
     margin: 5%;
     max-height: 50vh;
-    overflow-y: scroll;
+    overflow-y: auto;
     text-align: center;
     font-size: 1rem;
     color: white;
     margin-bottom: 0;
+    border-radius: 1.5em;
     table {
         width: 100%;
         th {

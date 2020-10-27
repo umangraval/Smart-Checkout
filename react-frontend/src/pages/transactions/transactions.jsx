@@ -65,7 +65,7 @@ class transactions extends Component {
     if (localStorage.getItem("JWToken") === null) return null;
     return (
       <div className="TransactionList App-content">
-        <h1>Transactions</h1>
+        <h1 style={{marginBottom: "100px"}}>Transactions</h1>
         <div className="section">
           <div className="search">
             <input

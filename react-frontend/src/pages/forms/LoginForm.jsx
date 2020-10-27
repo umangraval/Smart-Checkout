@@ -73,10 +73,10 @@ class LoginFrom extends Component {
             onChange={this.handleChange}
           />
           <br />
-          <Link to="/forgot" className="forgotPassword">
+          {/* <Link to="/forgot" className="forgotPassword">
             {" "}
             Forgot Password ?{" "}
-          </Link>
+          </Link> */}
           <button type="submit" className="button">
             Login
           </button>
