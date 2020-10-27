@@ -12,12 +12,12 @@
 
     .header {
         display: none;
-        margin-left: 10%;
-        font-size: 1.3rem;
+        margin-left: 3%;
+        font-size:2rem;
         font-weight: 600;
         transition: ease-in-out 0.5s;
         overflow: hidden;
-        height: 2rem;
+        height: 5rem;
     }
 
     .Hamburger {
@@ -29,7 +29,7 @@
     .Navlink {
         // color: black;
         color: transparent;   
-        font-size: 1rem;
+        font-size: 1.2rem;
         display: flex;
         justify-content: space-evenly;
         text-decoration: none;
@@ -62,7 +62,7 @@
 
     .Navlink {
         // color: transparent;
-        font-size: 1rem;
+        font-size: 1.2rem;
         display: flex;
         justify-content: space-evenly;
         text-decoration: none;
@@ -85,12 +85,12 @@
     }
 
     .header {
-        margin-left: 10%;
-        font-size: 1.3rem;
+        margin-left: 3%;
+        font-size: 2rem;
         font-weight: 600;
         transition: ease-in-out 0.5s;
         overflow: hidden;
-        height: 2rem;
+        height: 5rem;
         display: inline;
     }
     .Hamburger {

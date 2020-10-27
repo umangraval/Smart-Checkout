@@ -9,8 +9,8 @@ import {
   faUser,
   faDoorOpen,
   faBars,
-  faCloud,
 } from "@fortawesome/free-solid-svg-icons";
+import logo from './rlogo.png';
 import "./sidebar.scss";
 
 export default function sidebar() {
@@ -23,26 +23,28 @@ export default function sidebar() {
       onClick={() => setShowsidebar(!showsidebar)}
     >
       <h1 className="header">
-        <FontAwesomeIcon icon={faCloud} /> Smart Checkout
+      <img src={logo} alt="Logo" width="280px"/>
+        {/* <FontAwesomeIcon icon={faCloud} />  */}
+        {/* Smart Checkout */}
       </h1>
       <FontAwesomeIcon icon={faBars} className="Hamburger" />
       {/* <NavLink className="Navlink" activeClassName="currNav" to="/dashboard">
         <FontAwesomeIcon icon={faHome} /> Overview
       </NavLink> */}
       <NavLink className="Navlink" activeClassName="currNav" to="/analytics">
-        <FontAwesomeIcon icon={faChartLine} /> Analytics
+        <FontAwesomeIcon className="Navlogo" icon={faChartLine} /> Analytics
       </NavLink>
       <NavLink className="Navlink" activeClassName="currNav" to="/products">
-        <FontAwesomeIcon icon={faBox} /> Products
+        <FontAwesomeIcon className="Navlogo" icon={faBox} /> Products
       </NavLink>
       <NavLink className="Navlink" activeClassName="currNav" to="/categories">
-        <FontAwesomeIcon icon={faBoxes} /> Categories
+        <FontAwesomeIcon className="Navlogo" icon={faBoxes} /> Categories
       </NavLink>
       <NavLink className="Navlink" activeClassName="currNav" to="/transactions">
-        <FontAwesomeIcon icon={faMoneyCheckAlt} /> Transactions
+        <FontAwesomeIcon className="Navlogo" icon={faMoneyCheckAlt} /> Transactions
       </NavLink>
       <NavLink className="Navlink" activeClassName="currNav" to="/profile">
-        <FontAwesomeIcon icon={faUser} /> Profile
+        <FontAwesomeIcon className="Navlogo" icon={faUser} /> Profile
       </NavLink>
       <NavLink
         className="Navlink"
@@ -50,7 +52,7 @@ export default function sidebar() {
         onClick={() => localStorage.removeItem("JWToken")}
         to="/login"
       >
-        <FontAwesomeIcon icon={faDoorOpen} /> Logout
+        <FontAwesomeIcon className="Navlogo" icon={faDoorOpen} /> Logout
       </NavLink>
     </div>
   );

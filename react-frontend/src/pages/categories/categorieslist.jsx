@@ -108,7 +108,7 @@ class categorieslist extends Component {
             }
           />
         ) : null}
-        <h1>Categories</h1>
+        <h1 style={{marginBottom: "100px"}}>Categories</h1>
         <div className="section">
           <button
             className="add-button"

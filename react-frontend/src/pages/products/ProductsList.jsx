@@ -152,7 +152,7 @@ class ProductsList extends Component {
             setError={this.props.setError}
           />
         ) : null}
-        <h1>Products</h1>
+        <h1 style={{marginBottom: "100px"}}>Products</h1>
         <div className="section">
           <button className="add-button" onClick={this.toggleAddProduct}>
             Add Product

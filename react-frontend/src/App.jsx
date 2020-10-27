@@ -11,6 +11,19 @@ import CategoryList from "./pages/categories/categorieslist";
 import Transactions from './pages/transactions/transactions';
 import Analysis from './pages/analysis/Analysis';
 import Profile from './pages/profile/Profile';
+import Particles from 'react-particles-js';
+
+const particlesOptions = {
+  particles: {
+    number: {
+      value: 100,
+      density: {
+        enable: true,
+        value_area: 800
+      }
+    }
+  }
+}
 
 export default class App extends Component {
   constructor() {
@@ -38,6 +51,19 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
+        <Particles className='particles'
+          params={particlesOptions}
+        />
+        
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%"
+          }}
+        >
         <BrowserRouter>
           <ErrorPopup error={this.state.error} clearError={this.clearError} />
           <Switch>
@@ -169,6 +195,7 @@ export default class App extends Component {
             />
           </Switch>
         </BrowserRouter>
+        </div>
       </div>
     );
   }
