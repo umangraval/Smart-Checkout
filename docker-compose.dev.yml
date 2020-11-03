@@ -1,0 +1,27 @@
+version: "3"
+services:
+  frontend:
+    build: ./react-frontend
+    command: >
+      sh -c "npm install -g serve && serve -s /app/client/build -l 3000"
+    stdin_open: true
+    volumes:
+      - ./react-frontend:/app/client/
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+    environment: 
+      - NODE_ENV=development
+      - PORT=8080
+      - MONGO_URL=mongodb://mongodb:27017/
+    volumes:
+      - .:/app/
+    depends_on:
+      -  mongo  
+
+  mongo:
+    image: mongo
+    container_name: mongodb
