@@ -33,14 +33,14 @@ app.set('port', process.env.PORT || 3000);
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
 
 app.get('/', (req, res) => {
-  res.redirect('/api/dev/api-docs');
+  res.redirect('/api/v1/dev/api-docs');
 });
 
 app.get('/test', (req, res) => {
   res.send('Test working');
 });
 
-app.use('/api', routes);
+app.use('/v1', routes);
 
 app.use((err: ApplicationError, req: Request, res: Response, next: NextFunction) => {
   if (res.headersSent) {

@@ -10,8 +10,20 @@ import ProductList from "./pages/products/ProductsList";
 import CategoryList from "./pages/categories/categorieslist";
 import Transactions from './pages/transactions/transactions';
 import Analysis from './pages/analysis/Analysis';
-import Overview from './pages/overview/Overview';
 import Profile from './pages/profile/Profile';
+import Particles from 'react-particles-js';
+
+const particlesOptions = {
+  particles: {
+    number: {
+      value: 100,
+      density: {
+        enable: true,
+        value_area: 800
+      }
+    }
+  }
+}
 
 export default class App extends Component {
   constructor() {
@@ -29,13 +41,7 @@ export default class App extends Component {
   // }
 
   setError(error) {
-    if(error.response.status===401) {
-      window.location.reload(false);
-    }
-    else if(error.response.data.error)
-      this.setState({ error: error.response.data.error});
-    else
-      this.setState({ error: error.response.data.errors.message});
+    this.setState({ error });
   }
 
   clearError() {
@@ -45,6 +51,19 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
+        <Particles className='particles'
+          params={particlesOptions}
+        />
+        
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%"
+          }}
+        >
         <BrowserRouter>
           <ErrorPopup error={this.state.error} clearError={this.clearError} />
           <Switch>
@@ -54,7 +73,7 @@ export default class App extends Component {
               render={() => (
                 <div className="App-grid-container">
                   <SideBar className="App-sidebar" />
-                  <Overview
+                  <Analysis
                     className="App-content"
                     setError={this.setError}
                   />
@@ -96,9 +115,9 @@ export default class App extends Component {
                 </div>
               )}
             />
-            <Route
+            {/* <Route
               exact
-              path="/dashboard"
+              path="/"
               render={() => (
                 <div className="App-grid-container">
                   <SideBar className="App-sidebar" />
@@ -108,7 +127,7 @@ export default class App extends Component {
                   />
                 </div>
               )}
-            />
+            /> */}
             <Route
               exact
               path="/products"
@@ -176,6 +195,7 @@ export default class App extends Component {
             />
           </Switch>
         </BrowserRouter>
+        </div>
       </div>
     );
   }

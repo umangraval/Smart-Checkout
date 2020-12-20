@@ -37,7 +37,7 @@ export default class Profile extends Component {
     const { userProfile } = this.state;
     return (
       <div className="Profile">
-          <h1>Profile</h1>
+          <h1 className="pageHeader">Profile</h1>
           <div className="background">
 					<div className="ProfileCard">
             <div className="avatar">

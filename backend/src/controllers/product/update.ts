@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { RequestHandler } from 'express';
 import Joi, { string } from '@hapi/joi';
 import requestMiddleware from '../../middleware/request-middleware';
@@ -8,13 +9,14 @@ export const updateProductSchema = Joi.object().keys({
   name: Joi.string().required(),
   category: Joi.string().required(),
   quantity: Joi.number().required(),
-  price: Joi.number().required()
+  price: Joi.number().required().min(1)
 });
 
 const update: RequestHandler = async (req, res) => {
   const {
     id
   } = req.params;
+  const { name, quantity } = req.body;
 
   await Product.findOneAndUpdate({ _id: id },
     { $set: req.body },

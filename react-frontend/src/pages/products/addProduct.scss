@@ -7,6 +7,8 @@
     flex-direction: column;
     // justify-content: space-evenly;
     padding: 2% 2%;
+    background: #a5ecd7;
+    border: solid 0.5rem #0278ae;
 
     form {
         justify-content: space-evenly;
@@ -52,7 +54,7 @@
             font-size: 1rem;
             border-bottom: solid 0.1rem #232323;
             text-align: center;
-            background-color: white;
+            background-color: #a5ecd7;
             margin: 0.5rem 2rem;
         }
 
@@ -66,12 +68,11 @@
                 width: 7.5rem;
                 border-radius: 1rem;
                 border: none;
+                background-color: #0278ae;
                 font-size: 1rem;
                 cursor: pointer;
-            }
-            button:hover {
+                color: white;
                 font-weight: 600;
-
             }
         }
     }

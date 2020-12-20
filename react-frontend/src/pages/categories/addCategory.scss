@@ -1,33 +1,19 @@
 .addCategory {
     width: 25%;
     min-height: 35%;
-    background: white;
+    background: #a5ecd7;
     display: flex;
     border-radius: 1rem;
     flex-direction: column;
     // justify-content: space-evenly;
     padding: 2% 2%;
+    border: solid 0.5rem #0278ae;
 
-    form {
+    h1 {
+        text-align: center;
+    }
+    .form {
         justify-content: space-evenly;
-
-        .add-img {
-            font-size: 7rem;
-            height: 10rem;
-            width: 90%;
-            margin: auto;
-            margin-bottom: 1rem;
-            color: #343434;
-            border-radius: 1rem;
-            text-align: center;
-            cursor: pointer;
-            box-shadow: 0 0 1rem 0.05rem #676767;
-        }
-
-        .add-img:hover {
-            box-shadow: 0 -0.05rem 1rem 0.1rem #676767;
-            font-size: 7.5rem;
-        }
 
         input {
             border: none;
@@ -68,10 +54,10 @@
                 border: none;
                 font-size: 1rem;
                 cursor: pointer;
-            }
-            button:hover {
+                background-color: #0278ae;
+                color: white;
+                transition: ease 0.5s;
                 font-weight: 600;
-
             }
         }
     }

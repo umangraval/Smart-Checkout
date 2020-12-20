@@ -14,8 +14,10 @@
     "axios-progress-bar": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
     "node-sass": "^4.14.1",
+    "qrcode.react": "^1.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-particles-js": "^3.4.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-vis": "^1.11.7"
@@ -30,7 +32,7 @@
   },
   "husky": {
     "hooks": {
-        "pre-commit": "npm run lint"
+      "pre-commit": "npm run lint"
     }
   },
   "eslintConfig": {
@@ -47,5 +49,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "husky": "^4.3.0"
   }
 }

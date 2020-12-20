@@ -12,13 +12,29 @@ class transactions extends Component {
     super();
     this.state = {
       transactions: [],
+      filteredTable: [],
       searchBar: "",
     };
+    this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
+  }
+
+  handleSearchChange(e) {
+    const search = e.target.value.toLowerCase();
+    this.setState({ searchBar: search });
+    if (search.length > 0) {
+      const transactions = this.state.transactions;
+      const filteredTable = transactions.filter(
+        (pro) =>
+          pro.email.toLowerCase().search(search) > -1 ||
+          pro.date.toLowerCase().search(search) > -1
+      );
+      this.setState({ filteredTable, filtered: true });
+    } else this.setState({ filtered: false });
   }
 
   async componentDidMount() {
@@ -34,8 +50,9 @@ class transactions extends Component {
         transactions: transactions.data.transaction.map((tran) => {
           return {
             id: tran._id,
-            name: tran.title,
-            amount: tran.amount,
+            email: tran.buyeremail,
+            price: tran.price,
+            date: new Date(tran.date).toDateString(),
           };
         }),
       });
@@ -48,22 +65,29 @@ class transactions extends Component {
     if (localStorage.getItem("JWToken") === null) return null;
     return (
       <div className="TransactionList App-content">
-        <h1>Transactions</h1>
+        <h1 className="pageHeader">Transactions</h1>
         <div className="section">
-          <form className="search">
+          <div className="search">
             <input
-              type="search"
+              type="text"
               name="searchBar"
               id="searchbar"
               value={this.state.searchBar}
-              onChange={this.handleChange}
+              onChange={this.handleSearchChange}
             />
             <FontAwesomeIcon icon={faSearch} className="searchIcon" />
-          </form>
+          </div>
         </div>
         <Table
-          headers={["Sr. No.", "Transaction Id", "Name", "Amount"]}
-          contents={this.state.transactions}
+          headers={["Sr. No.", "Transaction Id", "Email", "Amount", "Date"]}
+          showDetails={() => {
+            return;
+          }}
+          contents={
+            this.state.searchBar.length > 0
+              ? this.state.filteredTable
+              : this.state.transactions
+          }
         />
       </div>
     );

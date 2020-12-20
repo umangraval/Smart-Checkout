@@ -17,9 +17,9 @@ class LoginFrom extends Component {
     this.redirect = this.redirect.bind(this);
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     if (localStorage.getItem("JWToken") != null)
-      this.props.history.push("/dashboard");
+      this.props.history.push("/analytics");
   }
 
   redirect() {
@@ -41,9 +41,8 @@ class LoginFrom extends Component {
     const loginUser = this.state;
     try {
       const { data } = await API.post("/auth/login", loginUser);
-      console.log(data);
       localStorage.setItem("JWToken", data.token);
-      this.props.history.push("/dashboard");
+      this.props.history.push("/analytics");
     } catch (error) {
       this.props.setError(error);
     }
@@ -74,10 +73,10 @@ class LoginFrom extends Component {
             onChange={this.handleChange}
           />
           <br />
-          <Link to="/forgot" className="forgotPassword">
+          {/* <Link to="/forgot" className="forgotPassword">
             {" "}
             Forgot Password ?{" "}
-          </Link>
+          </Link> */}
           <button type="submit" className="button">
             Login
           </button>
