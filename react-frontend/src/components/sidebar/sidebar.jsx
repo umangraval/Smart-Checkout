@@ -9,6 +9,7 @@ import {
   faUser,
   faDoorOpen,
   faBars,
+  faVideo,
 } from "@fortawesome/free-solid-svg-icons";
 import "./sidebar.scss";
 
@@ -41,6 +42,9 @@ export default function sidebar() {
       </NavLink>
       <NavLink className="Navlink" activeClassName="currNav" to="/transactions">
         <FontAwesomeIcon className="Navlogo" icon={faMoneyCheckAlt} /> Transactions
+      </NavLink>
+      <NavLink className="Navlink" activeClassName="currNav" to="/stream">
+        <FontAwesomeIcon className="Navlogo" icon={faVideo} /> Monitor
       </NavLink>
       <NavLink className="Navlink" activeClassName="currNav" to="/profile">
         <FontAwesomeIcon className="Navlogo" icon={faUser} /> Profile

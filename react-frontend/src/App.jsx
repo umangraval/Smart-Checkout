@@ -11,6 +11,7 @@ import CategoryList from "./pages/categories/categorieslist";
 import Transactions from './pages/transactions/transactions';
 import Analysis from './pages/analysis/Analysis';
 import Profile from './pages/profile/Profile';
+import Stream from './pages/stream/Monitor';
 import Particles from 'react-particles-js';
 
 const particlesOptions = {
@@ -187,6 +188,19 @@ export default class App extends Component {
                 <div className="App-grid-container">
                   <SideBar className="App-sidebar" />
                   <Profile
+                    className="App-content"
+                    setError={this.setError}
+                  />
+                </div>
+              )}
+            />
+            <Route 
+              exact
+              path="/stream"
+              render={() => (
+                <div className="App-grid-container">
+                  <SideBar className="App-sidebar" />
+                  <Stream
                     className="App-content"
                     setError={this.setError}
                   />

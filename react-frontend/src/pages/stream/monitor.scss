@@ -1,0 +1,18 @@
+.Monitor {
+    padding: 5% 5% 0 5%;
+    width: 100%;
+
+    .feed {
+        height: 75vh;
+        background-color: rgba($color: #000, $alpha: 0.8);
+        border-radius: 2rem;
+
+    }
+    
+    img {
+        height: 70vh;
+        margin: 2.5vh 20%;
+        align-self: center;
+        border-radius: 2rem;
+    }
+}
