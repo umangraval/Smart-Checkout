@@ -108,3 +108,6 @@ dist
 
 # python
 */__pycache__
+
+# models
+yolo-coco

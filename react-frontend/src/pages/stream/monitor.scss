@@ -2,17 +2,57 @@
     padding: 5% 5% 0 5%;
     width: 100%;
 
-    .feed {
-        height: 75vh;
-        background-color: rgba($color: #000, $alpha: 0.8);
-        border-radius: 2rem;
+    .player {
+        display: grid;
+        grid-template-areas: 'feed feed feed menu';
 
-    }
-    
-    img {
-        height: 70vh;
-        margin: 2.5vh 20%;
-        align-self: center;
-        border-radius: 2rem;
+        .feed {
+            grid-area: feed;
+            height: 75vh;
+            background-color: rgba($color: #000, $alpha: 0.8);
+            border-radius: 2rem 0 0 2rem;
+
+            img {
+                height: 70vh;
+                margin: 2.5vh auto;
+                align-self: center;
+                border-radius: 2rem;
+            }
+        }
+        
+        .menu {
+            grid-area: menu;
+            background-color: rgba($color: #fff, $alpha: 0.8);
+            border-radius: 0 2rem 2rem 0;
+            height: 75vh;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+
+            .player-button {
+                text-align: center;
+                border-radius: 1rem;
+                float: none;
+                width: 95%;
+                margin: 1rem auto;
+                font-size: 1.5rem;
+                cursor: pointer;
+                padding: 2rem 0;
+            }
+
+            .player-button:hover {
+                height: 2rem;
+                font-weight: 800;
+                background-color: #035aa6;
+                color: #fff;
+            }
+
+            .player-button-selected {
+                height: 2rem;
+                font-weight: 800;
+                background-color: #035aa6;
+                color: #fff;
+            }
+        }
     }
 }

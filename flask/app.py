@@ -1,5 +1,6 @@
 from flask import Flask, Response
 import facemask_detection
+import social_distancing
 import cv2
 import threading
 
@@ -15,40 +16,48 @@ lock = threading.Lock()
 #     """Video streaming home page."""
 #     return render_template('index.html')
 
-def generate(mode='None'):
+def generate(mode='none'):
     global lock
     vc = cv2.VideoCapture(0)
 
-    if vc.isOpened():
-        rval, frame = vc.read()
-    else:
-        rval = False
-
-    while rval:
-        with lock:
+    try:
+        if vc.isOpened():
             rval, frame = vc.read()
-            if frame is None:
-                continue
-            
-            if mode=='mask':
-                (locs, preds) = facemask_detection.detect_and_predict_mask(frame)
-                frame = facemask_detection.draw_bounding_boxes(locs, preds, frame)
+        else:
+            rval = False
 
-            (flag, encodedImage) = cv2.imencode(".jpg", frame)
+        while rval:
+            with lock:
+                rval, frame = vc.read()
+                if frame is None:
+                    continue
+                
+                if mode=='mask':
+                    (locs, preds) = facemask_detection.detect_and_predict_mask(frame)
+                    frame = facemask_detection.draw_bounding_boxes(locs, preds, frame)
+                elif mode=='dist':
+                    (people, violate) = social_distancing.check_social_distancing(frame)
+                    frame = social_distancing.draw_bounding_boxes(people, violate, frame)
+                elif mode=='all':
+                    (locs, preds) = facemask_detection.detect_and_predict_mask(frame)
+                    frame = facemask_detection.draw_bounding_boxes(locs, preds, frame)
+                    (people, violate) = social_distancing.check_social_distancing(frame)
+                    frame = social_distancing.draw_bounding_boxes(people, violate, frame)
 
-            if not flag:
-                continue
+                (flag, encodedImage) = cv2.imencode(".jpg", frame)
 
-        yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(encodedImage) + b'\r\n')
-    vc.release()
+                if not flag:
+                    continue
 
-@app.route('/stream')
-def stream():
-   return Response(generate(), mimetype = "multipart/x-mixed-replace; boundary=frame")
+            yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(encodedImage) + b'\r\n')
+    except:
+        print('Error Detected')
+    finally:
+        vc.release()
 
-@app.route('/stream_mask')
-def stream_mask():
-    return Response(generate('mask'), mimetype = "multipart/x-mixed-replace; boundary=frame")
+@app.route('/stream/<mode>')
+def stream_mask(mode):
+    return Response(generate(mode), mimetype = "multipart/x-mixed-replace; boundary=frame")
 
 if __name__ == '__main__':
    host = "127.0.0.1"
