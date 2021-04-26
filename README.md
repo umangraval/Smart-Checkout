@@ -15,3 +15,17 @@ This will also allow the owner to understand the customers and their needs and h
 
 The inventory management system will allow the owner to monitor the trends of sales and buy supplies accordingly.
 QR code will be secured through token authentication from API. So not anyone without a login can access the qrcode.
+
+## Development
+
+Starting the dev server also starts MongoDB as a service in a docker container using the compose script at `docker-compose.dev.yml`.
+
+```
+$ docker-compose -f docker-compose.dev.yml up
+```
+
+Running the above commands results in 
+* ⚙️**React Frontend** running at `http://localhost`
+* 🌏**API Server** running at `http://localhost:8080`
+* 🛢️**MongoDB** running at `mongodb://smart_mongodb:27017`
+
