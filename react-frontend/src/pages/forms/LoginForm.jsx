@@ -82,7 +82,7 @@ class LoginFrom extends Component {
           </button>
         </form>
 
-        <p> Do not have an Account ? </p>
+        <p> Do not have an Account ?</p>
         <Link className="routeButton" to="/SignUp">
           {" "}
           SignUp{" "}

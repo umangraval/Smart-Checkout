@@ -19,7 +19,7 @@
     "eslint": "eslint src/server.ts",
     "build": "tsc",
     "lint": "./node_modules/eslint/bin/eslint.js  src --ext .ts",
-    "start": "tsc && node dist/src/server.js",
+    "start": "tsc && nodemon dist/src/server.js",
     "test": "jest",
     "fix-lint": "./node_modules/eslint/bin/eslint.js  src --ext .ts --fix"
   },

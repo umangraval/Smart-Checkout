@@ -1,14 +1,25 @@
 version: "3"
 services:
+  nginx:
+    image: nginx
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    command: /bin/bash -c "nginx -g 'daemon off;'" 
+    ports:
+      - 80:80
+    depends_on:
+      - frontend
+      - backend
+      
   frontend:
     build: ./react-frontend
-    command: >
-      sh -c "npm install -g serve && serve -s /app/client/build -l 3000"
     stdin_open: true
     volumes:
-      - ./react-frontend:/app/client/
+      - ./react-frontend:/app/client
+    ports: 
+      - "3000:3000"
     depends_on:
-      - backend
+    - backend
 
   backend:
     build:
@@ -16,12 +27,14 @@ services:
     environment: 
       - NODE_ENV=development
       - PORT=8080
-      - MONGO_URL=mongodb://mongodb:27017/
+      - MONGO_URL=mongodb://smart_mongodb:27017/
     volumes:
-      - .:/app/
+      - ./backend:/app/server
+    ports: 
+      - "8080:8080"
     depends_on:
       -  mongo  
 
   mongo:
     image: mongo
-    container_name: mongodb
+    container_name: smart_mongodb
