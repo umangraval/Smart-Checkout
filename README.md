@@ -14,4 +14,4 @@ Products will be managed in real-time in the dashboard if a person buys and the 
 This will also allow the owner to understand the customers and their needs and help recognize loyal and recurring customers. They can then use this to give them special discounts and offers to reward their loyalty. This will also allow them to retain customers by giving them comeback offers.
 
 The inventory management system will allow the owner to monitor the trends of sales and buy supplies accordingly.
-QR code will be secured through token authentication from API. So not anyone without a login can buy the product.
+QR code will be secured through token authentication from API. So not anyone without a login can access the qrcode.
