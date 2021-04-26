@@ -1,0 +1,141 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    // border-right: solid 0.1rem #d0d0d0;
+    height: 100vh;
+    justify-content: space-evenly;
+    position: static;
+    width: 4rem;
+    transition: width 1s;
+    transition: ease 1s;
+    overflow: hidden;
+
+    .header {
+        display: none;
+        margin-left: 3%;
+        font-size:2rem;
+        font-weight: 600;
+        transition: ease-in-out 0.5s;
+        overflow: hidden;
+        height: 5rem;
+    }
+
+    .Hamburger {
+        font-size: 2rem;
+        margin-left: 2rem;
+        transition: ease-out 0.5s;
+    }
+
+    .Navlink {
+        // color: black;
+        color: transparent;   
+        font-size: 1.2rem;
+        display: flex;
+        justify-content: space-evenly;
+        text-decoration: none;
+        transition: ease-in-out 0.5s;
+    }
+
+    .Navlink:hover {
+        font-weight: 1000;
+        padding: 0.5rem 0;
+    }
+    
+}
+
+.sidebarvis {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    // border-right: solid 0.1rem #d0d0d0;
+    height: 100vh;
+    justify-content: space-evenly;
+    position: static;
+    // width: 4rem;
+    transition: width 1s;
+    transition: ease 1s;
+    overflow: hidden;
+    width: 20%;
+    background-image: linear-gradient( 135deg, #43CBFF 10%, #9708CC 100%);
+    box-shadow:  0 0 2rem 0 #aeaeae;
+    transition-duration: 1s;
+
+    .header {
+        display: inline;
+        img {
+            width: 100%;
+        }
+        margin-bottom: 0;
+    }
+
+    .Navlink {
+        // color: transparent;
+        font-size: 1.2rem;
+        display: flex;
+        justify-content: space-evenly;
+        text-decoration: none;
+        transition: ease-in-out 0.5s;
+        color: white;
+        transition-duration: 0.01s;
+        
+    }
+    .Navlink:hover {
+        font-weight: 1000;
+        padding: 0.5rem 0;
+    }
+    
+    .currNav, .currNav:hover {
+        background-color: white;
+        padding: 2rem 0;
+        // border-bottom: #035aa6 solid;
+        color: #035aa6;
+        font-weight: 600;
+    }
+
+    .header {
+        margin-left: 3%;
+        font-size: 2rem;
+        font-weight: 600;
+        transition: ease-in-out 0.5s;
+        overflow: hidden;
+        height: 5rem;
+        display: inline;
+    }
+    .Hamburger {
+        display: none;
+    }
+}
+
+.sidebar:hover {
+    color: white;
+    width: 20%;
+    background-image: linear-gradient( 135deg, #43CBFF 10%, #9708CC 100%);
+    box-shadow:  0 0 2rem 0 #aeaeae;
+    transition-duration: 1s;
+
+    .Navlink {
+        color: white;
+        transition-duration: 0.01s;
+    }
+    .Navlink:hover {
+        font-size: 600;
+    }
+    .currNav, .currNav:hover {
+        background-color: white;
+        padding: 2rem 0;
+        // border-bottom: #035aa6 solid;
+        color: #035aa6;
+        font-weight: 600;
+    }
+
+    .header {
+        display: inline;
+        img {
+            width: 100%;
+        }
+        margin-bottom: 0;
+    }
+    .Hamburger {
+        display: none;
+    }
+}

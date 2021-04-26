@@ -1,0 +1,77 @@
+.addCategory {
+    width: 25%;
+    min-height: 35%;
+    background: #a5ecd7;
+    display: flex;
+    border-radius: 1rem;
+    flex-direction: column;
+    // justify-content: space-evenly;
+    padding: 2% 2%;
+    border: solid 0.5rem #0278ae;
+
+    h1 {
+        text-align: center;
+    }
+    .form {
+        justify-content: space-evenly;
+
+        input {
+            border: none;
+            height: 2rem;
+            margin: 0.5rem 0;
+            border-radius: 0.2rem;
+            font-size: 1rem;
+            padding: 0 2% 2% -0.2%;
+            border-bottom: solid 0.1rem #232323;
+            text-align: center;
+        }
+
+        #name { width: 80%; }
+        #price { width: 40%;}
+        #qty { width: 20%; }
+
+        select {
+            border: none;
+            height: 2rem;
+            width: 80%;
+            border-radius: 0.2rem;
+            font-size: 1rem;
+            border-bottom: solid 0.1rem #232323;
+            text-align: center;
+            background-color: white;
+            margin: 0.5rem 2rem;
+        }
+
+        .buttons {
+            margin-top: 5%;
+            display: flex;
+            justify-content: space-evenly;
+
+            button {
+                height: 2.5rem;
+                width: 7.5rem;
+                border-radius: 1rem;
+                border: none;
+                font-size: 1rem;
+                cursor: pointer;
+                background-color: #0278ae;
+                color: white;
+                transition: ease 0.5s;
+                font-weight: 600;
+            }
+        }
+    }
+
+    &--wrapper {
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: rgba($color: #000000, $alpha: 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
