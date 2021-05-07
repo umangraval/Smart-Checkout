@@ -8,6 +8,7 @@ import keras
 import numpy as np
 import datetime
 import calendar
+from flask.json import jsonify
 
 def add_months(sourcedate, months):
     month = sourcedate.month - 1 + months
@@ -97,7 +98,7 @@ def salesPrediction():
         result_list.append(result_dict)
     df_result = pd.DataFrame(result_list)
 
-    return str(df_result)
+    return df_result.to_json()
 
 
 @app.route("/predictions/customers")
