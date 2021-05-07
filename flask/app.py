@@ -1,10 +1,13 @@
 from flask import Flask, Response
+from flask_cors import CORS
 import facemask_detection
 import social_distancing
 import cv2
 import threading
+import sys
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/stream/*": {"origins": "http://localhost:3000"}})
 
 # initialize a lock used to ensure thread-safe
 # exchanges of the frames (useful for multiple browsers/tabs
@@ -15,9 +18,11 @@ lock = threading.Lock()
 # def index():
 #     """Video streaming home page."""
 #     return render_template('index.html')
+vc = None
 
 def generate(mode='none'):
     global lock
+    global vc
     vc = cv2.VideoCapture(0)
 
     try:
@@ -52,8 +57,16 @@ def generate(mode='none'):
             yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(encodedImage) + b'\r\n')
     except:
         print('Error Detected')
-    finally:
-        vc.release()
+        print(sys.exc_info())
+    # finally:
+        # vc.release()
+
+@app.route('/stream/stop')
+def stop_stream():
+    global vc
+    vc.release()
+    print('r')
+    return 'True'
 
 @app.route('/stream/<mode>')
 def stream_mask(mode):
