@@ -23,7 +23,7 @@ def salesPrediction():
 
     # pre processing data
     df_sales = pd.read_csv(
-        '/home/devam/projects/CSE3999-TARP/flask-backend/datasets/sales_prediction_train.csv')
+        "./datasets/test_sales.csv")
     # df_sales['date'] = df_sales['date'].dt.year.astype(
     #     'str') + '-' + df_sales['date'].dt.month.astype('str') + '-01'
     # df_sales['date'] = pd.to_datetime(df_sales['date'])
@@ -55,7 +55,7 @@ def salesPrediction():
     X_test = X_test.reshape(X_test.shape[0], 1, X_test.shape[1])
 
     # your project folder
-    filename = "/home/devam/projects/CSE3999-TARP/flask-backend/models/sales_prediction"
+    filename = "./models/sales_prediction"
 
     # loading model
     loaded_model = keras.models.load_model(filename)
