@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 backend/node_modules
 react-frontend/node_modules
 flask-backend/env
 .vscode
+=======
+env
+.ipynb_checkpoints/
+>>>>>>> 2751a2ef596332faf58109b4ae2a09c52521987f

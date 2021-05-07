@@ -6,7 +6,16 @@ from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import Sequential
 import keras
 import numpy as np
+import datetime
+import calendar
+from flask.json import jsonify
 
+def add_months(sourcedate, months):
+    month = sourcedate.month - 1 + months
+    year = sourcedate.year + month // 12
+    month = month % 12 + 1
+    day = min(sourcedate.day, calendar.monthrange(year,month)[1])
+    return datetime.date(year, month, day)
 
 @app.route("/ping")
 def ping():
@@ -23,7 +32,7 @@ def salesPrediction():
 
     # pre processing data
     df_sales = pd.read_csv(
-        '/home/devam/projects/CSE3999-TARP/flask-backend/datasets/sales_prediction_train.csv')
+        "./datasets/test_sales.csv")
     # df_sales['date'] = df_sales['date'].dt.year.astype(
     #     'str') + '-' + df_sales['date'].dt.month.astype('str') + '-01'
     # df_sales['date'] = pd.to_datetime(df_sales['date'])
@@ -55,7 +64,7 @@ def salesPrediction():
     X_test = X_test.reshape(X_test.shape[0], 1, X_test.shape[1])
 
     # your project folder
-    filename = "/home/devam/projects/CSE3999-TARP/flask-backend/models/sales_prediction"
+    filename = "./models/sales_prediction"
 
     # loading model
     loaded_model = keras.models.load_model(filename)
@@ -76,18 +85,20 @@ def salesPrediction():
         pred_test_set.shape[0], pred_test_set.shape[2])
     pred_test_set_inverted = scaler.inverse_transform(pred_test_set)
     result_list = []
-    sales_dates = list(df_sales[-7:].date)
+    sales_dates = list(df_sales[-7:].date)[6]
+    # print(sales_dates.split("-")[0])
+    start_date = datetime.date(int(sales_dates.split("-")[0]), int(sales_dates.split("-")[1]), 1)
     act_sales = list(df_sales[-7:].sales)
 
     for index in range(0, len(pred_test_set_inverted)):
         result_dict = {}
         result_dict['pred_value'] = int(
             pred_test_set_inverted[index][0] + act_sales[index])
-        result_dict['date'] = sales_dates[index+1]
+        result_dict['date'] = add_months(start_date,index+1).strftime('%Y-%m-%d')
         result_list.append(result_dict)
     df_result = pd.DataFrame(result_list)
 
-    return str(df_result)
+    return df_result.to_json()
 
 
 @app.route("/predictions/customers")
