@@ -1,0 +1,4 @@
+backend/node_modules
+react-frontend/node_modules
+flask-backend/env
+.vscode
