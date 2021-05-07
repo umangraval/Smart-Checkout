@@ -22,7 +22,7 @@ export default function sidebar() {
       onClick={() => setShowsidebar(!showsidebar)}
     >
       <h1 className="header">
-      <img src='./rlogo.png' alt="Logo"/>
+        <img src='./rlogo.png' alt="Logo" />
         {/* <FontAwesomeIcon icon={faCloud} />  */}
         {/* Smart Checkout */}
       </h1>
@@ -38,6 +38,9 @@ export default function sidebar() {
       </NavLink>
       <NavLink className="Navlink" activeClassName="currNav" to="/categories">
         <FontAwesomeIcon className="Navlogo" icon={faBoxes} /> Categories
+      </NavLink>
+      <NavLink className="Navlink" activeClassName="currNav" to="/predictions">
+        <FontAwesomeIcon className="Navlogo" icon={faChartLine} /> Predictions
       </NavLink>
       <NavLink className="Navlink" activeClassName="currNav" to="/transactions">
         <FontAwesomeIcon className="Navlogo" icon={faMoneyCheckAlt} /> Transactions

@@ -12,6 +12,7 @@ import Transactions from './pages/transactions/transactions';
 import Analysis from './pages/analysis/Analysis';
 import Profile from './pages/profile/Profile';
 import Particles from 'react-particles-js';
+import Predictions from "./pages/predictions/Predictions";
 
 const particlesOptions = {
   particles: {
@@ -54,7 +55,7 @@ export default class App extends Component {
         <Particles className='particles'
           params={particlesOptions}
         />
-        
+
         <div
           style={{
             position: "absolute",
@@ -64,58 +65,58 @@ export default class App extends Component {
             height: "100%"
           }}
         >
-        <BrowserRouter>
-          <ErrorPopup error={this.state.error} clearError={this.clearError} />
-          <Switch>
-          <Route
-              exact
-              path="/"
-              render={() => (
-                <div className="App-grid-container">
-                  <SideBar className="App-sidebar" />
-                  <Analysis
-                    className="App-content"
-                    setError={this.setError}
-                  />
-                </div>
-              )}
-            />
-            <Route
-              exact
-              path="/login"
-              render={() => (
-                <div>
-                  <LoginForm
-                    setError={this.setError}
-                    updateUser={this.updateUser}
-                  />
-                </div>
-              )}
-            />
-            <Route
-              exact
-              path="/signup"
-              render={() => (
-                <div>
-                  <SignupForm
-                    setError={this.setError}
-                    updateUser={this.updateUser}
-                  />
-                </div>
-              )}
-            />
-            <Route
-              exact
-              path="/resetpass"
-              render={() => (
-                <div>
-                  <ForgotPassword
-                    setError={this.setError}
-                  />
-                </div>
-              )}
-            />
-            {/* <Route
+          <BrowserRouter>
+            <ErrorPopup error={this.state.error} clearError={this.clearError} />
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={() => (
+                  <div className="App-grid-container">
+                    <SideBar className="App-sidebar" />
+                    <Analysis
+                      className="App-content"
+                      setError={this.setError}
+                    />
+                  </div>
+                )}
+              />
+              <Route
+                exact
+                path="/login"
+                render={() => (
+                  <div>
+                    <LoginForm
+                      setError={this.setError}
+                      updateUser={this.updateUser}
+                    />
+                  </div>
+                )}
+              />
+              <Route
+                exact
+                path="/signup"
+                render={() => (
+                  <div>
+                    <SignupForm
+                      setError={this.setError}
+                      updateUser={this.updateUser}
+                    />
+                  </div>
+                )}
+              />
+              <Route
+                exact
+                path="/resetpass"
+                render={() => (
+                  <div>
+                    <ForgotPassword
+                      setError={this.setError}
+                    />
+                  </div>
+                )}
+              />
+              {/* <Route
               exact
               path="/"
               render={() => (
@@ -128,73 +129,86 @@ export default class App extends Component {
                 </div>
               )}
             /> */}
-            <Route
-              exact
-              path="/products"
-              render={() => (
-                <div className="App-grid-container">
-                  <SideBar className="App-sidebar" />
-                  <ProductList
-                    className="App-content"
-                    setError={this.setError}
-                  />
-                </div>
-              )}
-            />
-            <Route
-              exact
-              path="/categories"
-              render={() => (
-                <div className="App-grid-container">
-                  <SideBar className="App-sidebar" />
-                  <CategoryList
-                    className="App-content"
-                    setError={this.setError}
-                  />
-                </div>
-              )}
-            />
-            <Route
-              exact
-              path="/transactions"
-              render={() => (
-                <div className="App-grid-container">
-                  <SideBar className="App-sidebar" />
-                  <Transactions
-                    className="App-content"
-                    setError={this.setError}
-                  />
-                </div>
-              )}
-            />
-            <Route
-              exact
-              path="/analytics"
-              render={() => (
-                <div className="App-grid-container">
-                  <SideBar className="App-sidebar" />
-                  <Analysis
-                    className="App-content"
-                    setError={this.setError}
-                  />
-                </div>
-              )}
-            />
-            <Route
-              exact
-              path="/profile"
-              render={() => (
-                <div className="App-grid-container">
-                  <SideBar className="App-sidebar" />
-                  <Profile
-                    className="App-content"
-                    setError={this.setError}
-                  />
-                </div>
-              )}
-            />
-          </Switch>
-        </BrowserRouter>
+              <Route
+                exact
+                path="/products"
+                render={() => (
+                  <div className="App-grid-container">
+                    <SideBar className="App-sidebar" />
+                    <ProductList
+                      className="App-content"
+                      setError={this.setError}
+                    />
+                  </div>
+                )}
+              />
+              <Route
+                exact
+                path="/categories"
+                render={() => (
+                  <div className="App-grid-container">
+                    <SideBar className="App-sidebar" />
+                    <CategoryList
+                      className="App-content"
+                      setError={this.setError}
+                    />
+                  </div>
+                )}
+              />
+              <Route
+                exact
+                path="/transactions"
+                render={() => (
+                  <div className="App-grid-container">
+                    <SideBar className="App-sidebar" />
+                    <Transactions
+                      className="App-content"
+                      setError={this.setError}
+                    />
+                  </div>
+                )}
+              />
+              <Route
+                exact
+                path="/analytics"
+                render={() => (
+                  <div className="App-grid-container">
+                    <SideBar className="App-sidebar" />
+                    <Analysis
+                      className="App-content"
+                      setError={this.setError}
+                    />
+                  </div>
+                )}
+              />
+              <Route
+                exact
+                path="/predictions"
+                render={() => (
+                  <div className="App-grid-container">
+                    <SideBar className="App-sidebar" />
+                    <Predictions
+                      className="App-content"
+                      setError={this.setError}
+                    />
+                  </div>
+                )}
+              />
+              <Route
+                exact
+                path="/profile"
+                render={() => (
+                  <div className="App-grid-container">
+                    <SideBar className="App-sidebar" />
+                    <Profile
+                      className="App-content"
+                      setError={this.setError}
+                    />
+                  </div>
+                )}
+              />
+            </Switch>
+          </BrowserRouter>
         </div>
       </div>
     );

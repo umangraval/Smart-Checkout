@@ -24,6 +24,7 @@ class Analysis extends Component {
       salesLine: [],
       customers: 0,
       stock: [],
+      salesPrediction: []
     };
   }
 

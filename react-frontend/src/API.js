@@ -6,7 +6,7 @@ const API = axios.create({
   headers:{
     'x-auth-token':localStorage.getItem('JWToken'),
   },
-  baseURL: process.env.REACT_APP_BASE_URL,
+  baseURL: "http://localhost:8080/v1",
   withCredentials: true,
 });
 API.interceptors.response.use(
