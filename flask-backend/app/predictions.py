@@ -9,13 +9,17 @@ import numpy as np
 import datetime
 import calendar
 from flask.json import jsonify
+from flask_cors import CORS, cross_origin
+import json
+
 
 def add_months(sourcedate, months):
     month = sourcedate.month - 1 + months
     year = sourcedate.year + month // 12
     month = month % 12 + 1
-    day = min(sourcedate.day, calendar.monthrange(year,month)[1])
+    day = min(sourcedate.day, calendar.monthrange(year, month)[1])
     return datetime.date(year, month, day)
+
 
 @app.route("/ping")
 def ping():
@@ -28,6 +32,7 @@ def revenePrediction():
 
 
 @app.route("/predictions/sales")
+@cross_origin(origin='*')
 def salesPrediction():
 
     # pre processing data
@@ -87,18 +92,23 @@ def salesPrediction():
     result_list = []
     sales_dates = list(df_sales[-7:].date)[6]
     # print(sales_dates.split("-")[0])
-    start_date = datetime.date(int(sales_dates.split("-")[0]), int(sales_dates.split("-")[1]), 1)
+    start_date = datetime.date(int(sales_dates.split(
+        "-")[0]), int(sales_dates.split("-")[1]), 1)
     act_sales = list(df_sales[-7:].sales)
 
     for index in range(0, len(pred_test_set_inverted)):
         result_dict = {}
         result_dict['pred_value'] = int(
             pred_test_set_inverted[index][0] + act_sales[index])
-        result_dict['date'] = add_months(start_date,index+1).strftime('%Y-%m-%d')
+        result_dict['date'] = add_months(
+            start_date, index+1).strftime('%Y-%m-%d')
         result_list.append(result_dict)
     df_result = pd.DataFrame(result_list)
 
-    return df_result.to_json()
+    res = {
+        "data": result_list
+    }
+    return json.dumps(res)
 
 
 @app.route("/predictions/customers")
