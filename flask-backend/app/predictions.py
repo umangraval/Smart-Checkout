@@ -29,56 +29,57 @@ def ping():
 
 
 @app.route("/predictions/revenue")
-def CustSeg():
-    tx_data = pd.read_csv('./datasets/data.csv')
-    tx_data['InvoiceDate'] = pd.to_datetime(tx_data['InvoiceDate'])
-    tx_uk = tx_data.query("Country=='United Kingdom'").reset_index(drop=True)
-    tx_user = pd.DataFrame(tx_data['CustomerID'].unique())
-    tx_user.columns = ['CustomerID']
-    tx_max_purchase = tx_uk.groupby(
-        'CustomerID').InvoiceDate.max().reset_index()
-    tx_max_purchase.columns = ['CustomerID', 'MaxPurchaseDate']
-    tx_max_purchase['Recency'] = (tx_max_purchase['MaxPurchaseDate'].max(
-    ) - tx_max_purchase['MaxPurchaseDate']).dt.days
-    tx_user = pd.merge(
-        tx_user, tx_max_purchase[['CustomerID', 'Recency']], on='CustomerID')
-    model1 = pickle.load(open("./models/recency.pkl", "rb"))
-    tx_user['RecencyCluster'] = model1.predict(tx_user[['Recency']])
+def customerSegmentation():
+    # tx_data = pd.read_csv('./datasets/data.csv')
+    # tx_data['InvoiceDate'] = pd.to_datetime(tx_data['InvoiceDate'])
+    # tx_uk = tx_data.query(
+    #     "Country=='United Kingdom'").reset_index(drop=True)
+    # tx_user = pd.DataFrame(tx_data['CustomerID'].unique())
+    # tx_user.columns = ['CustomerID']
+    # tx_max_purchase = tx_uk.groupby(
+    #     'CustomerID').InvoiceDate.max().reset_index()
+    # tx_max_purchase.columns = ['CustomerID', 'MaxPurchaseDate']
+    # tx_max_purchase['Recency'] = (tx_max_purchase['MaxPurchaseDate'].max(
+    # ) - tx_max_purchase['MaxPurchaseDate']).dt.days
+    # tx_user = pd.merge(
+    #     tx_user, tx_max_purchase[['CustomerID', 'Recency']], on='CustomerID')
+    # model1 = pickle.load(open("./models/recency.pkl", "rb"))
+    # tx_user['RecencyCluster'] = model1.predict(tx_user[['Recency']])
 
-    # frequency
-    tx_frequency = tx_uk.groupby(
-        'CustomerID').InvoiceDate.count().reset_index()
-    tx_frequency.columns = ['CustomerID', 'Frequency']
-    tx_user = pd.merge(tx_user, tx_frequency, on='CustomerID')
-    sse = {}
-    tx_frequency = tx_user[['Frequency']]
-    for k in range(1, 10):
-        kmeans = KMeans(n_clusters=k, max_iter=1000).fit(tx_frequency)
-        tx_frequency["clusters"] = kmeans.labels_
-        sse[k] = kmeans.inertia_
-    model2 = pickle.load(open("./models/frequency.pkl", "rb"))
-    tx_user['FrequencyCluster'] = model2.predict(tx_user[['Frequency']])
-    # revenue
-    tx_uk['Revenue'] = tx_uk['UnitPrice'] * tx_uk['Quantity']
-    tx_revenue = tx_uk.groupby('CustomerID').Revenue.sum().reset_index()
-    tx_user = pd.merge(tx_user, tx_revenue, on='CustomerID')
-    sse = {}
-    tx_revenue = tx_user[['Revenue']]
-    for k in range(1, 10):
-        kmeans = KMeans(n_clusters=k, max_iter=1000).fit(tx_revenue)
-        tx_revenue["clusters"] = kmeans.labels_
-        sse[k] = kmeans.inertia_
-    model3 = pickle.load(open("./models/Revenue.pkl", "rb"))
-    tx_user['RevenueCluster'] = model3.predict(tx_user[['Revenue']])
+    # # frequency
+    # tx_frequency = tx_uk.groupby(
+    #     'CustomerID').InvoiceDate.count().reset_index()
+    # tx_frequency.columns = ['CustomerID', 'Frequency']
+    # tx_user = pd.merge(tx_user, tx_frequency, on='CustomerID')
+    # sse = {}
+    # tx_frequency = tx_user[['Frequency']]
+    # for k in range(1, 10):
+    #     kmeans = KMeans(n_clusters=k, max_iter=1000).fit(tx_frequency)
+    #     tx_frequency["clusters"] = kmeans.labels_
+    #     sse[k] = kmeans.inertia_
+    # model2 = pickle.load(open("./models/frequency.pkl", "rb"))
+    # tx_user['FrequencyCluster'] = model2.predict(tx_user[['Frequency']])
+    # # revenue
+    # tx_uk['Revenue'] = tx_uk['UnitPrice'] * tx_uk['Quantity']
+    # tx_revenue = tx_uk.groupby('CustomerID').Revenue.sum().reset_index()
+    # tx_user = pd.merge(tx_user, tx_revenue, on='CustomerID')
+    # sse = {}
+    # tx_revenue = tx_user[['Revenue']]
+    # for k in range(1, 10):
+    #     kmeans = KMeans(n_clusters=k, max_iter=1000).fit(tx_revenue)
+    #     tx_revenue["clusters"] = kmeans.labels_
+    #     sse[k] = kmeans.inertia_
+    # model3 = pickle.load(open("./models/Revenue.pkl", "rb"))
+    # tx_user['RevenueCluster'] = model3.predict(tx_user[['Revenue']])
 
-    tx_user['OverallScore'] = tx_user['RecencyCluster'] + \
-        tx_user['FrequencyCluster'] + tx_user['RevenueCluster']
-  # tx_user.groupby('OverallScore')['Recency','Frequency','Revenue'].mean()
-    tx_user['Segment'] = 'Low-Value'
-    tx_user.loc[tx_user['OverallScore'] > 2, 'Segment'] = 'Mid-Value'
-    tx_user.loc[tx_user['OverallScore'] > 4, 'Segment'] = 'High-Value'
-    # Sample query
-    #tx_graph = tx_user.query("Revenue < 50000 and Frequency < 2000")
+    # tx_user['OverallScore'] = tx_user['RecencyCluster'] + \
+    #     tx_user['FrequencyCluster'] + tx_user['RevenueCluster']
+    # # tx_user.groupby('OverallScore')['Recency','Frequency','Revenue'].mean()
+    # tx_user['Segment'] = 'Low-Value'
+    # tx_user.loc[tx_user['OverallScore'] > 2, 'Segment'] = 'Mid-Value'
+    # tx_user.loc[tx_user['OverallScore'] > 4, 'Segment'] = 'High-Value'
+
+    # tx_graph = tx_user.query("Revenue < 50000 and Frequency < 2000")
     return "workd"
 
 
