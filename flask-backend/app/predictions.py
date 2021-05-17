@@ -4,7 +4,8 @@ import pandas as pd
 from datetime import datetime, timedelta, date
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import Sequential
-import keras
+# import keras
+from tensorflow import keras 
 import numpy as np
 import datetime
 import calendar
@@ -121,7 +122,7 @@ def salesPrediction():
     X_test = X_test.reshape(X_test.shape[0], 1, X_test.shape[1])
 
     # your project folder
-    filename = "./models/sales_prediction"
+    filename = "/home/smart-checkout/CSE3999-TARP/flask-backend/models/sales_prediction"
 
     # loading model
     loaded_model = keras.models.load_model(filename)

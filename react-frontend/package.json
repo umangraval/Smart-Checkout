@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.20.0",
     "axios-progress-bar": "^1.2.0",
+    "chart.js": "^3.2.1",
     "jsonwebtoken": "^8.5.1",
     "node-sass": "^4.14.1",
     "qrcode.react": "^1.0.0",
