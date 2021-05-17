@@ -36,8 +36,8 @@ class Analysis extends Component {
                 return;
             }
             const user = jwt.decode(jwtoken, process.env.REACT_APP_JWT_SECRET);
-
-            axios.get('http://localhost:5000/predictions/sales').then(
+            console.log(user);
+            axios.get(`${process.env.REACT_APP_BASE_URL}/model/predictions/sales`).then(
                 (res) => {
                     console.log(res)
                     let lableArr = []
