@@ -19,7 +19,7 @@ const options: cors.CorsOptions = {
   ],
   credentials: true,
   methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
-  origin: 'http://localhost:3000',
+  origin: ['http://localhost:3000', 'https://smartcheckout.tech'],
   preflightContinue: false
 };
 
