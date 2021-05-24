@@ -103,6 +103,7 @@ class Analysis extends Component {
                         sprediction.map(item => {
                             lableArr.push(item.date)
                             valueArr.push(item.pred_value)
+                            return true
                         })
 
                         const data = {
@@ -196,6 +197,9 @@ class Analysis extends Component {
                     <div className="customergraph">
                         <Scatter data={this.state.fxr} options={options} width={600} height={250} />
                     </div>
+                </div>
+                <div className="details">
+                    {/* todo details div */}
                 </div>
             </div>
         );
