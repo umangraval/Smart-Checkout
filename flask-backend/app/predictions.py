@@ -24,21 +24,26 @@ def ping():
 
 
 @app.route("/predictions/rfr")
+@cross_origin(origin='*')
 def customerSegmentation():
     tx_data = pd.read_csv('./datasets/data.csv')
     tx_data['InvoiceDate'] = pd.to_datetime(tx_data['InvoiceDate'])
     tx_uk = tx_data.query("Country=='United Kingdom'").reset_index(drop=True)
     tx_user = pd.DataFrame(tx_data['CustomerID'].unique())
     tx_user.columns = ['CustomerID']
-    tx_max_purchase = tx_uk.groupby('CustomerID').InvoiceDate.max().reset_index()
-    tx_max_purchase.columns = ['CustomerID','MaxPurchaseDate']
-    tx_max_purchase['Recency'] = (tx_max_purchase['MaxPurchaseDate'].max() - tx_max_purchase['MaxPurchaseDate']).dt.days
-    tx_user = pd.merge(tx_user, tx_max_purchase[['CustomerID','Recency']], on='CustomerID')
-    #return json.dumps(json.loads(tx_user.head().to_json(orient="columns")))
+    tx_max_purchase = tx_uk.groupby(
+        'CustomerID').InvoiceDate.max().reset_index()
+    tx_max_purchase.columns = ['CustomerID', 'MaxPurchaseDate']
+    tx_max_purchase['Recency'] = (tx_max_purchase['MaxPurchaseDate'].max(
+    ) - tx_max_purchase['MaxPurchaseDate']).dt.days
+    tx_user = pd.merge(
+        tx_user, tx_max_purchase[['CustomerID', 'Recency']], on='CustomerID')
+    # return json.dumps(json.loads(tx_user.head().to_json(orient="columns")))
 
     # freq
-    tx_frequency = tx_uk.groupby('CustomerID').InvoiceDate.count().reset_index()
-    tx_frequency.columns = ['CustomerID','Frequency']
+    tx_frequency = tx_uk.groupby(
+        'CustomerID').InvoiceDate.count().reset_index()
+    tx_frequency.columns = ['CustomerID', 'Frequency']
     tx_user = pd.merge(tx_user, tx_frequency, on='CustomerID')
 
     # revenue
@@ -46,8 +51,7 @@ def customerSegmentation():
     tx_revenue = tx_uk.groupby('CustomerID').Revenue.sum().reset_index()
     tx_user = pd.merge(tx_user, tx_revenue, on='CustomerID')
 
-
-    return json.dumps(json.loads(tx_user.head().to_json(orient="columns")))
+    return json.dumps(json.loads(tx_user.to_json(orient="columns")))
 
 
 @app.route("/predictions/sales")
