@@ -1,6 +1,7 @@
 from app import app
 import pickle
 import pandas as pd
+from sklearn.cluster import KMeans
 from datetime import datetime, timedelta, date
 import numpy as np
 import datetime
@@ -16,6 +17,16 @@ def add_months(sourcedate, months):
     month = month % 12 + 1
     day = min(sourcedate.day, calendar.monthrange(year, month)[1])
     return datetime.date(year, month, day)
+
+def order_cluster(cluster_field_name, target_field_name,df,ascending):
+    new_cluster_field_name = 'new_' + cluster_field_name
+    df_new = df.groupby(cluster_field_name)[target_field_name].mean().reset_index()
+    df_new = df_new.sort_values(by=target_field_name,ascending=ascending).reset_index(drop=True)
+    df_new['index'] = df_new.index
+    df_final = pd.merge(df,df_new[[cluster_field_name,'index']], on=cluster_field_name)
+    df_final = df_final.drop([cluster_field_name],axis=1)
+    df_final = df_final.rename(columns={"index":cluster_field_name})
+    return df_final
 
 
 @app.route("/ping")
@@ -34,20 +45,34 @@ def customerSegmentation():
     tx_max_purchase.columns = ['CustomerID','MaxPurchaseDate']
     tx_max_purchase['Recency'] = (tx_max_purchase['MaxPurchaseDate'].max() - tx_max_purchase['MaxPurchaseDate']).dt.days
     tx_user = pd.merge(tx_user, tx_max_purchase[['CustomerID','Recency']], on='CustomerID')
-    #return json.dumps(json.loads(tx_user.head().to_json(orient="columns")))
+    kmeans = KMeans(n_clusters=4)
+    kmeans.fit(tx_user[['Recency']])
+    tx_user['RecencyCluster'] = kmeans.predict(tx_user[['Recency']])
+    tx_user = order_cluster('RecencyCluster', 'Recency',tx_user,False)
 
     # freq
     tx_frequency = tx_uk.groupby('CustomerID').InvoiceDate.count().reset_index()
     tx_frequency.columns = ['CustomerID','Frequency']
     tx_user = pd.merge(tx_user, tx_frequency, on='CustomerID')
+    kmeans.fit(tx_user[['Frequency']])
+    tx_user['FrequencyCluster'] = kmeans.predict(tx_user[['Frequency']])
+    tx_user = order_cluster('FrequencyCluster', 'Frequency',tx_user,True)
+
 
     # revenue
     tx_uk['Revenue'] = tx_uk['UnitPrice'] * tx_uk['Quantity']
     tx_revenue = tx_uk.groupby('CustomerID').Revenue.sum().reset_index()
     tx_user = pd.merge(tx_user, tx_revenue, on='CustomerID')
+    kmeans.fit(tx_user[['Revenue']])
+    tx_user['RevenueCluster'] = kmeans.predict(tx_user[['Revenue']])
+    tx_user = order_cluster('RevenueCluster', 'Revenue',tx_user,True)
+    
+    tx_user['OverallScore'] = tx_user['RecencyCluster'] + tx_user['FrequencyCluster'] + tx_user['RevenueCluster']
+    tx_user['Segment'] = 'Low-Value'
+    tx_user.loc[tx_user['OverallScore']>2,'Segment'] = 'Mid-Value' 
+    tx_user.loc[tx_user['OverallScore']>4,'Segment'] = 'High-Value' 
 
-
-    return json.dumps(json.loads(tx_user.head().to_json(orient="columns")))
+    return json.dumps(json.loads(tx_user.tail().to_json(orient="columns")))
 
 
 @app.route("/predictions/sales")
