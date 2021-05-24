@@ -18,11 +18,12 @@ class Analysis extends Component {
         super(props);
         this.state = {
             starburst: [],
-            totalProducts: 0,
-            totalCategories: 0,
+            lowCount: 0,
+            midCount: 0,
+            highCount: 0,
+            customers: 0,
             sale: 0,
             salesLine: [],
-            customers: 0,
             stock: [],
             salesPrediction: [],
             rxf: [],
@@ -43,19 +44,39 @@ class Analysis extends Component {
         var FreqRev = [];
         var RecRev = [];
         var RecFreq = [];
+        var colorArr = [];
+        var count = [0, 0, 0]
+        var color = `rgba(114, 245, 66, 1)`
         var size = Object.size(res.data.Frequency)
         console.log(res.data.Frequency)
         for (var i = 0; i < size; i++) {
             FreqRev.push({ x: res.data.Frequency[i], y: res.data.Revenue[i] })
             RecRev.push({ x: res.data.Recency[i], y: res.data.Revenue[i] })
             RecFreq.push({ x: res.data.Recency[i], y: res.data.Frequency[i] })
+            if (res.data.OverallScore[i] < 2) {
+                color = `rgba(56,164,72, 1)`
+                count[0]++;
+            }
+            else if (res.data.OverallScore[i] > 2 && res.data.OverallScore[i] < 4) {
+                color = `rgba(216,88,119, 1)`
+                count[1]++;
+            }
+            else {
+                color = `rgba(227,184,75, 1)`
+                count[2]++;
+            }
+            colorArr.push(color)
+            this.setState({ lowCount: count[0] });
+            this.setState({ midCount: count[1] });
+            this.setState({ highCount: count[2] });
+            this.setState({ customers: count[0] + count[1] + count[2] })
         }
         const data1 = {
             datasets: [
                 {
                     label: "Frequency x Revenue",
                     data: FreqRev,
-                    backgroundColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: colorArr,
                 }
             ]
         }
@@ -64,7 +85,7 @@ class Analysis extends Component {
                 {
                     label: "Recency x Revenue",
                     data: RecRev,
-                    backgroundColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: colorArr,
                 }
             ]
         }
@@ -73,7 +94,7 @@ class Analysis extends Component {
                 {
                     label: "Recency x Frequency",
                     data: RecFreq,
-                    backgroundColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: colorArr,
                 }
             ]
         }
@@ -103,7 +124,7 @@ class Analysis extends Component {
                         sprediction.map(item => {
                             lableArr.push(item.date)
                             valueArr.push(item.pred_value)
-                            return true
+                            return true;
                         })
 
                         const data = {
@@ -152,31 +173,31 @@ class Analysis extends Component {
             <div className="Analysis App-content">
                 <div className="summary">
                     <div className="blocks tsale">
-                        <FontAwesomeIcon className="icons" icon={faChartLine} />
+                        <FontAwesomeIcon className="icons" icon={faUser} />
                         <div>
-                            <h4>Total Sale</h4>
-                            <h2>₹{this.state.sale}</h2>
+                            <h4>Total customers</h4>
+                            <h2>{this.state.customers}</h2>
                         </div>
                     </div>
                     <div className="blocks tpro">
                         <FontAwesomeIcon className="icons" icon={faBox} />
                         <div>
-                            <h4>Total Products</h4>
-                            <h2>{this.state.totalProducts}</h2>
+                            <h4>Low segment</h4>
+                            <h2>{this.state.lowCount}</h2>
                         </div>
                     </div>
                     <div className="blocks tcat">
                         <FontAwesomeIcon className="icons" icon={faListAlt} />
                         <div>
-                            <h4>Total Categories</h4>
-                            <h2>{this.state.totalCategories}</h2>
+                            <h4>Mid segment</h4>
+                            <h2>{this.state.midCount}</h2>
                         </div>
                     </div>
                     <div className="blocks mcus">
-                        <FontAwesomeIcon className="icons" icon={faUser} />
+                        <FontAwesomeIcon className="icons" icon={faChartLine} />
                         <div>
-                            <h4>Customers</h4>
-                            <h2>{this.state.customers} </h2>
+                            <h4>High Segment</h4>
+                            <h2>{this.state.highCount} </h2>
                         </div>
                     </div>
                 </div>
