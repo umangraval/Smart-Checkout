@@ -59,5 +59,6 @@ typing-extensions==3.7.4.3
 urllib3==1.26.4
 Werkzeug==1.0.1
 wrapt==1.12.1
+xgboost==0.82
 zope.event==4.5.0
 zope.interface==5.4.0
