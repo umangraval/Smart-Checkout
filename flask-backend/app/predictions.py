@@ -35,6 +35,7 @@ def ping():
 
 
 @app.route("/predictions/rfr")
+@cross_origin(origin='*')
 def customerSegmentation():
     tx_data = pd.read_csv('./datasets/data.csv')
     tx_data['InvoiceDate'] = pd.to_datetime(tx_data['InvoiceDate'])
@@ -51,8 +52,9 @@ def customerSegmentation():
     tx_user = order_cluster('RecencyCluster', 'Recency',tx_user,False)
 
     # freq
-    tx_frequency = tx_uk.groupby('CustomerID').InvoiceDate.count().reset_index()
-    tx_frequency.columns = ['CustomerID','Frequency']
+    tx_frequency = tx_uk.groupby(
+        'CustomerID').InvoiceDate.count().reset_index()
+    tx_frequency.columns = ['CustomerID', 'Frequency']
     tx_user = pd.merge(tx_user, tx_frequency, on='CustomerID')
     kmeans.fit(tx_user[['Frequency']])
     tx_user['FrequencyCluster'] = kmeans.predict(tx_user[['Frequency']])
