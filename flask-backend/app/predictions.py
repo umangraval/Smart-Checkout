@@ -135,7 +135,13 @@ def customerSegmentation():
     tx_user['RevenueCluster'] = kmeans.predict(tx_user[['Revenue']])
     tx_user = order_cluster('RevenueCluster', 'Revenue', tx_user, True)
 
-    return json.dumps(json.loads(tx_user.tail().to_json(orient="columns")))
+    tx_user['OverallScore'] = tx_user['RecencyCluster'] + \
+        tx_user['FrequencyCluster'] + tx_user['RevenueCluster']
+    tx_user['Segment'] = 'Low-Value'
+    tx_user.loc[tx_user['OverallScore'] > 2, 'Segment'] = 'Mid-Value'
+    tx_user.loc[tx_user['OverallScore'] > 4, 'Segment'] = 'High-Value'
+    
+    return json.dumps(json.loads(tx_user.to_json(orient="columns")))
 
 
 @app.route("/predictions/sales")
