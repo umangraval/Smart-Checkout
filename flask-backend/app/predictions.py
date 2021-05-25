@@ -5,7 +5,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.cluster import KMeans
 from datetime import datetime, timedelta, date
 import numpy as np
-# import keras
+import tensorflow.keras
 import datetime
 import calendar
 from flask.json import jsonify
@@ -168,7 +168,7 @@ def salesPrediction():
     filename = "./models/sales_prediction"
 
     # loading model
-    loaded_model = keras.models.load_model(filename)
+    loaded_model = tensorflow.keras.models.load_model(filename)
 
     # predicted values
     y_pred = loaded_model.predict(X_test, batch_size=1)
