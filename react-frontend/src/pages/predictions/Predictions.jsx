@@ -8,7 +8,7 @@ import {
     faListAlt,
     faChartLine,
     faBox,
-    faUser,
+    faRupeeSign,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { Bar, Line, Scatter } from 'react-chartjs-2';
@@ -31,7 +31,8 @@ class Analysis extends Component {
             rxf: [],
             rxr: [],
             fxr: [],
-            ltvData: []
+            ltvData: [],
+            nextMonthSale: 0
         };
     }
 
@@ -185,6 +186,7 @@ class Analysis extends Component {
                             valueArr.push(item.pred_value)
                             return true;
                         })
+                        this.setState({ nextMonthSale: valueArr[0] })
 
                         const data = {
                             labels: lableArr,
@@ -261,10 +263,10 @@ class Analysis extends Component {
             <div className="Analysis App-content">
                 <div className="summary">
                     <div className="blocks tsale">
-                        <FontAwesomeIcon className="icons" icon={faUser} />
+                        <FontAwesomeIcon className="icons" icon={faRupeeSign} />
                         <div>
-                            <h4>Total customers</h4>
-                            <h2>{this.state.customers}</h2>
+                            <h4>Sales next month</h4>
+                            <h2>{this.state.nextMonthSale}</h2>
                         </div>
                     </div>
                     <div className="blocks tpro">
