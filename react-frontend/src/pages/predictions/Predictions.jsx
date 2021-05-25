@@ -11,7 +11,9 @@ import {
     faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import { Line, Scatter } from 'react-chartjs-2';
+import { Bar, Line, Scatter } from 'react-chartjs-2';
+import Carousel from 'react-multi-carousel';
+import "react-multi-carousel/lib/styles.css";
 
 class Analysis extends Component {
     constructor(props) {
@@ -28,7 +30,8 @@ class Analysis extends Component {
             salesPrediction: [],
             rxf: [],
             rxr: [],
-            fxr: []
+            fxr: [],
+            ltvData: []
         };
     }
 
@@ -102,6 +105,62 @@ class Analysis extends Component {
         this.setState({ rxr: data2 })
         this.setState({ rxf: data3 })
     }
+
+    plotLtv(res) {
+        Object.size = function (obj) {
+            var size = 0,
+                key;
+            for (key in obj) {
+                if (obj.hasOwnProperty(key)) size++;
+            }
+            return size;
+        };
+        var size = Object.size(res.data.Segment);
+        var high = 0;
+        var low = 0;
+        var mid = 0;
+        for (var i = 0; i < size; i++) {
+            console.log(res.data.Segment[i])
+            if (res.data.Segment[i] === "High-Value") {
+                high++;
+            }
+            else if (res.data.Segment[i] === "Mid-Value") {
+                mid++;
+            }
+            else {
+                low++;
+            }
+        }
+        var dataArr = []
+        dataArr.push(low)
+        dataArr.push(mid);
+        dataArr.push(high);
+        console.log(dataArr)
+
+        var data = {
+            labels: ["Low Value", "Mid Value", "High Value"],
+            datasets: [
+                {
+                    label: "lifetime value",
+                    data: dataArr,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                    ],
+                    borderWidth: 1,
+
+                }
+
+            ]
+        }
+        this.setState({ ltvData: data })
+    }
     async componentDidMount() {
         try {
             const jwtoken = localStorage.getItem("JWToken");
@@ -111,7 +170,7 @@ class Analysis extends Component {
             }
             const user = jwt.decode(jwtoken, process.env.REACT_APP_JWT_SECRET);
             console.log(user);
-            axios.get(`http://localhost:5000/predictions/sales`).then(
+            axios.get(`https://smartcheckout.tech/model/predictions/sales`).then(
                 (res) => {
                     console.log(res)
                     let lableArr = []
@@ -143,11 +202,20 @@ class Analysis extends Component {
                     }
                 }
             )
-            axios.get(`http://localhost:5000/predictions/rfr`).then(
+            axios.get(`https://smartcheckout.tech/model/predictions/rfr`).then(
                 (res) => {
                     console.log(res)
                     if (res != null) {
                         this.plotGraphs(res);
+                    }
+                }
+            )
+
+            axios.get('http://localhost:5000/predictions/ltv').then(
+                res => {
+                    console.log(res)
+                    if (res != null) {
+                        this.plotLtv(res);
                     }
                 }
             )
@@ -167,6 +235,26 @@ class Analysis extends Component {
                     },
                 ],
             },
+        };
+
+        const responsive = {
+            superLargeDesktop: {
+                // the naming can be any, depends on you.
+                breakpoint: { max: 4000, min: 3000 },
+                items: 1
+            },
+            desktop: {
+                breakpoint: { max: 3000, min: 1024 },
+                items: 1
+            },
+            tablet: {
+                breakpoint: { max: 1024, min: 464 },
+                items: 1
+            },
+            mobile: {
+                breakpoint: { max: 464, min: 0 },
+                items: 1
+            }
         };
         // console.log(this.state.starburst);
         return (
@@ -201,28 +289,16 @@ class Analysis extends Component {
                         </div>
                     </div>
                 </div>
-                {/* <div className="products">
-
-				</div> */}
-
                 <div className="graphs">
-                    <div className="customergraph">
-                        <Line data={this.state.salesPrediction} width={600} height={250} />
-                    </div>
-                    <div className="customergraph">
-                        <Scatter data={this.state.rxf} options={options} width={600} height={250} />
-                    </div>
-                    <div className="customergraph">
-                        <Scatter data={this.state.rxr} options={options} width={600} height={250} />
-                    </div>
-                    <div className="customergraph">
-                        <Scatter data={this.state.fxr} options={options} width={600} height={250} />
-                    </div>
+                    <Carousel responsive={responsive}>
+                        <Line data={this.state.salesPrediction} className="customergraph" />
+                        <Bar data={this.state.ltvData} options={options} className="customergraph" />
+                        <Scatter data={this.state.rxf} options={options} className="customergraph" />
+                        <Scatter data={this.state.fxr} options={options} className="customergraph" />
+                        <Scatter data={this.state.rxr} options={options} className="customergraph" />
+                    </Carousel>
                 </div>
-                <div className="details">
-                    {/* todo details div */}
-                </div>
-            </div>
+            </div >
         );
     }
 }
