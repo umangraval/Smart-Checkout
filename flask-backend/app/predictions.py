@@ -1,9 +1,11 @@
 from app import app
 import pickle
 import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.cluster import KMeans
 from datetime import datetime, timedelta, date
 import numpy as np
+# import keras
 import datetime
 import calendar
 from flask.json import jsonify
