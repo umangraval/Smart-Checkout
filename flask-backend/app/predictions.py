@@ -39,7 +39,7 @@ def ping():
 @app.route("/predictions/ltv")
 @cross_origin(origin='*')
 def customerLTV():
-    tx_data = pd.read_csv('./datasets/data.csv')
+    tx_data = pd.read_csv('./datasets/data.csv',encoding= 'unicode_escape')
     tx_data['InvoiceDate'] = pd.to_datetime(tx_data['InvoiceDate'])
     tx_uk = tx_data.query("Country=='United Kingdom'").reset_index(drop=True)
     tx_user = pd.DataFrame(tx_data['CustomerID'].unique())
@@ -87,7 +87,7 @@ def customerLTV():
 @app.route("/predictions/rfr")
 @cross_origin(origin='*')
 def customerSegmentation():
-    tx_data = pd.read_csv('./datasets/data.csv')
+    tx_data = pd.read_csv('./datasets/data.csv',encoding= 'unicode_escape')
     tx_data['InvoiceDate'] = pd.to_datetime(tx_data['InvoiceDate'])
     tx_uk = tx_data.query("Country=='United Kingdom'").reset_index(drop=True)
     tx_user = pd.DataFrame(tx_data['CustomerID'].unique())
