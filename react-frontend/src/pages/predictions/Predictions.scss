@@ -28,16 +28,11 @@
         text-align: center;
     }
     .graphs {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: space-between;
+        width: 78vw;
+        height: 100%;
     }
     .customergraph {
         border-radius: 1rem;
-        box-shadow: 0 0 1rem 0.2rem #aeaeae;
-        // margin-top: 1rem;
-        grid-area: starburst;
         background-color: white;
         padding: 30px;
     }
