@@ -1,4 +1,4 @@
-from app import app
+from app import app, cache
 import pickle
 import pandas as pd
 from sklearn.cluster import KMeans
@@ -16,7 +16,6 @@ import json
 
 from sklearn.cluster import KMeans
 import xgboost as xgb
-
 
 def add_months(sourcedate, months):
     month = sourcedate.month - 1 + months
@@ -47,6 +46,7 @@ def ping():
 
 @app.route("/predictions/ltv")
 @cross_origin(origin='*')
+@cache.cached(timeout=0)
 def customerLTV():
     tx_data = pd.read_csv('./datasets/data.csv',encoding= 'unicode_escape')
     tx_data['InvoiceDate'] = pd.to_datetime(tx_data['InvoiceDate'])
@@ -100,6 +100,7 @@ def customerLTV():
 
 @app.route("/predictions/rfr")
 @cross_origin(origin='*')
+@cache.cached(timeout=0)
 def customerSegmentation():
     tx_data = pd.read_csv('./datasets/data.csv',encoding= 'unicode_escape')
     tx_data['InvoiceDate'] = pd.to_datetime(tx_data['InvoiceDate'])
@@ -146,6 +147,7 @@ def customerSegmentation():
 
 @app.route("/predictions/sales")
 @cross_origin(origin='*')
+@cache.cached(timeout=0)
 def salesPrediction():
 
     # pre processing data
